@@ -6,21 +6,21 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/04 16:47:32 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/04 16:53:34 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
-
 # include <stdio.h> // bij inleveren weg halen
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
 /*
 ** Functions for get next line

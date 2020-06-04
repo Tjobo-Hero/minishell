@@ -6,13 +6,13 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:22:34 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/04 15:27:52 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/04 16:54:02 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
 	
 }
