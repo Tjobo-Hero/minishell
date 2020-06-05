@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/04 16:53:34 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/04 17:24:20 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ char	*ft_strdup(const char *s1);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 char	*ft_strchr(const char *s, int c);
 
-int 	main(void);
+int		main(void);
 #endif
