@@ -6,7 +6,7 @@
 #    By: tvan-cit <tvan-cit@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/05 16:08:22 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/05 17:57:06 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,33 +40,50 @@ _IWHITE			=	\x1b[47m
 
 ### COMPILING ###
 
-SRC				=	main.c \
-					get_next_line.c \
-					get_next_line_utils.c \
-					ft_split.c \
-					ft_putstr.c \
-
-OBJS			= $(subst .c,.o, $(SRC))
-
-FLAGS			= -Wall -Werror -Wextra # -pedantic -std=c89
 NAME			= minishell
+FLAGS			= -Wall -Werror -Wextra # -pedantic -std=c89
 
-RM 				= rm -rf
+SRC_DIR			= ./src/
+OBJ_DIR			= ./obj/
+INCLUDE_DIR		= ./include/
 
-all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				@gcc $(FLAGS) -o $(NAME) $(OBJS)
+SRC_FILES		=	main \
+					get_next_line \
+					get_next_line_utils \
+					ft_split \
+					ft_putstr \
+
+INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
+SRC_FILES 		:= $(SRC_FILES:%=%.o)
+OBJ_FILES 		:= $(SRC_FILES:%=$(OBJ_DIR)%)
+					
+# OBJS			= $(subst .c,.o, $(SRC))
+
+all: $(NAME)
+
+$(NAME): 		$(OBJ_FILES)
+				@echo "$(_BOLD) $(_PURPLE)BUILDING '"$(NAME)"' $(_END)"
+				@$(CC)	$^ \
+				-o $(NAME) \
+				
 				@echo \
 				"🍾🥂$(_BOLD) $(_GREEN)ALL FILES COMPILED$(_END)🥂🍾"
 
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(CC)	$(INCLUDE_DIR) \
+				-c $^ \
+				-o $@ \
+				$(FLAGS)
 clean:
-				@$(RM) $(OBJS)
-				@echo "$(_YELLOW)'"$(OBJS)"' DELETED $(_END)❌"
+				@$(RM) -rf $(OBJ_DIR)
+				@echo "$(_YELLOW)'"$(OBJ_FILES)"' DELETED $(_END)❌"
 
 fclean:			clean
-				@$(RM) $(NAME)
+				@$(RM) -f $(NAME)
 				@echo "$(_YELLOW)'"$(NAME)"' DELETED $(_END)💔"
 
 re:				fclean $(NAME)
 
+.PHONY:			all re clean fclean
