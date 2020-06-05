@@ -6,11 +6,9 @@
 #    By: tvan-cit <tvan-cit@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/04 15:32:22 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/05 16:08:22 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
-## COLOURFULL MAKEFILE ##
 
 # COLORS #
 
@@ -40,17 +38,20 @@ _IPURPLE		=	\x1b[45m
 _ICYAN			=	\x1b[46m
 _IWHITE			=	\x1b[47m
 
-SRCS 			=	main.c
+### COMPILING ###
 
-OBJS			= $(SRCS:.s=.o)
+SRC				=	main.c \
+					get_next_line.c \
+					get_next_line_utils.c \
+					ft_split.c \
+					ft_putstr.c \
 
-FLAGS			= -Wall -Werror -Wextra -pedantic -std=c89
+OBJS			= $(subst .c,.o, $(SRC))
+
+FLAGS			= -Wall -Werror -Wextra # -pedantic -std=c89
 NAME			= minishell
 
 RM 				= rm -rf
-
-%.o: 			%.s
-				@$(NASM_FLAGS) $<
 
 all:			$(NAME)
 
