@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: tvan-cit <tvan-cit@student.codam.nl>         +#+                      #
+#    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/15 15:38:24 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/16 09:17:51 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRC_FILES		=	main \
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
 OBJ_FILES 		:= $(SRC_FILES:%=$(OBJ_DIR)%)
-					
+
 # OBJS			= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
@@ -79,7 +79,7 @@ $(NAME): 		$(OBJ_FILES)
 				# -L libft -lft
 				# -I printf \
 				# -L printf -lft
-				
+
 				@echo \
 				"🍾🥂$(_BOLD) $(_GREEN)ALL FILES COMPILED$(_END)🥂🍾"
 
