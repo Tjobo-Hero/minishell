@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/16 09:17:51 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/16 10:09:49 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,17 +51,12 @@ INCLUDE_DIR		= ./include/
 SRC_FILES		=	main \
 					get_next_line \
 					get_next_line_utils \
-					# ../libft/ft_split \
-					# ../libft/ft_strncmp \
-					# # ../libft/ft_strlen \
-					# # ft_split \
-					# # ft_putstr \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
 OBJ_FILES 		:= $(SRC_FILES:%=$(OBJ_DIR)%)
 
-# OBJS			= $(subst .c,.o, $(SRC))
+OBJS			= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
 
@@ -77,8 +72,6 @@ $(NAME): 		$(OBJ_FILES)
 				libftprintf.a \
 				# -I libft \
 				# -L libft -lft
-				# -I printf \
-				# -L printf -lft
 
 				@echo \
 				"🍾🥂$(_BOLD) $(_GREEN)ALL FILES COMPILED$(_END)🥂🍾"
@@ -95,8 +88,8 @@ clean:
 
 fclean:			clean
 				@$(RM) -f $(NAME)
-				@$(RM) -f libft.a
-				@$(RM) -f libftprintf.a
+				@$(RM) -f *.a
+				@$(RM) -f ./minishell*
 				@cd libft && rm -f *.a
 				@cd printf && rm -f *.a
 				@cd libft && rm -f *.o
