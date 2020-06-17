@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 14:10:22 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/17 16:55:17 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 #  define BUFFER_SIZE 32
 # endif
 
+typedef struct	s_env
+{
+	char		**env;
+}				t_env;
 /*
 ** Functions for get next line
 */

@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/17 14:10:40 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/17 17:26:09 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ _IWHITE			=	\x1b[47m
 ### COMPILING ###
 
 NAME			= minishell
-FLAGS			= -Wall -Werror -Wextra # -pedantic -std=c89
+FLAGS			= -Wall -Werror -Wextra -g # -pedantic -std=c89
 
 SRC_DIR			= ./src/
 OBJ_DIR			= ./obj/
