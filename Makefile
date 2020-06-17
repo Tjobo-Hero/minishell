@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/17 14:13:03 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/17 15:42:21 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ _IWHITE			=	\x1b[47m
 ### COMPILING ###
 
 NAME			= minishell
-FLAGS			= -Wall -Werror -Wextra # -pedantic -std=c89
+FLAGS			= -Wall -Werror -Wextra -g # -pedantic -std=c89
 
 SRC_DIR			= ./src/
 OBJ_DIR			= ./obj/
@@ -51,6 +51,7 @@ INCLUDE_DIR		= ./include/
 SRC_FILES		=	main \
 					get_next_line \
 					get_next_line_utils \
+					cmd_pwd \
 					cmd_cd \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)

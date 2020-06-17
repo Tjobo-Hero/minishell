@@ -6,19 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 14:10:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/17 16:01:49 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	pwd(void)
-{
-	char cwd[PATH_MAX];
-
-	getcwd(cwd, sizeof(cwd));
-	ft_printf("%s\n", cwd);
-}
 
 void	check_input(char **cmd)
 {	
@@ -64,6 +56,7 @@ int		main(void)
 		write(1, "minishell> ", 11);
 		if (!(get_next_line(0, &line)))
 			 return (0);
+		ft_printf("line = %s\n", line);
 		cmd = ft_split(line, ' ');
 		check_input(cmd);
 		ft_free(line, cmd);

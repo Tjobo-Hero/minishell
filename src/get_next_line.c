@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/25 15:22:38 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/05 14:46:13 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/17 16:05:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_end_of_file(char *str, char **line)
 	free(str);
 	if (check == -1)
 		return (-1);
-	return (0);
+	return (1);
 }
 
 char	*ft_read_more(char *str, int *ret, int fd)
