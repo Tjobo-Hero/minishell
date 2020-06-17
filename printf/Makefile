@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: rbraaksm <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/10/30 13:04:08 by rbraaksm       #+#    #+#                 #
-#    Updated: 2020/01/08 13:22:17 by rbraaksm      ########   odam.nl          #
+#    Created: 2019/10/30 13:04:08 by rbraaksm      #+#    #+#                  #
+#    Updated: 2020/06/17 12:50:12 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ BLIB = $(BONUS:%.c=%.o)
 all: $(NAME)
 
 $(NAME):
-	gcc -c -Wall -Wextra -Werror $(SRCS)
-	ar rc $(NAME) $(LIB)
+	@gcc -c -Wall -Wextra -Werror $(SRCS)
+	@ar rc $(NAME) $(LIB)
 
 bonus:
 	gcc -c -Wall -Wextra -Werror $(SRCS) $(BONUS)

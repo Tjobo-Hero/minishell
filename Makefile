@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/16 10:09:49 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/17 14:13:03 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ INCLUDE_DIR		= ./include/
 SRC_FILES		=	main \
 					get_next_line \
 					get_next_line_utils \
+					cmd_cd \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
@@ -61,10 +62,10 @@ OBJS			= $(subst .c,.o, $(SRC))
 all: $(NAME)
 
 $(NAME): 		$(OBJ_FILES)
-				cd libft && $(MAKE);
-				cd printf && $(MAKE);
-				cp libft/libft.a .
-				cp printf/libftprintf.a .
+				@cd libft && $(MAKE);
+				@cd printf && $(MAKE);
+				@cp libft/libft.a .
+				@cp printf/libftprintf.a .
 				@echo "$(_BOLD) $(_PURPLE)BUILDING '"$(NAME)"' $(_END)"
 				@$(CC)	$^ \
 				-o $(NAME) \

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/16 11:30:41 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/17 14:10:07 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -30,21 +30,7 @@
 ** Functions for get next line
 */
 int		get_next_line(int fd, char **line);
-// size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-char	*ft_strchr(const char *s, int c);
-
-/*
-** Functions from Libft
-*/
-// char	**ft_split(char const *s, char c);
-// void	ft_putstr(char *str);
-
-/*
-** Functions for Minishell
-*/
 
 int		main(void);
+void	cd(char **cmd);
 #endif
