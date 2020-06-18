@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 15:23:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/18 14:46:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int		get_next_line(int fd, char **line);
 char	*ft_strchr_get(const char *s);
 
 int		main(void);
-void    pwd(void);
+void    pwd();
 void	cd(char **cmd);
 #endif

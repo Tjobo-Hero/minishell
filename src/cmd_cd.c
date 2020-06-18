@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cmd_cd.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/17 14:47:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/17 18:36:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	cd(char **cmd)
 		perror("");
 		return ;
 	}
+	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
