@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/17 15:42:21 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/18 15:13:26 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ INCLUDE_DIR		= ./include/
 
 
 SRC_FILES		=	main \
+					ft_free \
 					get_next_line \
 					get_next_line_utils \
 					cmd_pwd \

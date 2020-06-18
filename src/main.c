@@ -6,38 +6,19 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 15:09:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/18 15:34:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free(char **args, char *str, char c)
+void	run_commands(char **cmd, int c_cmd)
 {
-	int		i;
-	int		i2;
-
-	i = 0;
-	i2 = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] != c && (str[i + 1] == c || str[i + 1] == '\0'))
-			i2++;
-		i++;
-	}
-	while (i2 > 0)
-	{
-		free(args[i2 - 1]);
-		i2--;
-	}
-	free(args);
-}
-
-void	check_input(char **cmd, int c_cmd)
-{
+	char	cwd[PATH_MAX];
 	char	**args;
 	int		i;
 
+	getcwd(cwd, sizeof(cwd));
 	i = 0;
 	while (i < c_cmd)
 	{
@@ -45,14 +26,13 @@ void	check_input(char **cmd, int c_cmd)
 		if (args[0] == NULL)
 			return ;
 		if (ft_strncmp(args[0], "pwd", ft_strlen(args[0])) == 0)
-			pwd();
+			ft_printf("%s\n", cwd);
 		else if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
-			cd(args);
+			cd(args, cwd);
 		ft_free(args, cmd[i], ' ');
 		i++;
 	}
 }
-
 
 int		total_commands(char *cmd)
 {
@@ -85,7 +65,7 @@ int		main(void)
 			 return (0);
 		cmd = ft_split(line, ';');
 		c_cmd = total_commands(line);
-		check_input(cmd, c_cmd);
+		run_commands(cmd, c_cmd);
 		ft_free(cmd, line, ';');
 		free(line);
 	}

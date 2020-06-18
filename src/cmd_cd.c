@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/17 18:36:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/18 15:42:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ char	*get_user(char *cwd)
 {
 	char	*user;
 	int		i;
+	int		count;
 
 	i = 1;
+	count = 0;
 	while (cwd[i] != '/')
 		i++;
 	i++;
@@ -29,13 +31,11 @@ char	*get_user(char *cwd)
 	return (user);
 }
 
-void	cd(char **cmd)
+void	cd(char **cmd, char *cwd)
 {
-	char	cwd[PATH_MAX];
-
 	if (cmd[1] == NULL || cmd[2])
 		return ;
-	getcwd(cwd, sizeof(cwd));
+	/* User uit de env halen? */
 	if (ft_strncmp("~", cmd[1], ft_strlen(cmd[1])) == 0)
 	{
 		free(cmd[1]);
@@ -47,5 +47,4 @@ void	cd(char **cmd)
 		perror("");
 		return ;
 	}
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
