@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/18 15:42:36 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/24 17:15:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ char	*get_user(char *cwd)
 	return (user);
 }
 
-void	cd(char **cmd, char *cwd)
+void	cd(t_mini *d)
 {
-	if (cmd[1] == NULL || cmd[2])
+	if (d->args[1] == NULL || d->args[2])
 		return ;
 	/* User uit de env halen? */
-	if (ft_strncmp("~", cmd[1], ft_strlen(cmd[1])) == 0)
+	if (ft_strncmp("~", d->args[1], ft_strlen(d->args[1])) == 0)
 	{
-		free(cmd[1]);
-		cmd[1] = get_user(cwd);
+		free(d->args[1]);
+		d->args[1] = get_user(d->cwd);
 	}
-	if (chdir(cmd[1]))
+	if (chdir(d->args[1]))
 	{
-		ft_printf("%s: %s: ", cmd[0], cmd[1]);
+		ft_printf("%s: %s: ", d->args[0], d->args[1]);
 		perror("");
 		return ;
 	}

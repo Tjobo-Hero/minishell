@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 15:32:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/24 17:15:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,21 @@
 #  define BUFFER_SIZE 32
 # endif
 
-/*
-** Functions for get next line
-*/
+typedef struct	s_mini
+{
+	char	**env;
+	char	*line;
+	char	**cmd;
+	int		c_cmd;
+	char	cwd[PATH_MAX];
+	char	**args;
+}				t_mini;
+
 int		get_next_line(int fd, char **line);
-char	*ft_strchr_get(const char *s);
 
 int		main(void);
 void	ft_free(char **args, char *str, char c);
+int		count_commands(char *cmd, char c);
 void    pwd();
-void	cd(char **cmd, char *cwd);
+void	cd(t_mini *d);
 #endif
