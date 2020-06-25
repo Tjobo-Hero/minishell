@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 11:09:38 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/25 15:46:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,21 @@ char	*get_user(t_mini *d)
 	return (user);
 }
 
-void	cd(t_mini *d)
+char	**cd(t_mini *d)
 {
 	if (d->args[1] == NULL)
-		return ;
-	if (d->args[3])
-		return ((void)ft_printf("%s\n", "cd: too many arguments"));
+		return (NULL);
+	if (d->c_arg >= 3)
+	{
+		ft_printf("%s\n", "cd: too many arguments");
+		return (NULL);
+	}
 	d->args[1][0] == '~' ? d->args[1] = get_user(d) : 0;
 	if (chdir(d->args[1]))
 	{
 		ft_printf("%s: %s: ", d->args[0], d->args[1]);
 		perror("");
-		return ;
+		return (NULL);
 	}
+	return (NULL);
 }

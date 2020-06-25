@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 10:04:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/25 15:33:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,18 @@ typedef struct	s_mini
 	int		c_cmd;
 	char	cwd[PATH_MAX];
 	char	**args;
+	int		c_arg;
 }				t_mini;
 
 int		get_next_line(int fd, char **line);
 
 int		main(void);
-void	ft_free(char **args, char *str, char c);
+void	ft_free(t_mini *d, char **args, int i);
 
 /* commands */
 int		count_commands(char *cmd, char c);
-void	run_commands(t_mini *d);
-void    pwd();
-void	cd(t_mini *d);
+char	**run_commands(t_mini *d);
+char	**pwd(t_mini *d);
+char	**cd(t_mini *d);
 void	cmd_env(char **env);
 #endif
