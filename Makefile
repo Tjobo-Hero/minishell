@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/18 15:13:26 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/25 10:04:39 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,10 @@ INCLUDE_DIR		= ./include/
 SRC_FILES		=	main \
 					ft_free \
 					get_next_line \
-					get_next_line_utils \
+					run_commands \
 					cmd_pwd \
 					cmd_cd \
+					cmd_env \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
