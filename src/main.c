@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 12:57:30 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 15:55:44 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		main(void)
 	t_mini	d;
 
 	init_env(&d);
+	screen_clean();
 	while (1)
 	{
 		write(1, "minishell> ", 11);

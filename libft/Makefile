@@ -6,7 +6,7 @@
 #    By: tvan-cit <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/05 09:17:05 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/25 11:40:29 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/25 15:46:13 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC = 	ft_memset.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
+		ft_putstr.c \
 
 BONUS = ft_lstnew_bonus.c \
 		ft_lstadd_front_bonus.c \

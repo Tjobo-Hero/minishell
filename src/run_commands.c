@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 14:59:37 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 15:54:01 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	run_commands(t_mini *d)
 		if (d->args[0] == NULL)
 			return ;
 		if (ft_strncmp(d->args[0], "pwd", ft_strlen(d->args[0])) == 0)
-			d->ret = pwd();
+			d->ret = pwd(d);
 		else if (ft_strncmp(d->args[0], "cd", ft_strlen(d->args[0])) == 0)
 			d->ret = cd(d);
 		else if (ft_strncmp(d->args[0], "env", ft_strlen(d->args[0])) == 0)

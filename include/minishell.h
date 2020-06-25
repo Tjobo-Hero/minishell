@@ -6,12 +6,16 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 14:49:44 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 15:56:14 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"
@@ -21,10 +25,6 @@
 # include <limits.h>
 # include <errno.h>
 # include <string.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
 
 typedef struct	s_mini
 {
@@ -49,4 +49,7 @@ void	run_commands(t_mini *d);
 int		pwd();
 int		cd(t_mini *d);
 int		cmd_env(char **env);
+
+/* Utils */
+void	screen_clean(void);
 #endif
