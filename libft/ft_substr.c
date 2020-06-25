@@ -5,30 +5,33 @@
 /*                                                     +:+                    */
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/08 13:00:19 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/15 11:20:57 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/08 13:00:19 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/06/25 15:01:34 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	lens;
-	size_t	i;
+	char			*sub;
+	unsigned int	lens;
+	size_t			i;
 
 	if (!s)
 		return (NULL);
 	lens = ft_strlen(s);
 	if (start > lens)
 		return (ft_strdup(""));
-	sub = (char*)malloc(sizeof(char) * len + 1);
-	i = 0;
+	if (lens < len)
+		len = (size_t)lens;
+	sub = (char*)malloc(sizeof(char) * (len + 1));
 	if (sub == NULL)
 		return (0);
-	while (s[i] != '\0' && i < len)
+	i = 0;
+	while (s[start] && i < len)
 	{
 		sub[i] = s[start];
 		start++;

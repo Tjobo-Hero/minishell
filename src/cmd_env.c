@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   cmd_env.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 17:51:06 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 11:00:29 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/06/25 14:55:02 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+int		cmd_env(char **env)
 {
-	char	*ptr;
+	int i_env;
 
-	ptr = NULL;
-	while (*s)
+	i_env = 0;
+	while (env[i_env] != NULL)
 	{
-		if (*s == c)
-		{
-			ptr = (char*)s;
-			return (ptr);
-		}
-		s++;
+		ft_printf("%s\n", env[i_env]);
+		i_env++;
 	}
-	if (c == '\0')
-		return ((char*)s);
-	return (ptr);
+	return (0);
 }

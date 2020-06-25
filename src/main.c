@@ -6,182 +6,41 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 17:33:15 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 12:57:30 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*old_dir(char *cwd)
-{
-	// char	cwd[PATH_MAX];
-	char	*path;
-	int		i;
-	int		count;
-
-	// getcwd(cwd, sizeof(cwd));
-	i = ft_strlen(cwd);
-	count = 0;
-	while(cwd[i] != '/')
-	{
-		i--;
-		count++;
-	}
-	count++;
-	path = malloc(sizeof(char *) + count);
-	ft_strlcpy(path, &cwd[i + 1], count);
-	// ft_printf("OLD = %s\n", path);
-	return (path);
-}
-
-char	*get_user(char *cwd)
-{
-	char	*user;
-	int		i;
-
-	i = 1;
-	while (cwd[i] != '/')
-		i++;
-	i++;
-	while (cwd[i] != '/')
-		i++;
-	i++;
-	user = malloc(sizeof(char *) + i);
-	ft_strlcpy(user, cwd, i);
-	return (user);
-}
-
-void	cd(char **cmd)
-{
-	char	cwd[PATH_MAX];
-	char	*user;
-	char	*tmp;
-	static char	*owd;
-
-	ft_printf("BEGIN OLD: %s\n", owd);
-	if (cmd[1] == NULL)
-		return ;
-	getcwd(cwd, sizeof(cwd));
-	if (ft_strncmp("-", cmd[1], ft_strlen(cmd[1])) == 0)
-	{
-		user = old_dir(owd);
-		ft_printf("USER = %s\n", user);
-		if (chdir(user))
-			perror("");
-		free(user);
-	}
-	tmp = owd;
-	owd = ft_strdup(cwd);
-	free(tmp);
-	if (ft_strncmp("~", cmd[1], ft_strlen(cmd[1])) == 0)
-	{
-		user = get_user(cwd);
-		if (chdir(user))
-			perror("");
-		free(user);
-		return ;
-	}
-	if (ft_strncmp("-", cmd[1], ft_strlen(cmd[1])) == 0)
-	{
-		user = old_dir(owd);
-		ft_printf("USER = %s\n", user);
-		if (chdir(user))
-			perror("");
-		free(user);
-	}
-	else if (chdir(cmd[1]))
-	{
-		ft_printf("bash: %s: %s: ", cmd[0], cmd[1]);
-		perror("");
-		return ;
-	}
-	getcwd(cwd, sizeof(cwd));
-	ft_printf("END OLD:   %s\n", owd);
-	ft_printf("NEW:       %s\n", cwd);
-	// free(owd);
-	// owd = NULL;
-}
-
-void	pwd(void)
-{
-	char cwd[PATH_MAX];
-
-	getcwd(cwd, sizeof(cwd));
-	ft_printf("%s\n", cwd);
-}
-
-void	execute(char **cmd)
+void	get_home_path(t_mini *d)
 {
 	int i;
-	extern char **environ;
+	char *temp;
 
 	i = 0;
-	printf("%s\n", environ[0]);
-	printf("%s\n", environ[1]);
-	printf("%s\n", environ[2]);
-	printf("%s\n", environ[3]);
-	if (fork() == 0)
-	{
-		execve(cmd[0], cmd, NULL);
-		exit(0);
-	}
-	wait(&i);
-}
-
-void	env(t_env *d)
-{
-	int i_env;
-
-	i_env = 0;
-	while (d->env[i_env] != NULL)
-	{
-		ft_printf("%s\n", d->env[i_env]);
-		i_env++;
-	}
-}
-
-void	check_input(char **cmd, t_env *d)
-{
-	if (cmd[0] == NULL)
+	while (d->env[i] && ft_strncmp(d->env[i], "HOME=", 5) != 0)
+		i++;
+	if (d->env[i] == NULL)
 		return ;
-	if (ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])) == 0)
-		pwd();
-	else if (ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0)
-		cd(cmd);
-	else if (ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])) == 0)
-		env(d);
-	else
-		execute(cmd);
-	// else if (ft_strncmp(cmd[0], "ls", ft_strlen(cmd[0])) == 0)
-		// ls(cmd);
-}
-
-void	ft_free(char *line, char **cmd)
-{
-	int		i;
-	int		i2;
-
+	temp = ft_substr(d->env[i], 5, ft_strlen(d->env[i]) - 4);
+	d->home_path = (char*)malloc(sizeof(char*) * (ft_strlen(temp) + 3));
+	if (!d->home_path)
+		return ((void)free(temp));
 	i = 0;
-	i2 = 0;
-	while (line[i] != '\0')
+	while (temp[i])
 	{
-		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
-			i2++;
+		d->home_path[i] = temp[i];
 		i++;
 	}
-	free(line);
-	while (i2 > 0)
-	{
-		free(cmd[i2 - 1]);
-		i2--;
-	}
-	free(cmd);
+	d->home_path[i] = '/';
+	d->home_path[i + 1] = '\0';
+	free(temp);
 }
-void	init_env(t_env *d)
+
+void	init_env(t_mini *d)
 {
 	extern char **environ;
 	int i;
-	int i2;
 
 	i = 0;
 	while (environ[i] != NULL)
@@ -193,49 +52,52 @@ void	init_env(t_env *d)
 		exit(1);
 	}
 	i = 0;
-	i2 = 0;
 	while (environ[i] != NULL)
 	{
-		d->env[i] = (char*)malloc(sizeof(char*) * ft_strlen(environ[i]));
-		if (!d->env[i])
+		(d->env)[i] = (char*)malloc(sizeof(char*) * (ft_strlen(environ[i])));
+		if (!(d->env)[i])
 		{
 			ft_printf("malloc fail struct");
 			exit(1);
 		}
-		while (environ[i][i2] != '\0')
-		{
-			d->env[i][i2] = environ[i][i2];
-			i2++;
-		}
-		i2 = 0;
+		ft_strlcpy((d->env)[i], environ[i], (ft_strlen(environ[i]) + 1));
 		i++;
 	}
-	d->env[i] = NULL;
+	(d->env)[i] = NULL;
+	get_home_path(d);
 }
 
-static char		*read_the_line(void)
+int		count_commands(char *cmd, char c)
 {
-	char *line;
+	int		i;
+	int		count;
 
-	line = NULL;
-	get_next_line(0, &line);
-	return (line);
+	i = 0;
+	count = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] != c && (cmd[i + 1] == c || cmd[i + 1] == '\0'))
+			count++;
+		i++;
+	}
+	return (count);
 }
 
 int		main(void)
 {
-	char	**commands;
-	char	*line;
-	t_env	d;
+	t_mini	d;
 
+	init_env(&d);
 	while (1)
 	{
-		ft_printf("minishell> ");
-		init_env(&d);
-		line = read_the_line();
-		commands = ft_split(line, ';');
-		check_input(commands, &d);
-		ft_free(line, commands);
+		write(1, "minishell> ", 11);
+		if (!(get_next_line(0, &d.line)))
+			 return (0);
+		d.cmd = ft_split(d.line, ';');
+		d.c_cmd = count_commands(d.line, ';');
+		run_commands(&d);
+		ft_free(d.cmd, d.line, ';');
+		free(d.line);
 	}
 	return (0);
 }

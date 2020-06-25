@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 16:55:17 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 14:49:44 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,38 @@
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
 
-typedef struct	s_env
+typedef struct	s_mini
 {
-	char		**env;
-}				t_env;
-/*
-** Functions for get next line
-*/
+	char	**env;
+	char	*line;
+	char	**cmd;
+	int		c_cmd;
+	char	cwd[PATH_MAX];
+	char	**args;
+	int		ret;
+	char	*home_path;
+}				t_mini;
+
 int		get_next_line(int fd, char **line);
-// size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-char	*ft_strchr(const char *s, int c);
-
-/*
-** Functions from Libft
-*/
-// char	**ft_split(char const *s, char c);
-// void	ft_putstr(char *str);
-
-/*
-** Functions for Minishell
-*/
 
 int		main(void);
+void	ft_free(char **args, char *str, char c);
+
+/* commands */
+int		count_commands(char *cmd, char c);
+void	run_commands(t_mini *d);
+int		pwd();
+int		cd(t_mini *d);
+int		cmd_env(char **env);
 #endif

@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   cmd_pwd.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 17:51:06 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 11:00:29 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/06/25 14:49:02 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+int		pwd(void)
 {
-	char	*ptr;
+	char	cwd[PATH_MAX];
+	char	*return_ptr;
 
-	ptr = NULL;
-	while (*s)
+	return_ptr = getcwd(cwd, sizeof(cwd));
+	if (return_ptr == NULL)
 	{
-		if (*s == c)
-		{
-			ptr = (char*)s;
-			return (ptr);
-		}
-		s++;
+		ft_printf("bash: pwd: %s\n", strerror(errno));
+		return (1);
 	}
-	if (c == '\0')
-		return ((char*)s);
-	return (ptr);
+	ft_printf("%s\n", cwd);
+	return (0);
 }

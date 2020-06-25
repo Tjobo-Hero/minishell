@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   ft_free.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 17:51:06 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 11:00:29 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/06/24 15:41:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_free(char **args, char *str, char c)
 {
-	char	*ptr;
+	int	i;
 
-	ptr = NULL;
-	while (*s)
+	i = count_commands(str, c);
+	while (i > 0)
 	{
-		if (*s == c)
-		{
-			ptr = (char*)s;
-			return (ptr);
-		}
-		s++;
+		free(args[i - 1]);
+		i--;
 	}
-	if (c == '\0')
-		return ((char*)s);
-	return (ptr);
+	free(args);
 }

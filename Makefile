@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/17 17:26:09 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/25 11:39:17 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,12 @@ INCLUDE_DIR		= ./include/
 
 
 SRC_FILES		=	main \
+					ft_free \
 					get_next_line \
-					get_next_line_utils \
+					run_commands \
+					cmd_pwd \
+					cmd_cd \
+					cmd_env \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
@@ -59,8 +63,8 @@ OBJ_FILES 		:= $(SRC_FILES:%=$(OBJ_DIR)%)
 OBJS			= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
-
-$(NAME): 		$(OBJ_FILES)
+	
+$(NAME):		$(OBJ_FILES)
 				@cd libft && $(MAKE);
 				@cd printf && $(MAKE);
 				@cp libft/libft.a .
@@ -76,9 +80,9 @@ $(NAME): 		$(OBJ_FILES)
 				@echo \
 				"🍾🥂$(_BOLD) $(_GREEN)ALL FILES COMPILED$(_END)🥂🍾"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
-				@$(CC)	$(INCLUDE_DIR) \
+				@$(CC) $(INCLUDE_DIR) \
 				-c $^ \
 				-o $@ \
 				$(FLAGS)

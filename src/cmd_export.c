@@ -1,32 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   cmd_export.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 17:51:06 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 11:00:29 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/06/25 14:35:21 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ptr;
-
-	ptr = NULL;
-	while (*s)
-	{
-		if (*s == c)
-		{
-			ptr = (char*)s;
-			return (ptr);
-		}
-		s++;
-	}
-	if (c == '\0')
-		return ((char*)s);
-	return (ptr);
-}
+int		export(t_mini *d, int fd)

@@ -6,23 +6,11 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/21 12:07:17 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/17 14:10:38 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/06/25 11:20:37 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t i;
-
-// 	i = 0;
-// 	while (s[i] != '\0')
-// 	{
-// 		i++;
-// 	}
-// 	return (i);
-// }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
