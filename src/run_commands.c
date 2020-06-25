@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 15:44:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/25 16:21:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	execute(char **cmd)
 {
 	int i;
-	extern char **environ;
+	// extern char **environ;
 
 	i = 0;
 	// printf("%s\n", environ[0]);
@@ -115,6 +115,7 @@ char	**run_commands(t_mini *d)
 
     c = 0;
 	i = 0;
+    ft_printf("%d\n", d->c_cmd);
 	while (c < d->c_cmd)
 	{
 		getcwd(d->cwd, sizeof(d->cwd));
@@ -129,18 +130,6 @@ char	**run_commands(t_mini *d)
                     start_command(i)(d);
             i++;
         }
-        // while(i < 2)
-        // {
-        //     if ((ft_strncmp(d->args[0], find_command(i), ft_strlen(d->args[0]))))
-        //         return ((void)command(i));
-        //     i++;
-        // }
-		// if (ft_strncmp(d->args[0], "pwd", ft_strlen(d->args[0])) == 0)
-		// 	ft_printf("%s\n", getcwd(d->cwd, sizeof(d->cwd)));
-		// else if (ft_strncmp(d->args[0], "cd", ft_strlen(d->args[0])) == 0)
-		// 	cd(d);
-		// else if (ft_strncmp(d->args[0], "env", ft_strlen(d->args[0])) == 0)
-		// 	cmd_env(d->env);
 		ft_free(d, d->args, 1);
 		c++;
 	}

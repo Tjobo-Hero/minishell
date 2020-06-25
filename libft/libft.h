@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 11:04:43 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/13 17:13:45 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/13 11:04:43 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/06/25 15:46:03 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
+void				ft_putstr(char *s);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void *content);

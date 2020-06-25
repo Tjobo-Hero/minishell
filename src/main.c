@@ -6,11 +6,36 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 11:43:30 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/25 16:16:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	get_home_path(t_mini *d)
+{
+	int i;
+	char *temp;
+
+	i = 0;
+	while (d->env[i] && ft_strncmp(d->env[i], "HOME=", 5) != 0)
+		i++;
+	if (d->env[i] == NULL)
+		return ;
+	temp = ft_substr(d->env[i], 5, ft_strlen(d->env[i]) - 4);
+	d->home_path = (char*)malloc(sizeof(char*) * (ft_strlen(temp) + 3));
+	if (!d->home_path)
+		return ((void)free(temp));
+	i = 0;
+	while (temp[i])
+	{
+		d->home_path[i] = temp[i];
+		i++;
+	}
+	d->home_path[i] = '/';
+	d->home_path[i + 1] = '\0';
+	free(temp);
+}
 
 void	init_env(t_mini *d)
 {
@@ -39,6 +64,7 @@ void	init_env(t_mini *d)
 		i++;
 	}
 	(d->env)[i] = NULL;
+	get_home_path(d);
 }
 
 int		count_commands(char *cmd, char c)
@@ -62,6 +88,7 @@ int		main(void)
 	t_mini	d;
 
 	init_env(&d);
+	screen_clean();
 	while (1)
 	{
 		write(1, "minishell> ", 11);

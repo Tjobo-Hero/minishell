@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_pwd.c                                          :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:17:51 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/06/25 16:19:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**pwd(t_mini *d)
+void		screen_clean(void)
 {
-	char	cwd[PATH_MAX];
-	char	*return_ptr;
+	write(1, "\e[1;1H\e[2J", 11);
+}
 
-	return_ptr = getcwd(cwd, sizeof(cwd));
-	if (return_ptr == NULL)
-	{
-		ft_printf("bash: pwd: %s\n", strerror(errno));
-		return (p_ret(1, d));
-	}
-	ft_printf("%s\n", cwd);
-	return (p_ret(0, d));
+char	**p_ret(int i, t_mini *d)
+{
+	d->ret = i;
+	return (NULL);
 }

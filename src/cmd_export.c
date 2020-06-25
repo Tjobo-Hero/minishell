@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_pwd.c                                          :+:    :+:            */
+/*   cmd_export.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:17:51 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/06/25 15:57:57 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**pwd(t_mini *d)
+int		alpha_sort(t_mini *d)
 {
-	char	cwd[PATH_MAX];
-	char	*return_ptr;
+	int i;
+	
+}
 
-	return_ptr = getcwd(cwd, sizeof(cwd));
-	if (return_ptr == NULL)
-	{
-		ft_printf("bash: pwd: %s\n", strerror(errno));
-		return (p_ret(1, d));
-	}
-	ft_printf("%s\n", cwd);
-	return (p_ret(0, d));
+int		export(t_mini *d)
+{
+	int		i;
+	int		start;
+	char	**input;
+
+	if (!d->args[1])
+		return (alpha_sort(d));
+
+	
 }

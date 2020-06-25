@@ -6,7 +6,7 @@
 #    By: rbraaksm <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/30 13:04:08 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/06/17 12:50:12 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/06/25 11:39:39 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,13 +51,13 @@ $(NAME):
 	@ar rc $(NAME) $(LIB)
 
 bonus:
-	gcc -c -Wall -Wextra -Werror $(SRCS) $(BONUS)
-	ar rc $(NAME) $(BLIB)
+	@gcc -c -Wall -Wextra -Werror $(SRCS) $(BONUS)
+	@ar rc $(NAME) $(BLIB)
 
 clean:
-	/bin/rm -f $(LIB) $(BLIB)
+	@/bin/rm -f $(LIB) $(BLIB)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
