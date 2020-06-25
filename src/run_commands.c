@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:21:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/25 16:26:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ char	**run_commands(t_mini *d)
     int     i;
 
     c = 0;
-	i = 0;
     ft_printf("%d\n", d->c_cmd);
 	while (c < d->c_cmd)
 	{
@@ -124,12 +123,14 @@ char	**run_commands(t_mini *d)
         d->c_arg = count_commands(d->cmd[c], ' ');
 		if (d->args[0] == NULL)
 			return (NULL);
+        i = 0;
         while (i < 2)
         {
 		    if (!ft_strncmp(d->args[0], find_command(i), ft_strlen(d->args[0])))
                     start_command(i)(d);
             i++;
         }
+        ft_printf("TESST\n");
 		ft_free(d, d->args, 1);
 		c++;
 	}
