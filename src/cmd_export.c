@@ -6,13 +6,13 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/29 12:17:01 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/29 15:57:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		**copy_env(t_mini *d, char **str, int x, int c)
+char		**copy_env(char **str, int x, int c)
 {
 	char	**tmp;
 	int i;
@@ -79,37 +79,47 @@ void	same_first_letter(char **env_copy, int *i)
 		temp = env_copy[*i];
 		env_copy[*i] = env_copy[*i + 1];
 		env_copy[*i + 1] = temp;
-		(*i) = 0;
 	}
 	else
 		(*i)++;
 }
 
-void	print_export(t_mini *d)
+void	print_export(char **tmp)
 {
 	int i;
 	int k;
 	int is_count;
 
 	i = 0;
-	while (d->exp[i])
+	while (tmp[i])
 	{
 		ft_printf("declare -x ");
 		k = 0;
-		is_count = 0;
-		while (d->exp[i][k])
+		while (tmp[i][k])
 		{
-			write(1, &d->exp[i][k], 1);
-			if (d->exp[i][k] == '=' && is_count == 0)
+			is_count = 0;
+			write(1, &tmp[i][k], 1);
+			if (tmp[i][k] == '=' && is_count == 0)
 			{
 				write(1, "\"", 1);
 				is_count = 1;
 			}
 			k++;
 		}
-		write(1, "\"\n", 2);
+		if (ft_strchr(tmp[i], '='))
+				write(1, "\"", 1);
+		write(1, "\n", 1);
 		i++;
 	}
+}
+
+void	swap(t_mini *d, int i)
+{
+	char *tmp;
+
+	tmp = d->exp[i];
+	d->exp[i] = d->exp[i + 1];
+	d->exp[i + 1] = tmp;
 }
 
 int		**env_alpha(t_mini *d)
@@ -117,47 +127,40 @@ int		**env_alpha(t_mini *d)
 	int i;
 
 	i = 0;
+	d->exp = copy_env(d->env, d->c_env, 0);
+	// while (d->exp[i + 1] != NULL)
+	// {
+	// 	if (d->exp[i][0] == d->exp[i + 1][0])
+	// 		same_first_letter(d->exp, &i);
+	// 	else if (d->exp[i][0] > d->exp[i + 1][0])
+	// 		last_alpha(d->exp, &i);
+	// 	else
+	// 		i++;
+	// }
 	while (d->exp[i + 1] != NULL)
 	{
-		if (d->exp[i][0] == d->exp[i + 1][0])
-			same_first_letter(d->exp, &i);
-		else if (d->exp[i][0] > d->exp[i + 1][0])
-			last_alpha(d->exp, &i);
-		else
-			i++;
+		while (ft_strncmp(d->exp[i], d->exp[i + 1], ft_strlen(d->exp[i])) > 0)
+		{
+			swap(d, i);
+			i = 0;	
+		}
+		i++;
 	}
-	print_export(d);
+	print_export(d->exp); 
+	free_list(d, d->exp);
 	return (0);
 }
 
-void	new_list(t_mini *d, char *str, int i)
+void	new_list(t_mini *d, char *str)
 {
 	char	**tmp;
 
-	if (i == 1)
-	{
-		tmp = copy_env(d, d->env, d->c_env, 0);
-		free_list(d, d->env);
-		d->env = copy_env(d, tmp, d->c_env, 1);
-		d->env[d->c_env] = ft_strdup(str);
-		d->env[d->c_env + 1] = NULL;
-		d->c_env++;
-		free_list(d, tmp);
-		tmp = copy_env(d, d->exp, d->c_exp, 0);
-		free_list(d, d->exp);
-		d->exp = copy_env(d, tmp, d->c_exp, 1);
-		d->exp[d->c_exp] = ft_strdup(str);
-		d->exp[d->c_exp + 1] = NULL;
-		d->c_exp++;
-	}
-	else
-	{
-		tmp = copy_env(d, d->exp, 0);
-		free_list(d, d->exp);
-		d->exp = copy_env(d, tmp, 1);
-		d->exp[d->c_env] = ft_strdup(str);
-		d->exp[d->c_env + 1] = NULL;
-	}
+	tmp = copy_env(d->env, d->c_env, 0);
+	// free_list(d, d->env);
+	d->env = copy_env(tmp, d->c_env, 1);
+	d->env[d->c_env] = ft_strdup(str);
+	d->env[d->c_env + 1] = NULL;
+	d->c_env++;
 	free_list(d, tmp);
 }
 
@@ -166,24 +169,36 @@ int		**export(t_mini *d)
 	int		a;
 	
 	a = 1;
-	if (d->exp == NULL)
-		d->exp = copy_env(d, d->env, d->c_env, 0);
 	if (!d->args[1])
 		return (env_alpha(d));
+		int i;
+		int i2;
+		char *tmp;
 	while (d->args[a])
 	{
-		// first_part(d, d->args[a]);
-		if (ft_strchr(d->args[a], '='))
-			new_list(d, d->args[a], 1);
-		else
-			new_list(d, d->args[a], 0);
+		i = 0;
+		i2 = 0;
+		while (d->args[a][i] != '\0')
+		{
+			if (d->args[a][i] == '=')
+				break ;
+			i++;
+		}
+		while (i2 < d->c_env)
+		{
+			if (ft_strncmp(d->env[i2], d->args[a], i) == 0)
+			{
+				ft_printf("test: %s\n", d->env[i2]);
+				ft_printf("test: %s\n", d->args[a]);
+				tmp = d->env[i2];
+				// free(d->env[i2]); 
+				ft_strlcpy(d->env[i2], d->args[a], ft_strlen(d->args[a]));
+				// d->env[i2]	= ft_strdup(d->args[a]);
+			}
+			i2++;
+		}
+		// new_list(d, d->args[a]);
 		a++;
-	}
-	int x = 0;
-	while (d->env[x])
-	{
-		ft_printf("after : %s\n", d->env[x]);
-		x++;
 	}
 	return (NULL);
 }
