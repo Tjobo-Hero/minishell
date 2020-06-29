@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/26 15:06:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/29 12:09:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int		main(void)
 	t_mini	d;
 
 	init_env(&d);
+	d.exp = NULL;
+	d.c_exp = d.c_env;
 	screen_clean();
 	while (1)
 	{

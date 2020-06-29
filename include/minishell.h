@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/26 14:51:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/29 11:35:49 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@
 typedef struct	s_mini
 {
 	char	**env;
-	char	**env_copy;
 	int		c_env;
+	char	**exp;
+	int		c_exp;
 	char	*line;
 	char	**cmd;
 	int		c_cmd;
