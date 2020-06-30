@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/30 12:07:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 16:28:25 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,6 @@ void	clear_str(char *str)
 		str[i] = '\0';
 		i++;
 	}
-}
-
-void	update_env(t_mini *d)
-{
-	int		i;
-
-	i = 0;
-	while (d->env[i])
-	{
-		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
-			break ;
-		i++;
-	}
-	clear_str(d->env[i]);
-	ft_strlcat(d->env[i], "PWD=", 5);
-	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
 }
 
 char    *find_command(int i)
@@ -92,7 +76,7 @@ int	**run_commands(t_mini *d)
 	while (c < d->c_cmd)
 	{
 		getcwd(d->cwd, sizeof(d->cwd));
-		update_env(d);
+		// update_env(d);
 		d->args = ft_split(d->cmd[c], ' ');
 		if (d->args == NULL)
 			exit(1);

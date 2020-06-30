@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/29 11:35:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 16:27:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int		cmd_env(char **env);
 /* Utils */
 void	screen_clean(void);
 int		malloc_error(void);
+char	**char_malloc_error(void);
 // char	**p_ret(int i, t_mini *d);
 #endif

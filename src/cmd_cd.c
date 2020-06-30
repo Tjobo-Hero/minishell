@@ -6,11 +6,27 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/26 13:25:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 16:28:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_env(t_mini *d)
+{
+	int		i;
+
+	i = 0;
+	while (d->env[i])
+	{
+		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
+			break ;
+		i++;
+	}
+	clear_str(d->env[i]);
+	ft_strlcat(d->env[i], "PWD=", 5);
+	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
+}
 
 char	*get_user(t_mini *d, int c)
 {
@@ -46,6 +62,7 @@ int		**error_return(t_mini *d, int i)
 
 int		**cd(t_mini *d)
 {
+	update_env(d);
 	if (d->args[1] == NULL)
 	{
 		if (chdir(get_user(d, 0)))
