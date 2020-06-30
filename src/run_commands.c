@@ -25,18 +25,6 @@ void	execute(char **cmd)
 	wait(&i);
 }
 
-void	clear_str(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		str[i] = '\0';
-		i++;
-	}
-}
-
 char    *find_command(int i)
 {
     char    *command[4];
@@ -76,7 +64,6 @@ int	**run_commands(t_mini *d)
 	while (c < d->c_cmd)
 	{
 		getcwd(d->cwd, sizeof(d->cwd));
-		// update_env(d);
 		d->args = ft_split(d->cmd[c], ' ');
 		if (d->args == NULL)
 			exit(1);
@@ -84,7 +71,7 @@ int	**run_commands(t_mini *d)
         i = 0;
         while (i < 3)
         {
-		    if (!ft_strncmp(d->args[0], find_command(i), ft_strlen(d->args[0])))
+		    if (!ft_strncmp(d->args[0], find_command(i), ft_strlen(find_command(i))))
                     d->ret = (int)start_command(i)(d);
             i++;
         }

@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+void	clear_str(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		str[i] = '\0';
+		i++;
+	}
+}
+
 void	update_env(t_mini *d)
 {
 	int		i;

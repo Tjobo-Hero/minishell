@@ -124,10 +124,12 @@ void	new_list(t_mini *d, char *str)
 	free_list(d, tmp);
 }
 
-int	replace(t_mini *d, int i, int a)
+int	replace(t_mini *d, int i, int a, int len)
 {
 	char *tmp;
 	
+	if (d->env[i][len] == '=' && d->args[a][len] != '=')
+		return (0);
 	tmp = d->env[i];
 	free(d->env[i]);
 	d->env[i] = ft_strdup(d->args[a]);
@@ -151,7 +153,7 @@ int		check_cmp(t_mini *d, int a)
 	while (i < d->c_env)
 	{
 		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=')
-			return (replace(d, i, a));
+			return (replace(d, i, a, len));
 		i++;
 	}
 	return (1);
