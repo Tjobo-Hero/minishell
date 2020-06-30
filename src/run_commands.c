@@ -63,7 +63,6 @@ int	**run_commands(t_mini *d)
     c = 0;
 	while (c < d->c_cmd)
 	{
-		getcwd(d->cwd, sizeof(d->cwd));
 		d->args = ft_split(d->cmd[c], ' ');
 		if (d->args == NULL)
 			exit(1);

@@ -24,11 +24,12 @@ void	clear_str(char *str)
 	}
 }
 
-void	update_env(t_mini *d)
+int		**update_env(t_mini *d)
 {
 	int		i;
 
 	i = 0;
+	getcwd(d->cwd, sizeof(d->cwd));
 	while (d->env[i])
 	{
 		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
@@ -38,6 +39,7 @@ void	update_env(t_mini *d)
 	clear_str(d->env[i]);
 	ft_strlcat(d->env[i], "PWD=", 5);
 	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
+	return (0);
 }
 
 char	*get_user(t_mini *d, int c)
@@ -74,17 +76,16 @@ int		**error_return(t_mini *d, int i)
 
 int		**cd(t_mini *d)
 {
-	update_env(d);
 	if (d->args[1] == NULL)
 	{
 		if (chdir(get_user(d, 0)))
 			return (error_return(d, 1));
-		return (0);
+		return (update_env(d));
 	}
 	if (d->c_arg >= 3)
 		return (error_return(d, 0));
 	d->args[1][0] == '~' ? d->args[1] = get_user(d, 1) : 0;
 	if (chdir(d->args[1]))
 		return (error_return(d, 1));
-	return (0);
+	return (update_env(d));
 }
