@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/29 15:57:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 12:06:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,41 +164,50 @@ void	new_list(t_mini *d, char *str)
 	free_list(d, tmp);
 }
 
+void	replace(t_mini *d, int i, int len, int a)
+{
+	char *tmp;
+	
+	(void)len;	
+	ft_printf("Before %s\n", d->env[i]);
+	tmp = d->env[i];
+	free(d->env[i]);
+	d->env[i] = ft_strdup(d->args[a]);
+	ft_strlcpy(d->env[i], d->args[a], ft_strlen(d->args[a]) + 1);
+	ft_printf("After %s\n", d->env[i]);
+}
+
 int		**export(t_mini *d)
 {
 	int		a;
+	int		i;
+	int		len;
 	
 	a = 1;
+	ft_printf("After3 %s\n", d->env[17]);
 	if (!d->args[1])
 		return (env_alpha(d));
-		int i;
-		int i2;
-		char *tmp;
 	while (d->args[a])
 	{
-		i = 0;
-		i2 = 0;
-		while (d->args[a][i] != '\0')
+		len = 0;
+		while (d->args[a][len] != '\0')
 		{
-			if (d->args[a][i] == '=')
+			if (d->args[a][len] == '=')
 				break ;
+			len++;
+		}
+		i = 0;
+		while (i < d->c_env)
+		{
+			if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=')
+			{
+				replace(d, i, len, a);
+				break ;
+			}
 			i++;
 		}
-		while (i2 < d->c_env)
-		{
-			if (ft_strncmp(d->env[i2], d->args[a], i) == 0)
-			{
-				ft_printf("test: %s\n", d->env[i2]);
-				ft_printf("test: %s\n", d->args[a]);
-				tmp = d->env[i2];
-				// free(d->env[i2]); 
-				ft_strlcpy(d->env[i2], d->args[a], ft_strlen(d->args[a]));
-				// d->env[i2]	= ft_strdup(d->args[a]);
-			}
-			i2++;
-		}
-		// new_list(d, d->args[a]);
 		a++;
 	}
+	// ft_printf("After2 %s\n", d->env[i]);
 	return (NULL);
 }

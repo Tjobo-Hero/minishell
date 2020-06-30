@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/29 12:09:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 12:09:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		main(void)
 	screen_clean();
 	while (1)
 	{
+		ft_printf("After4 %s\n", d.env[17]);
 		write(1, "minishell> ", 11);
 		if (!(get_next_line(0, &d.line)))
 			 return (0);
