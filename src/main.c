@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:16:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 15:20:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ void	get_home_path(t_mini *d)
 	if (d->env[i] == NULL)
 		return ;
 	temp = ft_substr(d->env[i], 5, ft_strlen(d->env[i]) - 4);
+	if (temp == NULL)
+		return ((void)malloc_error());
 	d->home_path = (char*)malloc(sizeof(char*) * (ft_strlen(temp) + 3));
+	/* bij fout free temp */
 	if (!d->home_path)
-		return ((void)free(temp));
+		return ((void)malloc_error());
 	i = 0;
 	while (temp[i])
 	{
@@ -43,23 +46,17 @@ void	init_env(t_mini *d)
 	int i;
 
 	i = 0;
-	while (environ[i] != NULL)
-		i++;
-	d->env = (char **)malloc(sizeof(char*) * i + 1);
+	d->c_env = 0;
+	while (environ[d->c_env] != NULL)
+		d->c_env++;
+	d->env = (char **)malloc(sizeof(char*) * (d->c_env + 1));
 	if (!d->env)
-	{
-		ft_printf("malloc fail struct");
-		exit(1);
-	}
-	i = 0;
+		return ((void)malloc_error());
 	while (environ[i] != NULL)
 	{
 		(d->env)[i] = (char*)malloc(sizeof(char*) * (ft_strlen(environ[i])));
 		if (!(d->env)[i])
-		{
-			ft_printf("malloc fail struct");
-			exit(1);
-		}
+			return ((void)malloc_error());
 		ft_strlcpy((d->env)[i], environ[i], (ft_strlen(environ[i]) + 1));
 		i++;
 	}
@@ -88,6 +85,8 @@ int		main(void)
 	t_mini	d;
 
 	init_env(&d);
+	d.exp = NULL;
+	d.c_exp = d.c_env;
 	screen_clean();
 	while (1)
 	{
@@ -95,6 +94,8 @@ int		main(void)
 		if (!(get_next_line(0, &d.line)))
 			 return (0);
 		d.cmd = ft_split(d.line, ';');
+		if (d.cmd == NULL)
+			return (malloc_error());
 		d.c_cmd = count_commands(d.line, ';');
 		run_commands(&d);
 		ft_free(&d, d.cmd, 0);

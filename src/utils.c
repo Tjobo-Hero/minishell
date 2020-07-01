@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:19:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 16:27:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ void		screen_clean(void)
 	write(1, "\e[1;1H\e[2J", 11);
 }
 
-char	**p_ret(int i, t_mini *d)
+int			malloc_error(void)
 {
-	d->ret = i;
-	return (NULL);
+	ft_printf("malloc fail env_copy");
+	exit(1);
+	return (0);
+}
+
+char		**char_malloc_error(void)
+{
+	ft_printf("malloc fail env_copy");
+	exit(1);
+	return (0);
 }

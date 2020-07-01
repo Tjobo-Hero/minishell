@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/25 16:19:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/06/30 16:27:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 typedef struct	s_mini
 {
 	char	**env;
+	int		c_env;
+	char	**exp;
+	int		c_exp;
 	char	*line;
 	char	**cmd;
 	int		c_cmd;
@@ -46,12 +49,15 @@ void	ft_free(t_mini *d, char **args, int i);
 
 /* commands */
 int		count_commands(char *cmd, char c);
-char	**run_commands(t_mini *d);
-char	**pwd(t_mini *d);
-char	**cd(t_mini *d);
+int		**run_commands(t_mini *d);
+int		**pwd(t_mini *d);
+int		**cd(t_mini *d);
+int		**export(t_mini *d);
 int		cmd_env(char **env);
 
 /* Utils */
 void	screen_clean(void);
-char	**p_ret(int i, t_mini *d);
+int		malloc_error(void);
+char	**char_malloc_error(void);
+// char	**p_ret(int i, t_mini *d);
 #endif

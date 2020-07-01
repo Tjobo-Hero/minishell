@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/25 15:56:26 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/06/26 13:56:32 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC_FILES		=	main \
 					cmd_pwd \
 					cmd_cd \
 					cmd_env \
+					cmd_export \
 					utils \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
