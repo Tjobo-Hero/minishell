@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/30 16:30:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/01 11:41:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	print_export(char **tmp)
 	{
 		ft_printf("declare -x ");
 		k = 0;
+			is_count = 0;
 		while (tmp[i][k])
 		{
-			is_count = 0;
 			write(1, &tmp[i][k], 1);
 			if (tmp[i][k] == '=' && is_count == 0)
 			{
@@ -75,8 +75,8 @@ void	print_export(char **tmp)
 			}
 			k++;
 		}
-		if (ft_strchr(tmp[i], '='))
-				write(1, "\"", 1);
+		if (is_count)
+			write(1, "\"", 1);
 		write(1, "\n", 1);
 		i++;
 	}
@@ -128,8 +128,12 @@ int	replace(t_mini *d, int i, int a, int len)
 {
 	char *tmp;
 	
-	if (d->env[i][len] == '=' && d->args[a][len] != '=')
+	ft_printf("test\n");
+	if (d->env[i][len] == '=' && d->args[a][len] == '\0')
 		return (0);
+	ft_printf("env : %s\n", d->env[i]);
+	ft_printf("arg : %s\n", d->args[a]);
+	(void)len;
 	tmp = d->env[i];
 	free(d->env[i]);
 	d->env[i] = ft_strdup(d->args[a]);
@@ -150,10 +154,13 @@ int		check_cmp(t_mini *d, int a)
 			break;
 		len++;
 	}
+	ft_printf("Len : %d\n", len);
 	while (i < d->c_env)
 	{
 		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=')
 			return (replace(d, i, a, len));
+		// if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '\0')
+		// 	return (replace(d, i, a, len));	
 		i++;
 	}
 	return (1);
