@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/02 17:47:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/02 17:55:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,6 @@ int	replace(t_mini *d, int i, int a, int len)
 {
 	char *tmp;
 	
-	ft_printf("a  : %d\n", a);
-	ft_printf("arg: %s\n", d->args[a]);
-	ft_printf("a c: %c\n", d->args[a][len]);
-	ft_printf("e c: %c\n", d->env[i][len]);
 	if (d->args[a][len] == '\0')
 		return (0);
 	tmp = d->env[i];
@@ -160,12 +156,6 @@ int		check_cmp(t_mini *d, int a)
 			return (replace(d, i, a, len));
 		if	(ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '\0' && d->args[a][len] == '=')
 			return (replace(d, i, a, len));
-//		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=' && d->args[a][len] == '\0')
-//		{
-//			ft_printf("env : %c\n", d->env[i][len]);
-//			ft_printf("arg : %c\n", d->args[a][len]);
-//			return (0);
-//		}
 		i++;
 	}
 	return (1);
