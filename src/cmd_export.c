@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/01 11:41:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/02 17:47:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,16 @@ int	replace(t_mini *d, int i, int a, int len)
 {
 	char *tmp;
 	
-	ft_printf("test\n");
-	if (d->env[i][len] == '=' && d->args[a][len] == '\0')
+	ft_printf("a  : %d\n", a);
+	ft_printf("arg: %s\n", d->args[a]);
+	ft_printf("a c: %c\n", d->args[a][len]);
+	ft_printf("e c: %c\n", d->env[i][len]);
+	if (d->args[a][len] == '\0')
 		return (0);
-	ft_printf("env : %s\n", d->env[i]);
-	ft_printf("arg : %s\n", d->args[a]);
-	(void)len;
 	tmp = d->env[i];
 	free(d->env[i]);
 	d->env[i] = ft_strdup(d->args[a]);
-	ft_strlcpy(d->env[i], d->args[a], ft_strlen(d->args[a]) +1);
+	ft_strlcpy(d->env[i], d->args[a], ft_strlen(d->args[a]) + 1);
 	return (0);
 }
 
@@ -153,14 +153,19 @@ int		check_cmp(t_mini *d, int a)
 		if (d->args[a][len] == '=')
 			break;
 		len++;
-	}
-	ft_printf("Len : %d\n", len);
+	};
 	while (i < d->c_env)
 	{
 		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=')
 			return (replace(d, i, a, len));
-		// if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '\0')
-		// 	return (replace(d, i, a, len));	
+		if	(ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '\0' && d->args[a][len] == '=')
+			return (replace(d, i, a, len));
+//		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=' && d->args[a][len] == '\0')
+//		{
+//			ft_printf("env : %c\n", d->env[i][len]);
+//			ft_printf("arg : %c\n", d->args[a][len]);
+//			return (0);
+//		}
 		i++;
 	}
 	return (1);
@@ -175,6 +180,7 @@ int		**export(t_mini *d)
 		return (env_alpha(d));
 	while (d->args[a])
 	{
+		ft_printf("args : %s\n", d->args[a]);
 		if (check_cmp(d, a) == 1)
 			new_list(d, d->args[a]);
 		a++;
