@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/30 16:28:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/02 19:03:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,27 @@ void	execute(char **cmd)
 
 char    *find_command(int i)
 {
-    char    *command[4];
+    char    *command[5];
 
     // command[0] = "echo";
     command[0] = "pwd";
     command[1] = "cd";
     command[2] = "export";
-    // command[4] = "unset";
+    command[3] = "env";
     // command[5] = "env";
     // command[6] = "exit";
-    command[3] = NULL;
+    command[4] = NULL;
     return (command[i]);
 }
 
 int		**(*start_command(int i))(t_mini *d)
 {
-	int	**(*command[3])(t_mini *d);
+	int	**(*command[4])(t_mini *d);
 
 	command[0] = &pwd;
 	command[1] = &cd;
 	command[2] = &export;
-	// command[2] = &cmd_exit;
+	command[3] = &env;
 	// command[3] = &cmd_env;
 	// command[4] = &cmd_setenv;
 	// command[5] = &cmd_unsetenv;
@@ -68,11 +68,11 @@ int	**run_commands(t_mini *d)
 			exit(1);
         d->c_arg = count_commands(d->cmd[c], ' ');
         i = 0;
-        while (i < 3)
+        while (i < 4)
         {
 		    if (!ft_strncmp(d->args[0], find_command(i), ft_strlen(find_command(i))))
-                    d->ret = (int)start_command(i)(d);
-            i++;
+				d->ret = (int)start_command(i)(d);
+			i++;
         }
 		ft_free(d, d->args, 1);
 		c++;

@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/02 17:55:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/02 18:52:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ int		**export(t_mini *d)
 		return (env_alpha(d));
 	while (d->args[a])
 	{
-		ft_printf("args : %s\n", d->args[a]);
 		if (check_cmp(d, a) == 1)
 			new_list(d, d->args[a]);
 		a++;
