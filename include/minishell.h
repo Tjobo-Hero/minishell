@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/02 19:00:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/03 13:50:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		**pwd(t_mini *d);
 int		**cd(t_mini *d);
 int		**export(t_mini *d);
 int		**env(t_mini *d);
+int		**unset(t_mini *d);
 
 /* Utils */
 void	screen_clean(void);

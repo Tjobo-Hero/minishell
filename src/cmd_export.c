@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/02 18:52:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/03 13:48:14 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char		**copy_env(char **str, int x, int c)
 {
 	char	**tmp;
-	int i;
+	int		i;
 
 	i = 0;
 	if (c == 1)
@@ -64,7 +64,7 @@ void	print_export(char **tmp)
 	{
 		ft_printf("declare -x ");
 		k = 0;
-			is_count = 0;
+		is_count = 0;
 		while (tmp[i][k])
 		{
 			write(1, &tmp[i][k], 1);
@@ -102,11 +102,11 @@ int		**env_alpha(t_mini *d)
 		while (ft_strncmp(d->exp[i], d->exp[i + 1], ft_strlen(d->exp[i])) > 0)
 		{
 			swap(d, i);
-			i = 0;	
+			i = 0;
 		}
 		i++;
 	}
-	print_export(d->exp); 
+	print_export(d->exp);
 	free_list(d, d->exp);
 	return (0);
 }
@@ -115,6 +115,9 @@ void	new_list(t_mini *d, char *str)
 {
 	char	**tmp;
 
+	if (str[0] < 65 || (str[0] > 90 && str[0] < 95) ||
+		(str[0] > 95 && str[0] < 97) || str[0] > 122)
+		return ;
 	tmp = copy_env(d->env, d->c_env, 0);
 	free_list(d, d->env);
 	d->env = copy_env(tmp, d->c_env, 1);
@@ -124,10 +127,10 @@ void	new_list(t_mini *d, char *str)
 	free_list(d, tmp);
 }
 
-int	replace(t_mini *d, int i, int a, int len)
+int		replace(t_mini *d, int i, int a, int len)
 {
 	char *tmp;
-	
+
 	if (d->args[a][len] == '\0')
 		return (0);
 	tmp = d->env[i];
@@ -147,14 +150,17 @@ int		check_cmp(t_mini *d, int a)
 	while (d->args[a][len] != '\0')
 	{
 		if (d->args[a][len] == '=')
-			break;
+			break ;
 		len++;
-	};
+	}
 	while (i < d->c_env)
 	{
-		if (ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '=')
+		if (ft_strncmp(d->env[i], d->args[a], len) == 0 &&
+			d->env[i][len] == '=')
 			return (replace(d, i, a, len));
-		if	(ft_strncmp(d->env[i], d->args[a], len) == 0 && d->env[i][len] == '\0' && d->args[a][len] == '=')
+		if (ft_strncmp(d->env[i], d->args[a], len) == 0 &&
+			d->env[i][len] == '\0' &&
+			d->args[a][len] == '=')
 			return (replace(d, i, a, len));
 		i++;
 	}
@@ -163,8 +169,8 @@ int		check_cmp(t_mini *d, int a)
 
 int		**export(t_mini *d)
 {
-	int		a;
-	
+	int	a;
+
 	a = 1;
 	if (!d->args[1])
 		return (env_alpha(d));
