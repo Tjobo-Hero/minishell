@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/03 13:50:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:22:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@
 # include <limits.h>
 # include <errno.h>
 # include <string.h>
+# include <stdio.h>
 
 typedef struct	s_mini
 {
+	int		singleq;
+	int		doubleq;
+	int		set;
 	char	**env;
 	int		c_env;
 	char	**exp;
