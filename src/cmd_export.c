@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/09 13:01:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 18:30:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,63 +53,52 @@
 // 	free(tmp);
 // }
 
-// void	print_export(char **tmp)
-// {
-// 	int i;
-// 	int k;
-// 	int is_count;
+void	print_export(t_env **export)
+{
+	int i;
 
-// 	i = 0;
-// 	while (tmp[i])
-// 	{
-// 		ft_printf("declare -x ");
-// 		k = 0;
-// 		is_count = 0;
-// 		while (tmp[i][k])
-// 		{
-// 			write(1, &tmp[i][k], 1);
-// 			if (tmp[i][k] == '=' && is_count == 0)
-// 			{
-// 				write(1, "\"", 1);
-// 				is_count = 1;
-// 			}
-// 			k++;
-// 		}
-// 		if (is_count)
-// 			write(1, "\"", 1);
-// 		write(1, "\n", 1);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (export[i] != NULL)
+	{
+		ft_printf("declare -x %s", export[i]->head);
+		if (export[i]->set)
+			write(1, "=\"", 2);
+		ft_printf("%s", export[i]->echo);
+		if (export[i]->set)
+			write(1, "\"", 1);
+		write(1, "\n", 1);
+		i++;
+	}
+}
 
-// void	swap(t_mini *d, int i)
-// {
-// 	char *tmp;
+void	swap(t_mini *d, int i)
+{
+	t_env *tmp;
 
-// 	tmp = d->exp[i];
-// 	d->exp[i] = d->exp[i + 1];
-// 	d->exp[i + 1] = tmp;
-// }
+	tmp = d->export[i];
+	d->export[i] = d->export[i + 1];
+	d->export[i + 1] = tmp;
+}
 
-// int		**env_alpha(t_mini *d)
-// {
-// 	int i;
+int		**env_alpha(t_mini *d)
+{
+	int i;
 
-// 	i = 0;
-// 	d->exp = copy_env(d->env, d->c_env, 0);
-// 	while (d->exp[i + 1] != NULL)
-// 	{
-// 		while (ft_strncmp(d->exp[i], d->exp[i + 1], ft_strlen(d->exp[i])) > 0)
-// 		{
-// 			swap(d, i);
-// 			i = 0;
-// 		}
-// 		i++;
-// 	}
-// 	print_export(d->exp);
-// 	free_list(d, d->exp);
-// 	return (0);
-// }
+	i = 0;
+	d->export = d->env;
+	while (d->export[i + 1] != NULL)
+	{
+		while (ft_strncmp(d->export[i]->head, d->export[i + 1]->head,
+				ft_strlen(d->export[i]->head)) > 0)
+		{
+			swap(d, i);
+			i = 0;
+		}
+		i++;
+	}
+	print_export(d->export);
+	return (0);
+}
 
 // void	new_list(t_mini *d, char *str)
 // {
@@ -128,6 +117,48 @@
 // 	free_list(d, tmp);
 // }
 
+void			hash_table_insert_index1(t_env *user, t_env **env, int index)
+{
+		printf("%s\n", user->head);
+
+	if (user == NULL)
+		return ;
+	user->next = env[index];
+	env[index] = user;
+	return ;
+}
+
+void	new_list(t_mini *d, char *arg)
+{
+	t_env	tmp[1];
+	int i;
+
+	i = 0;
+	if (arg[0] < 65 || (arg[0] > 90 && arg[0] < 95) ||
+		(arg[0] > 95 && arg[0] < 97) || arg[0] > 122)
+		return ;
+	while (d->env[i] != NULL)
+		i++;
+	// print_env(d->env);
+	// printf("%d\n", i);
+	set_env(&tmp[0], arg, 0);
+	printf("%s\n", tmp->head);
+	printf("%s\n", tmp->list);
+	printf("%s\n", tmp->echo);
+	printf("%zu\n", ft_strlen(tmp->head));
+	int z = 0;
+	while (z < 4)
+	{
+		// d->env[i]->head = 'P';
+		z++;
+	}
+	printf("%s\n", d->env[i]->head);
+	// ft_strlcpy(d->env[i]->head, tmp[0].head, ft_strlen(tmp->head) + 1);
+	// ft_strlcpy(d->env[i]->list, &tmp->list, ft_strlen(tmp->list));
+	// ft_strlcpy(d->env[i]->echo, &tmp->echo, ft_strlen(tmp->echo));
+	// hash_table_insert_index1(&tmp[0], d->env, i);
+}
+
 // int		replace(t_mini *d, int i, int a, int len)
 // {
 // 	char *tmp;
@@ -141,46 +172,61 @@
 // 	return (0);
 // }
 
-// int		check_cmp(t_mini *d, int a)
-// {
-// 	int i;
-// 	int len;
+int		replace(t_mini *d, t_env *env, int a, int len)
+{
+	char *tmp;
+	int	i;
 
-// 	len = 0;
-// 	i = 0;
-// 	while (d->args[a][len] != '\0')
-// 	{
-// 		if (d->args[a][len] == '=')
-// 			break ;
-// 		len++;
-// 	}
-// 	while (i < d->c_env)
-// 	{
-// 		if (ft_strncmp(d->env[i], d->args[a], len) == 0 &&
-// 			d->env[i][len] == '=')
-// 			return (replace(d, i, a, len));
-// 		if (ft_strncmp(d->env[i], d->args[a], len) == 0 &&
-// 			d->env[i][len] == '\0' &&
-// 			d->args[a][len] == '=')
-// 			return (replace(d, i, a, len));
-// 		i++;
-// 	}
-// 	return (1);
-// }
+	if (d->args[a][len] == '\0')
+		return (0);
+	i = ft_strlen(d->args[a]);
+	env->set = 0;
+	if (d->args[a][len] == '=')
+		env->set = 1;
+	tmp = env->head;
+	clear_str(env->list);
+	clear_str(env->echo);
+	ft_strlcpy(env->list, d->args[a], i + 1);
+	ft_strlcpy(env->echo, &d->args[a][len + 1], (i - len));
+	return (0);
+}
+
+int		check_cmp(t_mini *d, int a)
+{
+	t_env	*tmp;
+	int i;
+	int len;
+
+	len = 0;
+	i = 0;
+	tmp = NULL;
+	tmp = look_up(d->args[a], d->env);
+	if (tmp == NULL)
+		return (1);
+	printf("test\n");
+	while (d->args[a][len] != '=' && d->args[a][len] != '\0')
+		len++;
+	while (ft_strncmp(d->args[a], d->env[i]->head, ft_strlen(d->env[i]->head)) != 0)
+		i++;
+	if (d->env[i]->set == 1)
+		return (replace(d, d->env[i], a, len));
+	else
+		return (replace(d, d->env[i], a, len));
+//if (d->env[i]->head[len] == '\0' && d->args[a][len] == '=')
+}
 
 int		**export(t_mini *d)
 {
-	// int	a;
+	int	a;
 
-	// a = 1;
-	// if (!d->args[1])
-	// 	return (env_alpha(d));
-	// while (d->args[a])
-	// {
-	// 	if (check_cmp(d, a) == 1)
-	// 		new_list(d, d->args[a]);
-	// 	a++;
-	// }
-	(void)d;
+	a = 1;
+	if (!d->args[1])
+		return (env_alpha(d));
+	while (d->args[a])
+	{
+		if (check_cmp(d, a) == 1)
+			new_list(d, d->args[a]);
+		a++;
+	}
 	return (NULL);
 }

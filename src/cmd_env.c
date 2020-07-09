@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 13:00:40 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 16:23:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ int		**env(t_mini *d)
 	int i;
 
 	i = 0;
-	// while (d->env[i])
-	// {
-		// if (ft_strchr(d->env[i], '='))
-		// 	ft_printf("%s\n", d->env[i]);
-	// 	i++;
-	// }
-	(void)d;
+	while (d->env[i] != NULL && d->env[i]->set)
+	{
+		ft_printf("%s\n", d->env[i]->list);
+		i++;
+	}
 	return (0);
 }

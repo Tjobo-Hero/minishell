@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/09 13:26:09 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 17:53:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	split_commands(t_mini *d)
 	i = 0;
 	while (i < d->c_cmd)
 	{
+		// d->export = d->env;
 		d->c_arg = count(d, d->cmd[i], ' ');
 		d->args = ft_memalloc(sizeof(char*) * (d->c_arg + 1));
 		if (d->args == NULL)
@@ -144,65 +145,14 @@ void	get_commands(t_mini *d)
 	free(d->line);
 }
 
-void	print(t_env **hash_table)
-{
-	int		i;
-
-	i = 0;
-	while (i < ENV_SIZE)
-	{
-		if (hash_table[i] == NULL)
-			printf("\t%i\t---\n", i);
-		else
-			printf("\t%i\t%s\n", i, hash_table[i]->head);
-		i++;
-	}
-}
-
-// void	print(t_env **hash_table)
-// {
-// 	t_env	*tmp;
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < ECHO)
-// 	{
-// 		if (hash_table[i] == NULL)
-// 			printf("\t%i\t---\n", i);
-// 		else
-// 		{
-// 			printf("\t%i\t", i);
-// 			tmp = hash_table[i];
-// 			while (tmp != NULL)
-// 			{
-// 				printf("%s - ", tmp->head);
-// 				tmp = tmp->next;
-// 			}
-// 			printf("\n");
-// 		}
-// 		i++;
-// 	}
-// }
-
-t_env	*look_up(char *name, t_env **hash_table)
-{
-	t_env	*tmp;
-	int		i;
-
-	i = hash(name);
-	tmp = hash_table[i];
-	while (tmp != NULL && strncmp(tmp->head, name, strlen(name)) != 0)
-		tmp = tmp->next;
-	return (tmp);
-}
-
 int		main(void)
 {
 	t_mini	d;
 
 	init_env(&d);
-	d.export = d.env;
 	screen_clean();
+	// print_env(d.env);
+	// print_echo(d.echo);
 	while (1)
 	{
 		write(1, "minishell> ", 11);

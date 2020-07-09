@@ -6,41 +6,43 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 13:58:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 17:33:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_str(char *str)
+t_env	new_lst(t_mini *d, char *str)
 {
-	int i;
+	t_env	tmp[1];
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		str[i] = '\0';
-		i++;
-	}
+	tmp->set = 0;
+	ft_strlcpy(tmp->head, str, ft_strlen(str) + 1);
+	ft_strlcpy(tmp->list, d->cwd, ft_strlen(d->cwd));
+	return (tmp[0]);
 }
 
-// int		**update_env(t_mini *d)
-// {
-// 	int		i;
+int		**update_env(t_mini *d)
+{
+	t_env	tmp[1];
+	char	*str;
+	int		i;
 
-// 	i = 0;
-// 	getcwd(d->cwd, sizeof(d->cwd));
-// 	while (d->env[i])
-// 	{
-// 		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
-// 			break ;
-// 		i++;
-// 	}
-// 	clear_str(d->env[i]);
-// 	ft_strlcat(d->env[i], "PWD=", 5);
-// 	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
-// 	return (0);
-// }
+	i = 0;
+	getcwd(d->cwd, sizeof(d->cwd));
+	while (ft_strncmp("PWD", d->env[i]->head, ft_strlen(d->env[i]->head)) != 0)
+		i++;
+	clear_str(d->env[i]->list);
+	clear_str(d->env[i]->echo);
+	str = ft_strjoin("PWD=", d->cwd);
+	ft_strlcpy(d->env[i]->list, str, ft_strlen(str));
+	ft_strlcpy(d->env[i]->echo, d->cwd, ft_strlen(d->cwd) + 1);
+	delete_lst("PWD", d->echo);
+	tmp[0] = new_lst(d, "PWD");
+	hash_table_insert(&tmp[0], d->echo);
+	free(str);
+	return (0);
+}
 
 char	*get_user(t_mini *d)
 {
@@ -65,8 +67,7 @@ int		**cd(t_mini *d)
 	{
 		if (chdir(get_user(d)))
 			return (error_return(d, 1));
-		return (0);
-		// return (update_env(d));
+		return (update_env(d));
 	}
 	if (d->c_arg >= 3)
 		return (error_return(d, 0));
@@ -74,10 +75,9 @@ int		**cd(t_mini *d)
 	{
 		if (chdir(get_user(d)))
 			return (error_return(d, 1));
-		return (0);
+		return (update_env(d));
 	}
 	if (chdir(d->args[1]))
 	 		return (error_return(d, 1));
-	return (0);
-	// return (update_env(d));
+	return (update_env(d));
 }
