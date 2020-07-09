@@ -6,20 +6,28 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/07 14:20:52 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/08 11:04:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		execute(char **cmd)
+void	execute(t_mini *d, char **cmd)
 {
+	char	*tmp;
 	int i;
 
 	i = 0;
-	if (execve(cmd[0], cmd, NULL) == -1)
-		i = -1;
-	return (i);
+	tmp = ft_strjoin("/bin/", cmd[0]);
+	if (fork () == 0)
+	{
+		d->exec = execve(tmp, cmd, NULL);
+		if (d->exec == -1)
+			ft_printf("bash: %s: command not found\n", d->args[0]);
+		exit(0);
+	}
+	wait(&i);
+	free(tmp);
 }
 
 char    *find_command(int i)
@@ -88,8 +96,8 @@ void	change_args_if(t_mini *d, char *str)
 
 	tmp = NULL;
 	if (ft_strncmp(str, "echo", ft_strlen(str)) == 0 ||
-		ft_strncmp(str, "env", 3) == 0 ||
-		ft_strncmp(str, "pwd", 3) == 0)
+		ft_strncmp(str, "env", ft_strlen(str)) == 0 ||
+		ft_strncmp(str, "pwd", ft_strlen(str)) == 0)
 		{
 			tmp = d->args[0];
 			d->args[0] = ft_strdup(str);
@@ -120,7 +128,6 @@ int		**run_commands(t_mini *d)
 		}
 		i++;
 	}
-	if (execute(d->args) == -1)
-		ft_printf("bash: %s: command not found\n", d->args[0]);
+	execute(d, d->args);
 	return (0);
 }

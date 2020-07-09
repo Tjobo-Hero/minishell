@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/30 16:28:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 13:58:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,45 +24,30 @@ void	clear_str(char *str)
 	}
 }
 
-int		**update_env(t_mini *d)
+// int		**update_env(t_mini *d)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	getcwd(d->cwd, sizeof(d->cwd));
+// 	while (d->env[i])
+// 	{
+// 		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
+// 			break ;
+// 		i++;
+// 	}
+// 	clear_str(d->env[i]);
+// 	ft_strlcat(d->env[i], "PWD=", 5);
+// 	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
+// 	return (0);
+// }
+
+char	*get_user(t_mini *d)
 {
-	int		i;
+	t_env	*tmp;
 
-	i = 0;
-	getcwd(d->cwd, sizeof(d->cwd));
-	while (d->env[i])
-	{
-		if (!ft_strncmp(d->env[i], "PWD", 3) && d->env[i][3] == '=')
-			break ;
-		i++;
-	}
-	clear_str(d->env[i]);
-	ft_strlcat(d->env[i], "PWD=", 5);
-	ft_strlcat(d->env[i], d->cwd, ft_strlen(d->cwd) + 5);
-	return (0);
-}
-
-char	*get_user(t_mini *d, int c)
-{
-	char	*user;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	free(d->args[1]);
-	while (d->env[i] != '\0')
-	{
-		if (!ft_strncmp(d->env[i], "HOME", 4) && d->env[i][4] == '=')
-			break ;
-		i++;
-	}
-	user = ft_strdup(&d->env[i][5]);
-	if (user == NULL)
-		return (NULL);
-	tmp = user;
-	if (c == 0)
-		free(user);
-	return (tmp);
+	tmp = look_up("HOME", d->echo);
+	return (tmp->list);
 }
 
 int		**error_return(t_mini *d, int i)
@@ -78,14 +63,21 @@ int		**cd(t_mini *d)
 {
 	if (d->args[1] == NULL)
 	{
-		if (chdir(get_user(d, 0)))
+		if (chdir(get_user(d)))
 			return (error_return(d, 1));
-		return (update_env(d));
+		return (0);
+		// return (update_env(d));
 	}
 	if (d->c_arg >= 3)
 		return (error_return(d, 0));
-	d->args[1][0] == '~' ? d->args[1] = get_user(d, 1) : 0;
+	if (ft_strncmp(d->args[1], "~", ft_strlen(d->args[1])) == 0)
+	{
+		if (chdir(get_user(d)))
+			return (error_return(d, 1));
+		return (0);
+	}
 	if (chdir(d->args[1]))
-		return (error_return(d, 1));
-	return (update_env(d));
+	 		return (error_return(d, 1));
+	return (0);
+	// return (update_env(d));
 }

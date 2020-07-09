@@ -6,63 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/07 09:25:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/09 13:26:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	get_home_path(t_mini *d)
-{
-	int i;
-	char *temp;
-
-	i = 0;
-	while (d->env[i] && ft_strncmp(d->env[i], "HOME=", 5) != 0)
-		i++;
-	if (d->env[i] == NULL)
-		return ;
-	temp = ft_substr(d->env[i], 5, ft_strlen(d->env[i]) - 4);
-	if (temp == NULL)
-		return ((void)malloc_error());
-	d->home_path = (char*)malloc(sizeof(char*) * (ft_strlen(temp) + 3));
-	/* bij fout free temp */
-	if (!d->home_path)
-		return ((void)malloc_error());
-	i = 0;
-	while (temp[i])
-	{
-		d->home_path[i] = temp[i];
-		i++;
-	}
-	d->home_path[i] = '/';
-	d->home_path[i + 1] = '\0';
-	free(temp);
-}
-
-void	init_env(t_mini *d)
-{
-	extern char **environ;
-	int i;
-
-	i = 0;
-	d->c_env = 0;
-	while (environ[d->c_env] != NULL)
-		d->c_env++;
-	d->env = (char **)malloc(sizeof(char*) * (d->c_env + 1));
-	if (!d->env)
-		return ((void)malloc_error());
-	while (environ[i] != NULL)
-	{
-		(d->env)[i] = (char*)malloc(sizeof(char*) * (ft_strlen(environ[i])));
-		if (!(d->env)[i])
-			return ((void)malloc_error());
-		ft_strlcpy((d->env)[i], environ[i], (ft_strlen(environ[i]) + 1));
-		i++;
-	}
-	(d->env)[i] = NULL;
-	get_home_path(d);
-}
 
 void	set_on_off(t_mini *d, char c)
 {
@@ -196,13 +144,64 @@ void	get_commands(t_mini *d)
 	free(d->line);
 }
 
+void	print(t_env **hash_table)
+{
+	int		i;
+
+	i = 0;
+	while (i < ENV_SIZE)
+	{
+		if (hash_table[i] == NULL)
+			printf("\t%i\t---\n", i);
+		else
+			printf("\t%i\t%s\n", i, hash_table[i]->head);
+		i++;
+	}
+}
+
+// void	print(t_env **hash_table)
+// {
+// 	t_env	*tmp;
+// 	int		i;
+
+// 	i = 0;
+// 	while (i < ECHO)
+// 	{
+// 		if (hash_table[i] == NULL)
+// 			printf("\t%i\t---\n", i);
+// 		else
+// 		{
+// 			printf("\t%i\t", i);
+// 			tmp = hash_table[i];
+// 			while (tmp != NULL)
+// 			{
+// 				printf("%s - ", tmp->head);
+// 				tmp = tmp->next;
+// 			}
+// 			printf("\n");
+// 		}
+// 		i++;
+// 	}
+// }
+
+t_env	*look_up(char *name, t_env **hash_table)
+{
+	t_env	*tmp;
+	int		i;
+
+	i = hash(name);
+	tmp = hash_table[i];
+	while (tmp != NULL && strncmp(tmp->head, name, strlen(name)) != 0)
+		tmp = tmp->next;
+	return (tmp);
+}
+
 int		main(void)
 {
 	t_mini	d;
 
 	init_env(&d);
-	d.exp = NULL;
-	d.c_exp = d.c_env;
+	d.export = d.env;
 	screen_clean();
 	while (1)
 	{
