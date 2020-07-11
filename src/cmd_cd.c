@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 17:33:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 09:36:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		**update_env(t_mini *d)
 	clear_str(d->env[i]->list);
 	clear_str(d->env[i]->echo);
 	str = ft_strjoin("PWD=", d->cwd);
-	ft_strlcpy(d->env[i]->list, str, ft_strlen(str));
+	ft_strlcpy(d->env[i]->list, str, ft_strlen(str) +1 );
 	ft_strlcpy(d->env[i]->echo, d->cwd, ft_strlen(d->cwd) + 1);
 	delete_lst("PWD", d->echo);
 	tmp[0] = new_lst(d, "PWD");

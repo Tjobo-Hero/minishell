@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/09 17:53:36 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 09:23:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	split_commands(t_mini *d)
 	i = 0;
 	while (i < d->c_cmd)
 	{
-		// d->export = d->env;
 		d->c_arg = count(d, d->cmd[i], ' ');
 		d->args = ft_memalloc(sizeof(char*) * (d->c_arg + 1));
 		if (d->args == NULL)

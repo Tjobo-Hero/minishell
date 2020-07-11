@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/09 17:41:41 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 09:23:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct	s_mini
 	char	*home_path;
 	t_env	*env[ENV_SIZE];
 	t_env	*echo[ECHO];
-	t_env	**export;
 }				t_mini;
 
 int		get_next_line(int fd, char **line);
@@ -94,7 +93,7 @@ void	print_env(t_env **hash_table);
 void	print_echo(t_env **hash_table);
 void	clear_str(char *str);
 void	hash_table_insert_index(t_env *user, t_env **env, int index);
-void			set_env(t_env *user, char *environ, int env_or_echo);
+void	set_env(t_env *user, char *environ, int env_or_echo, int index);
 
 // char	**p_ret(int i, t_mini *d);
 #endif

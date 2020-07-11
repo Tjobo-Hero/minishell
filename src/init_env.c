@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 18:09:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/10 10:54:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			set_env(t_env *user, char *environ, int env_or_echo)
+void			set_env(t_env *user, char *environ, int env_or_echo, int index)
 {
 	int		i;
 	int		len;
@@ -22,13 +22,12 @@ void			set_env(t_env *user, char *environ, int env_or_echo)
 	len = ft_strlen(environ);
 	while (environ[i] != '=' && environ[i] != '\0')
 		i++;
-	// if (environ[i] == '=')
-	// 	i++;
 	ft_strlcpy(user->head, environ, i + 1);
 	if (env_or_echo == 0)
 	{
 		if (environ[i] == '=')
 			user->set = 1;
+		user->index = index;
 		ft_strlcpy(user->list, environ, len + 1);
 		ft_strlcpy(user->echo, &environ[i + 1], (len - i));
 	}
@@ -72,8 +71,8 @@ void			init_env(t_mini *d)
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		set_env(&env_e[i], environ[i], 0);
-		set_env(&echo_e[i], environ[i], 1);
+		set_env(&env_e[i], environ[i], 0, i);
+		set_env(&echo_e[i], environ[i], 1, 0);
 		hash_table_insert_index(&env_e[i], d->env, i);
 		hash_table_insert_index(&echo_e[i], d->echo, hash_echo(echo_e[i].head));
 		i++;
