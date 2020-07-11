@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 16:17:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 13:48:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,43 @@ void	hash_table_insert(t_env *name, t_env **hash_table)
 	name->next = hash_table[index];
 	hash_table[index] = name;
 	return ;
+}
+
+void	swap(t_env **tmp, int i, int n)
+{
+	int tmp1;
+
+	tmp1 = tmp[i]->index;
+	tmp[i]->index = tmp[n]->index;
+	tmp[n]->index = tmp1;
+}
+
+int		**alpha(t_env **env)
+{
+	int i;
+	int c;
+	int n;
+	int d;
+
+	d = 0;
+	while (env[d] != NULL)
+	{
+		i = d;
+		n = i + 1;
+		while (env[n] != NULL)
+		{
+			c = ft_strncmp(env[i]->head, env[n]->head, ft_strlen(env[i]->head));
+			if ((c > 0 && env[i]->index < env[n]->index) ||
+				(c < 0 && env[i]->index > env[n]->index))
+			{
+				swap(env, i, n);
+				i = d;
+				n = i + 1;
+			}
+			else
+				n++;
+		}
+		d++;
+	}
+	return (0);
 }

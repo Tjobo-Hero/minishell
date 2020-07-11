@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/10 10:54:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 13:49:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void			init_env(t_mini *d)
 		hash_table_insert_index(&echo_e[i], d->echo, hash_echo(echo_e[i].head));
 		i++;
 	}
+	alpha(d->env);
 }

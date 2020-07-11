@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/11 09:23:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/11 14:44:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct		s_env
 	char			head[HEAD_MAX];
 	char			list[STR_MAX];
 	char			echo[STR_MAX];
-	unsigned int	index;
+	int				index;
 	int				set;
 	struct s_env	*next;
 }					t_env;
@@ -94,6 +94,7 @@ void	print_echo(t_env **hash_table);
 void	clear_str(char *str);
 void	hash_table_insert_index(t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int env_or_echo, int index);
+int		**alpha(t_env **env);
 
 // char	**p_ret(int i, t_mini *d);
 #endif
