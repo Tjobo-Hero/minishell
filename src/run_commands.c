@@ -6,43 +6,78 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/08 11:04:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/13 11:01:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(t_mini *d, char **cmd)
+void		free_environ(char **environ)
+{
+	int		i;
+
+	i = 0;
+	while (environ[i] != NULL)
+		i++;
+	while (i > 0)
+	{
+		free(environ[i - 1]);
+		i--;
+	}
+	free(environ);
+}
+
+void		make_environ(t_mini *d)
+{
+	int		i;
+
+	i = 0;
+	while (d->env[i] != NULL)
+		i++;
+	d->environ = ft_memalloc(sizeof(char *) * (i + 1));
+	// if (d->environ == NULL)
+	// 	return (NULL);
+	i = 0;
+	while (d->env[i] != NULL)
+	{
+		d->environ[i] = ft_strdup((const char*)d->env[i]->list);
+		i++;
+	}
+	d->environ[i] = NULL;
+}
+
+void		execute(t_mini *d, char **cmd)
 {
 	char	*tmp;
-	int i;
+	int		i;
 
 	i = 0;
 	tmp = ft_strjoin("/bin/", cmd[0]);
-	if (fork () == 0)
+	make_environ(d);
+	if (fork() == 0)
 	{
-		d->exec = execve(tmp, cmd, NULL);
-		if (d->exec == -1)
+		if (execve(tmp, cmd, d->environ) == -1)
 			ft_printf("bash: %s: command not found\n", d->args[0]);
 		exit(0);
 	}
 	wait(&i);
+	free_environ(d->environ);
 	free(tmp);
 }
 
-char    *find_command(int i)
+char	*find_command(int i)
 {
-    char    *command[6];
+	char	*command[6];
 
-    command[0] = "pwd";
-    command[1] = "cd";
-    command[2] = "export";
-    command[3] = "env";
-    command[4] = "unset";
-    // command[15] = "exit";
-    // command[18] = "echo";
-    command[5] = NULL;
-    return (command[i]);
+	command[0] = "pwd";
+	command[1] = "cd";
+	command[2] = "export";
+	command[3] = "env";
+	command[4] = "unset";
+	// command[15] = "exit";
+	// command[18] = "echo";
+	command[5] = NULL;
+	return (command[i]);
 }
 
 int		**(*start_command(int i))(t_mini *d)
@@ -57,10 +92,10 @@ int		**(*start_command(int i))(t_mini *d)
 	return (command[i]);
 }
 
-char	*to_lower(char *str)
+char		*to_lower(char *str)
 {
 	char	*tmp;
-	int i;
+	int		i;
 
 	i = 0;
 	tmp = ft_strdup(str);
@@ -98,11 +133,11 @@ void	change_args_if(t_mini *d, char *str)
 	if (ft_strncmp(str, "echo", ft_strlen(str)) == 0 ||
 		ft_strncmp(str, "env", ft_strlen(str)) == 0 ||
 		ft_strncmp(str, "pwd", ft_strlen(str)) == 0)
-		{
-			tmp = d->args[0];
-			d->args[0] = ft_strdup(str);
-			free(tmp);
-		}
+	{
+		tmp = d->args[0];
+		d->args[0] = ft_strdup(str);
+		free(tmp);
+	}
 	free(str);
 }
 

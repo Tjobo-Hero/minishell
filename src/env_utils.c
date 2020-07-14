@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/11 13:48:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/14 22:00:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- void	print_echo(t_env **hash_table)
+void	print_echo(t_env **hash_table)
 {
 	t_env	*tmp;
 	int		i;
@@ -134,41 +134,111 @@ void	hash_table_insert(t_env *name, t_env **hash_table)
 	return ;
 }
 
-void	swap(t_env **tmp, int i, int n)
+void	print_new(t_env **hash_table)
 {
-	int tmp1;
+	t_env	*tmp;
+	int		c;
+	int		i;
 
-	tmp1 = tmp[i]->index;
-	tmp[i]->index = tmp[n]->index;
-	tmp[n]->index = tmp1;
+	c = 0;
+	i = 0;
+	while (i < ECHO)
+	{
+		if (hash_table[i] != NULL)
+		{
+			tmp = hash_table[i];
+			while (tmp && tmp->alpha != c)
+				tmp = tmp->next;
+		}
+		if (tmp != NULL && tmp->alpha == c)
+		{
+			printf("[%2d] %s\n", tmp->alpha, tmp->head);
+			c++;
+			i = 0;
+		}
+		else
+			i++;
+	}
+}
+
+t_env	*find_next(t_env **env, t_env *tmp, int *i)
+{
+	tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->alpha == ' ')
+			return (tmp);
+		tmp = tmp->next;
+	}
+	*i = *i + 1;
+	while (env[*i] == NULL)
+		*i = *i + 1;
+	while (*i < ECHO)
+	{
+		tmp = env[*i];
+		while (tmp)
+		{
+			if (tmp->alpha == ' ')
+				return (tmp);
+			tmp = tmp->next;
+		}
+		*i = *i + 1;
+	}
+	return (NULL);
+}
+
+t_env	*find_free(t_env **env)
+{
+	t_env	*tmp;
+	int		i;
+
+	i = 0;
+	while (i < ECHO)
+	{
+		tmp = env[i];
+		while (tmp)
+		{
+			if (tmp->alpha == ' ')
+				return (tmp);
+			tmp = tmp->next;
+		}
+		i++;
+	}
+	return (tmp);
 }
 
 int		**alpha(t_env **env)
 {
-	int i;
-	int c;
-	int n;
-	int d;
+	t_env	*cur;
+	t_env	*nex;
+	int		i;
+	int		l;
+	int		sl;
 
-	d = 0;
-	while (env[d] != NULL)
+	i = 0;
+	l = 0;
+	while (env[l] == NULL)
+		l++;
+	sl = l;
+	cur = env[l];
+	while (cur != NULL)
 	{
-		i = d;
-		n = i + 1;
-		while (env[n] != NULL)
+		nex = find_free(env);
+		while (nex != NULL)
 		{
-			c = ft_strncmp(env[i]->head, env[n]->head, ft_strlen(env[i]->head));
-			if ((c > 0 && env[i]->index < env[n]->index) ||
-				(c < 0 && env[i]->index > env[n]->index))
-			{
-				swap(env, i, n);
-				i = d;
-				n = i + 1;
-			}
+			if (ft_strncmp(cur->head, nex->head, ft_strlen(cur->head)) <= 0)
+				nex = find_next(env, nex, &l);
 			else
-				n++;
+			{
+				cur = nex;
+				nex = find_next(env, nex, &l);
+			}
 		}
-		d++;
+		if (cur->alpha == ' ')
+			cur->alpha = i;
+		i++;
+		l = sl;
+		cur = find_free(env);
 	}
 	return (0);
 }

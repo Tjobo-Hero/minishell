@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/11 21:37:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/13 09:01:04 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	remove_from_list(char *arg, t_env **env)
 		c++;
 	while (ft_strncmp(arg, env[i]->head, ft_strlen(arg)))
 		i++;
-	while (i < c)
-	{
-		clear_list()
-	}
+	// while (i < c)
+	// {
+	// 	clear_list()
+	// }
 }
 
 int		**unset(t_mini *d)

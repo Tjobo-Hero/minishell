@@ -6,7 +6,7 @@
 #    By: tvan-cit <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/05 09:17:05 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/25 15:46:13 by tvan-cit      ########   odam.nl          #
+#    Updated: 2020/07/13 09:48:22 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC = 	ft_memset.c \
 		ft_memmove.c \
 		ft_memchr.c \
 		ft_memcmp.c \
+		ft_memalloc.c \
 		ft_strlen.c \
 		ft_strlcpy.c \
 		ft_strlcat.c \
