@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/11 14:44:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 14:13:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_env
 	char			echo[STR_MAX];
 	int				index;
 	int				set;
+	int				alpha;
 	struct s_env	*next;
 }					t_env;
 
@@ -48,8 +49,7 @@ typedef struct	s_mini
 	int		doubleq;
 	int		set;
 	int		exec;
-	// char	**env;
-	int		c_env;
+	char	**environ;
 	char	**exp;
 	int		c_exp;
 	char	*line;
@@ -60,14 +60,15 @@ typedef struct	s_mini
 	int		c_arg;
 	int		ret;
 	char	*home_path;
-	t_env	*env[ENV_SIZE];
+	int		index;
+	int		count;
+	t_env	list[ENV_SIZE];
 	t_env	*echo[ECHO];
 }				t_mini;
 
 int		get_next_line(int fd, char **line);
 
 int		main(void);
-// void	init_env(t_env **env, t_env **echo);
 void	init_env(t_mini *d);
 void	ft_free(t_mini *d, char **args, int i);
 
@@ -93,8 +94,10 @@ void	print_env(t_env **hash_table);
 void	print_echo(t_env **hash_table);
 void	clear_str(char *str);
 void	hash_table_insert_index(t_env *user, t_env **env, int index);
-void	set_env(t_env *user, char *environ, int env_or_echo, int index);
+void	set_env(t_env *user, char *environ, int index);
 int		**alpha(t_env **env);
+t_env	*find_free(t_env **env);
+void			init(t_env **tmp, int x);
 
 // char	**p_ret(int i, t_mini *d);
 #endif

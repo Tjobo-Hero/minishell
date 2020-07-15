@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/11 13:49:51 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 14:15:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			set_env(t_env *user, char *environ, int env_or_echo, int index)
+void			set_env(t_env *user, char *environ, int index)
 {
 	int		i;
 	int		len;
@@ -23,19 +23,15 @@ void			set_env(t_env *user, char *environ, int env_or_echo, int index)
 	while (environ[i] != '=' && environ[i] != '\0')
 		i++;
 	ft_strlcpy(user->head, environ, i + 1);
-	if (env_or_echo == 0)
-	{
-		if (environ[i] == '=')
-			user->set = 1;
-		user->index = index;
-		ft_strlcpy(user->list, environ, len + 1);
-		ft_strlcpy(user->echo, &environ[i + 1], (len - i));
-	}
-	else
-		ft_strlcpy(user->list, &environ[i + 1], (len - i));
+	if (environ[i] == '=')
+		user->set = 1;
+	user->index = index;
+	user->alpha = ' ';
+	ft_strlcpy(user->list, environ, len + 1);
+	ft_strlcpy(user->echo, &environ[i + 1], (len - i));
 }
 
-void			init(t_mini *d, int x)
+void			init(t_env **tmp, int x)
 {
 	int	i;
 
@@ -43,39 +39,36 @@ void			init(t_mini *d, int x)
 	while (i < x)
 	{
 		if (x == 50)
-			d->env[i] = NULL;
+			tmp[i] = NULL;
 		else
-			d->echo[i] = NULL;
+			tmp[i] = NULL;
 		i++;
 	}
 }
 
-void			hash_table_insert_index(t_env *user, t_env **env, int index)
+void			hash_table_insert_index(t_env *user, t_env **env, int hash)
 {
 	if (user == NULL)
 		return ;
-	user->next = env[index];
-	env[index] = user;
+	user->next = env[hash];
+	env[hash] = user;
 	return ;
 }
 
 void			init_env(t_mini *d)
 {
-	t_env		env_e[ENV_SIZE];
-	t_env		echo_e[ENV_SIZE];
 	extern char **environ;
-	int			i;
 
-	init(d, ENV_SIZE);
-	init(d, ECHO);
-	i = 0;
-	while (environ[i] != NULL)
+	d->index = 0;
+	d->count = -1;
+	init(d->echo, ECHO);
+	while (environ[d->index] != NULL)
 	{
-		set_env(&env_e[i], environ[i], 0, i);
-		set_env(&echo_e[i], environ[i], 1, 0);
-		hash_table_insert_index(&env_e[i], d->env, i);
-		hash_table_insert_index(&echo_e[i], d->echo, hash_echo(echo_e[i].head));
-		i++;
+		set_env(&d->list[d->index], environ[d->index], d->index);
+		hash_table_insert_index(&d->list[d->index], d->echo,
+		hash_echo(d->list[d->index].head));
+		d->index++;
+		d->count++;
 	}
-	alpha(d->env);
+	alpha(d->echo);
 }

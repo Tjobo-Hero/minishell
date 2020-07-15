@@ -6,39 +6,40 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/11 09:36:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 09:33:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	new_lst(t_mini *d, char *str)
+t_env	new_lst(t_mini *d, t_env *origin, char *str)
 {
 	t_env	tmp[1];
 
-	tmp->set = 0;
+	tmp->set = origin->set;
+	tmp->index = origin->index;
+	tmp->alpha = origin->alpha;
 	ft_strlcpy(tmp->head, str, ft_strlen(str) + 1);
 	ft_strlcpy(tmp->list, d->cwd, ft_strlen(d->cwd));
+	ft_strlcpy(tmp->echo, d->cwd, ft_strlen(d->cwd));
 	return (tmp[0]);
 }
 
 int		**update_env(t_mini *d)
 {
+	t_env	*check;
 	t_env	tmp[1];
 	char	*str;
 	int		i;
 
 	i = 0;
+	check = look_up("PWD", d->echo);
+	if (check == NULL)
+		return (0);
 	getcwd(d->cwd, sizeof(d->cwd));
-	while (ft_strncmp("PWD", d->env[i]->head, ft_strlen(d->env[i]->head)) != 0)
-		i++;
-	clear_str(d->env[i]->list);
-	clear_str(d->env[i]->echo);
 	str = ft_strjoin("PWD=", d->cwd);
-	ft_strlcpy(d->env[i]->list, str, ft_strlen(str) +1 );
-	ft_strlcpy(d->env[i]->echo, d->cwd, ft_strlen(d->cwd) + 1);
 	delete_lst("PWD", d->echo);
-	tmp[0] = new_lst(d, "PWD");
+	tmp[0] = new_lst(d, check, "PWD");
 	hash_table_insert(&tmp[0], d->echo);
 	free(str);
 	return (0);
@@ -49,6 +50,7 @@ char	*get_user(t_mini *d)
 	t_env	*tmp;
 
 	tmp = look_up("HOME", d->echo);
+	/* protection */
 	return (tmp->list);
 }
 
@@ -78,6 +80,6 @@ int		**cd(t_mini *d)
 		return (update_env(d));
 	}
 	if (chdir(d->args[1]))
-	 		return (error_return(d, 1));
+		return (error_return(d, 1));
 	return (update_env(d));
 }

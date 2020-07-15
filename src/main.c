@@ -6,11 +6,81 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/11 09:23:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 13:42:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int		**print_alpha(t_env **tmp)
+// {
+// 	int i;
+// 	int c;
+
+// 	i = 0;
+// 	c = 0;
+// 	while (tmp[c] != NULL)
+// 	{
+// 		while (tmp[i]->index != c)
+// 			i++;
+// 		ft_printf("declare -x %s", tmp[i]->head);
+// 		if (tmp[i]->set)
+// 		{
+// 			write(1, "=\"", 2);
+// 			ft_printf("%s", tmp[i]->echo);
+// 			write(1, "\"", 1);
+// 		}
+// 		write(1, "\n", 1);
+// 		i = 0;
+// 		c++;
+// 	}
+// 	return (0);
+// }
+
+// void	swap1(t_env **tmp, int i, int n)
+// {
+// 	int tmp1;
+
+// 	tmp1 = tmp[i]->index;
+// 	tmp[i]->index = tmp[n]->index;
+// 	tmp[n]->index = tmp1;
+// }
+
+// void	alpha_list(t_env **env)
+// {
+// 	int	x;
+// 	int i;
+// 	int c;
+// 	int n;
+// 	int d;
+
+// 	d = 0;
+// 	x = 0;
+// 	while (x < ECHO)
+// 	{
+// 		i = d;
+// 		n = i + 1;
+// 		while (env[n] != NULL)
+// 		{
+// 			while (env[i] != NULL)
+// 			{
+// 				c = ft_strncmp(env[i]->head, env[n]->head, ft_strlen(env[i]->head));
+// 				if ((c > 0 && env[i]->alpha < env[n]->alpha) ||
+// 					(c < 0 && env[i]->alpha > env[n]->alpha))
+// 				{
+// 					swap1(env, i, n);
+// 					i = d;
+// 					n = i + 1;
+// 				}
+// 				else
+// 					n++;
+
+// 			}
+// 		}
+// 		d++;
+// 		x++;
+// 	}
+// }
 
 void	set_on_off(t_mini *d, char c)
 {
@@ -42,7 +112,8 @@ int		count(t_mini *d, char *str, char c)
 		i++;
 	while (str[i] != '\0')
 	{
-		if (str[i] == c && (str[i - 1] != '\\' && str[i - 1] != c) && d->set == 0)
+		if (str[i] == c && (str[i - 1] != '\\' && str[i - 1] != c) &&
+			d->set == 0)
 			count++;
 		if ((str[i] == '\'' || str[i] == '\"') && str[i - 1] != '\\')
 			set_on_off(d, str[i]);
@@ -53,21 +124,10 @@ int		count(t_mini *d, char *str, char c)
 	return (count);
 }
 
-void	*ft_memalloc(size_t size)
-{
-	void *temp;
-
-	temp = malloc(size);
-	if (temp <= 0)
-		return (NULL);
-	ft_bzero(temp, size);
-	return (temp);
-}
-
 char	*commands(t_mini *d, char *str, int *x, char c)
 {
-	char *tmp;
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = *x;
 	d->singleq = 0;
@@ -129,7 +189,7 @@ void	get_commands(t_mini *d)
 	i = 0;
 	x = 0;
 	d->c_cmd = count(d, d->line, ';');
-	d->cmd = ft_memalloc(sizeof(char*)* (d->c_cmd));
+	d->cmd = ft_memalloc(sizeof(char*) * (d->c_cmd));
 	if (d->cmd == NULL)
 		exit(1);
 	while (i < d->c_cmd)
@@ -150,13 +210,11 @@ int		main(void)
 
 	init_env(&d);
 	screen_clean();
-	// print_env(d.env);
-	// print_echo(d.echo);
 	while (1)
 	{
 		write(1, "minishell> ", 11);
 		if (!(get_next_line(0, &d.line)))
-			 return (0);
+			return (0);
 		get_commands(&d);
 	}
 	return (0);

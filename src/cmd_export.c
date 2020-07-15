@@ -6,86 +6,121 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/11 14:48:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 14:51:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		**print(t_env **tmp)
+int		**print(t_env **echo)
 {
+	t_env *tmp;
 	int i;
 	int c;
 
 	i = 0;
 	c = 0;
-	while (tmp[c] != NULL)
+	while (i < ECHO)
 	{
-		while (tmp[i]->index != c)
-			i++;
-		ft_printf("%s", tmp[i]->head);
-		if (tmp[i]->set)
+		if (echo[i] != NULL)
 		{
-			write(1, "=\"", 2);
-			ft_printf("%s", tmp[i]->echo);
-			write(1, "\"", 1);
+			tmp = echo[i];
+			while (tmp)
+			{
+				if (tmp->alpha == c)
+					break ;
+				tmp = tmp->next;
+			}
 		}
-		write(1, "\n", 1);
-		i = 0;
-		c++;
+		if (tmp != NULL && tmp->alpha == c)
+		{
+			ft_printf("declare -x %s", tmp->head);
+			if (tmp->set)
+				write(1, "=\"", 2);
+			ft_printf("%s", tmp->echo);
+			if (tmp->set)
+				write(1, "\"", 1);
+			write(1, "\n", 1);
+			i = 0;
+			c++;
+		}
+		else
+			i++;
 	}
 	return (0);
 }
 
-void	set_alpha(t_env	**env, int x)
+int		find_lowest(t_env **echo, t_env *new, int cmp)
 {
-	int i;
-	int count;
+	t_env	*tmp;
+	int		i;
+	int		c;
 
-	count = 0;
-	while (1)
-	{
-		i = 0;
-		while (env[i]->index != count)
-			i++;
-		if (env[i]->index == count &&
-			ft_strncmp(env[x]->head, env[i]->head, ft_strlen(env[x]->head)) < 0)
-			break ;
-		count++;
-	}
 	i = 0;
-	while (env[i] != NULL)
+	c = 0;
+	tmp = NULL;
+	while (i < ECHO)
 	{
-		if (env[i]->index >= count)
-			env[i]->index++;
+		if (echo[i])
+		{
+			tmp = echo[i];
+			while (tmp)
+			{
+				c = ft_strncmp(new->head, tmp->head, ft_strlen(new->head));
+				if (c < 0 && tmp->alpha < cmp)
+					cmp = tmp->alpha;
+				if (c == 0 && cmp > tmp->alpha)
+					cmp = tmp->alpha;
+				tmp = tmp->next;
+			}
+		}
 		i++;
 	}
-	env[x]->index = (count);
+	return (cmp);
 }
 
-void	new_list(t_mini *d, char *arg)
+void	set_alpha(t_env **echo, int cmp)
 {
-	t_env	env_tmp[ENV_SIZE];
-	t_env	echo_tmp[ENV_SIZE];
-	int i;
+	t_env	*tmp;
+	int 	i;
+
+	i = 0;
+	while (i < ECHO)
+	{
+		if (echo[i])
+		{
+			tmp = echo[i];
+			while (tmp)
+			{
+				if (tmp->alpha >= cmp)
+					tmp->alpha++;
+				tmp = tmp->next;
+			}
+		}
+		i++;
+	}
+}
+
+void		new_list(t_mini *d, char *arg)
+{
+	int		i;
 
 	i = 0;
 	if (arg[0] < 65 || (arg[0] > 90 && arg[0] < 95) ||
 		(arg[0] > 95 && arg[0] < 97) || arg[0] > 122)
 		return ;
-	while (d->env[i] != NULL)
-		i++;
-	set_env(&env_tmp[i], arg, 0, i);
-	set_env(&echo_tmp[i], arg, 1, 0);
-	hash_table_insert_index(&env_tmp[i], d->env, i);
-	hash_table_insert_index(&echo_tmp[i], d->echo, hash_echo(echo_tmp[i].head));
-	set_alpha(d->env, i);
+	set_env(&d->list[d->index], arg, d->index);
+	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index], d->index);
+	set_alpha(d->echo, d->list[d->index].alpha);
+	hash_table_insert_index(&d->list[d->index], d->echo, hash_echo(d->list[d->index].head));
+	d->count++;
+	d->index++;
 }
 
-int		replace(t_mini *d, t_env *env, int a, int len)
+int			replace(t_mini *d, t_env *env, int a, int len)
 {
-	char *tmp;
-	int	i;
+	char	*tmp;
+	int		i;
 
 	if (d->args[a][len] == '\0')
 		return (0);
@@ -105,8 +140,8 @@ int		check_cmp(t_mini *d, int a)
 {
 	t_env	*tmp;
 	char	*str;
-	int i;
-	int len;
+	int		i;
+	int		len;
 
 	len = 0;
 	i = 0;
@@ -116,6 +151,7 @@ int		check_cmp(t_mini *d, int a)
 	if (d->args[a][len] == '=')
 	{
 		str = malloc(sizeof(char *) * len);
+		/* malloc protection */
 		ft_strlcpy(str, d->args[a], len + 1);
 	}
 	else
@@ -123,13 +159,8 @@ int		check_cmp(t_mini *d, int a)
 	tmp = look_up(str, d->echo);
 	if (tmp == NULL)
 		return (1);
-	while (ft_strncmp(str, d->env[i]->head, ft_strlen(d->env[i]->head)) != 0)
-		i++;
 	free(str);
-	if (d->env[i]->set == 1)
-		return (replace(d, d->env[i], a, len));
-	else
-		return (replace(d, d->env[i], a, len));
+	return (replace(d, d->env[i], a, len));
 }
 
 int		**export(t_mini *d)
@@ -138,7 +169,7 @@ int		**export(t_mini *d)
 
 	a = 1;
 	if (!d->args[1])
-		return (print(d->env));
+		return (print(d->echo));
 	while (d->args[a])
 	{
 		if (check_cmp(d, a) == 1)

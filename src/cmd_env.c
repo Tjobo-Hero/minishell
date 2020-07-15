@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/11 09:12:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 09:42:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,28 @@
 
 int		**env(t_mini *d)
 {
-	int i;
+	t_env	*tmp;
+	int 	i;
+	int 	c;
 
 	i = 0;
-	while (d->env[i] != NULL && d->env[i]->set)
+	c = 0;
+	while (i < ECHO)
 	{
-		ft_printf("%s\n", d->env[i]->list);
-		i++;
+		if (d->echo[i] != NULL)
+		{
+			tmp = d->echo[i];
+			while (tmp && tmp->index != c)
+				tmp = tmp->next;
+		}
+		if (tmp != NULL && tmp->index == c)
+		{
+			ft_printf("%s\n", tmp->list);
+			i = 0;
+			c++;
+		}
+		else
+			i++;
 	}
 	return (0);
 }
