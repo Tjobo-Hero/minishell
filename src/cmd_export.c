@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:51:33 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 14:58:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,8 @@ int		check_cmp(t_mini *d, int a)
 	if (tmp == NULL)
 		return (1);
 	free(str);
-	return (replace(d, d->env[i], a, len));
+	// return (replace(d, d->env[i], a, len));
+	return (0);
 }
 
 int		**export(t_mini *d)

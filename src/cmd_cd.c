@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/15 09:33:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/15 14:56:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		**update_env(t_mini *d)
 	tmp[0] = new_lst(d, check, "PWD");
 	hash_table_insert(&tmp[0], d->echo);
 	free(str);
+	print_echo(d->echo);
 	return (0);
 }
 
