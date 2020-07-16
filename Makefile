@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/07/16 18:39:18 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/07/16 21:35:38 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,21 +48,22 @@ OBJ_DIR			= ./obj/
 INCLUDE_DIR		= ./include/
 
 
-SRC_FILES		=	main \
-					init_env \
-					init_commands \
+SRC_FILES		=	minishell \
+					environ_init \
+					environ_utils \
 					ft_free \
 					get_next_line \
-					run_commands \
+					commands_run \
 					commands_check \
-					command_execute \
+					commands_init \
+					commands_execute \
 					cmd_pwd \
 					cmd_cd \
 					cmd_env \
 					cmd_unset \
 					cmd_export \
+					cmd_export_utils \
 					utils \
-					env_utils \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)

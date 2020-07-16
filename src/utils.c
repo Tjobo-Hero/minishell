@@ -6,16 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:39:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 21:36:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	screen_clean(void)
-{
-	write(1, "\e[1;1H\e[2J", 11);
-}
 
 int		int_malloc_error(void)
 {

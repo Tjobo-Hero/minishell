@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:38:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 21:32:40 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_echo(t_env **hash_table)
 	}
 }
 
-unsigned int	hash_echo(char *name)
+int		hash_echo(char *name)
 {
 	int				length;
 	unsigned int	value;

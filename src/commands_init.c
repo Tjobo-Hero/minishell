@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 16:46:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:39:02 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 21:29:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ void	set_on_off(t_mini *d, char c)
 		d->doubleq = 0;
 	else if (c == '\"')
 		d->doubleq = 1;
-	if (d->singleq || d->doubleq)
+	else if (c == '\\' && d->slash)
+		d->slash = 0;
+	else if (c == '\\')
+		d->slash = 1;
+	if (d->singleq || d->doubleq || d->slash)
 		d->set = 1;
 	else
 		d->set = 0;
@@ -73,11 +77,10 @@ char	*commands(t_mini *d, char *str, int *x, char c)
 			set_on_off(d, str[i]);
 		i++;
 	}
-	i++;
-	tmp = malloc(sizeof(char*) * (i - *x));
+	tmp = malloc(sizeof(char*) * ((i + 1) - *x));
 	if (tmp == NULL)
 		return (NULL);
-	ft_strlcpy(tmp, &str[*x], (i - *x));
+	ft_strlcpy(tmp, &str[*x], ((i + 1) - *x));
 	*x = i;
 	return (tmp);
 }

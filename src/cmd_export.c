@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:48:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 19:51:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,75 +46,6 @@ int		**print(t_env **echo)
 			i++;
 	}
 	return (0);
-}
-
-int		find_lowest(t_env **echo, t_env *new, int cmp)
-{
-	t_env	*tmp;
-	int		i;
-	int		c;
-
-	i = 0;
-	c = 0;
-	tmp = NULL;
-	while (i < ECHO)
-	{
-		if (echo[i])
-		{
-			tmp = echo[i];
-			while (tmp)
-			{
-				c = ft_strncmp(new->head, tmp->head, ft_strlen(new->head));
-				if (c < 0 && tmp->alpha < cmp)
-					cmp = tmp->alpha;
-				if (c == 0 && cmp > tmp->alpha)
-					cmp = tmp->alpha;
-				tmp = tmp->next;
-			}
-		}
-		i++;
-	}
-	return (cmp);
-}
-
-void	set_alpha(t_env **echo, int cmp)
-{
-	t_env	*tmp;
-	int		i;
-
-	i = 0;
-	while (i < ECHO)
-	{
-		if (echo[i])
-		{
-			tmp = echo[i];
-			while (tmp)
-			{
-				if (tmp->alpha >= cmp)
-					tmp->alpha++;
-				tmp = tmp->next;
-			}
-		}
-		i++;
-	}
-}
-
-void	new_list(t_mini *d, char *arg)
-{
-	int		i;
-
-	i = 0;
-	if (arg[0] < 65 || (arg[0] > 90 && arg[0] < 95) ||
-		(arg[0] > 95 && arg[0] < 97) || arg[0] > 122)
-		return ;
-	set_env(&d->list[d->index], arg, d->index);
-	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
-	d->index);
-	set_alpha(d->echo, d->list[d->index].alpha);
-	hash_table_insert_index(&d->list[d->index], d->echo,
-	hash_echo(d->list[d->index].head));
-	d->count++;
-	d->index++;
 }
 
 int		replace(t_mini *d, t_env *tmp, int a, int len)
