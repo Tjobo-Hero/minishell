@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:58:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:38:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,6 @@ void	print_echo(t_env **hash_table)
 		}
 		i++;
 	}
-}
-
-void	print_env(t_env **hash_table)
-{
-	int		i;
-
-	i = 0;
-	while (i < ENV_SIZE)
-	{
-		if (hash_table[i] == NULL)
-			printf("\t%i\t---\n", i);
-		else
-			printf("\t%i\t%s\n", i, hash_table[i]->head);
-		i++;
-	}
-}
-
-unsigned int	hash_env(char *name)
-{
-	int				length;
-	unsigned int	value;
-	int				i;
-
-	value = 0;
-	i = 0;
-	length = strlen(name);
-	while (i < length)
-	{
-		value += name[i];
-		value = (value * name[i]) % ENV_SIZE;
-		i++;
-	}
-	return (value);
 }
 
 unsigned int	hash_echo(char *name)
@@ -120,45 +87,6 @@ void	delete_lst(char *name, t_env **hash_table)
 		hash_table[i] = tmp->next;
 	else
 		pre->next = tmp->next;
-}
-
-void	hash_table_insert(t_env *name, t_env **hash_table)
-{
-	int	index;
-
-	if (name == NULL)
-		return ;
-	index = hash_echo(name->head);
-	name->next = hash_table[index];
-	hash_table[index] = name;
-	return ;
-}
-
-void	print_new(t_env **hash_table)
-{
-	t_env	*tmp;
-	int		c;
-	int		i;
-
-	c = 0;
-	i = 0;
-	while (i < ECHO)
-	{
-		if (hash_table[i] != NULL)
-		{
-			tmp = hash_table[i];
-			while (tmp && tmp->alpha != c)
-				tmp = tmp->next;
-		}
-		if (tmp != NULL && tmp->alpha == c)
-		{
-			printf("[%2d] %s\n", tmp->alpha, tmp->head);
-			c++;
-			i = 0;
-		}
-		else
-			i++;
-	}
 }
 
 t_env	*find_next(t_env **env, t_env *tmp, int *i)

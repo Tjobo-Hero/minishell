@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_fill_flags.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <marvin@codam.nl>                   +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/16 09:17:58 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/07 14:57:14 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/12/16 09:17:58 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:39:58 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

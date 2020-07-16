@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/08 12:29:05 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/15 11:09:25 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/08 12:29:05 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:34:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

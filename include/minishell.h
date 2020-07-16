@@ -6,9 +6,10 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:56:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:32:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -70,7 +71,10 @@ int		get_next_line(int fd, char **line);
 
 int		main(void);
 void	init_env(t_mini *d);
+void	get_commands(t_mini *d);
+void	check_single_double(t_mini *d);
 void	ft_free(t_mini *d, char **args, int i);
+void	free_environ(char **environ);
 
 /* commands */
 int		count_commands(char *cmd, char c);
@@ -80,11 +84,13 @@ int		**cd(t_mini *d);
 int		**export(t_mini *d);
 int		**env(t_mini *d);
 int		**unset(t_mini *d);
+void	execute(t_mini *d, char **cmd);
 
 /* Utils */
 void	screen_clean(void);
-int		malloc_error(void);
+int		int_malloc_error(void);
 char	**char_malloc_error(void);
+void	void_malloc_error(void);
 unsigned int	hash_echo(char *name);
 unsigned int	hash_env(char *name);
 t_env	*look_up(char *name, t_env **hash_table);

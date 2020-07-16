@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: tvan-cit <marvin@codam.nl>                   +#+                      #
+#    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/05 09:17:05 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/07/13 09:48:22 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/07/16 18:37:29 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 

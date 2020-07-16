@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:57:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:39:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void			set_env(t_env *user, char *environ, int index)
 	len = ft_strlen(environ);
 	while (environ[i] != '=' && environ[i] != '\0')
 		i++;
-	ft_strlcpy(user->head, environ, i + 1);
 	if (environ[i] == '=')
 		user->set = 1;
 	user->index = index;
 	user->alpha = ' ';
+	ft_strlcpy(user->head, environ, i + 1);
 	ft_strlcpy(user->list, environ, len + 1);
 	ft_strlcpy(user->echo, &environ[i + 1], (len - i));
 }

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_lstsize_bonus.c                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 11:40:37 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/14 11:11:45 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/13 11:40:37 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:34:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

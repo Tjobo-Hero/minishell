@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_string_utils_bonus.c                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <marvin@codam.nl>                   +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/11 16:41:22 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/08 12:33:27 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/12/11 16:41:22 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:40:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

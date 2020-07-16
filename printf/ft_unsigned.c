@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_unsigned.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <marvin@codam.nl>                   +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/12 16:11:39 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/07 14:35:20 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/12/12 16:11:39 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:40:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

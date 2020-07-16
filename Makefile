@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/07/09 15:00:08 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/07/16 18:39:18 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,12 @@ INCLUDE_DIR		= ./include/
 
 SRC_FILES		=	main \
 					init_env \
+					init_commands \
 					ft_free \
 					get_next_line \
 					run_commands \
+					commands_check \
+					command_execute \
 					cmd_pwd \
 					cmd_cd \
 					cmd_env \

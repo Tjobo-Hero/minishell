@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/06 21:52:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:38:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,19 @@ void	ft_free(t_mini *d, char **args, int i)
 		i--;
 	}
 	free(args);
+}
+
+void	free_environ(char **environ)
+{
+	int		i;
+
+	i = 0;
+	while (environ[i] != NULL)
+		i++;
+	while (i > 0)
+	{
+		free(environ[i - 1]);
+		i--;
+	}
+	free(environ);
 }

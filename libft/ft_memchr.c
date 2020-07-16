@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 11:25:51 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/07 11:44:52 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/07 11:25:51 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:35:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

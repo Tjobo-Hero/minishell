@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:58:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:48:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		**print(t_env **echo)
 {
-	t_env *tmp;
-	int i;
-	int c;
+	t_env	*tmp;
+	int		i;
+	int		c;
 
 	i = 0;
 	c = 0;
@@ -35,11 +35,9 @@ int		**print(t_env **echo)
 		if (tmp != NULL && tmp->alpha == c)
 		{
 			ft_printf("declare -x %s", tmp->head);
-			if (tmp->set)
-				write(1, "=\"", 2);
+			tmp->set ? write(1, "=\"", 2) : 0;
 			ft_printf("%s", tmp->echo);
-			if (tmp->set)
-				write(1, "\"", 1);
+			tmp->set ? write(1, "\"", 1) : 0;
 			write(1, "\n", 1);
 			i = 0;
 			c++;
@@ -82,7 +80,7 @@ int		find_lowest(t_env **echo, t_env *new, int cmp)
 void	set_alpha(t_env **echo, int cmp)
 {
 	t_env	*tmp;
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (i < ECHO)
@@ -101,7 +99,7 @@ void	set_alpha(t_env **echo, int cmp)
 	}
 }
 
-void		new_list(t_mini *d, char *arg)
+void	new_list(t_mini *d, char *arg)
 {
 	int		i;
 
@@ -110,29 +108,30 @@ void		new_list(t_mini *d, char *arg)
 		(arg[0] > 95 && arg[0] < 97) || arg[0] > 122)
 		return ;
 	set_env(&d->list[d->index], arg, d->index);
-	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index], d->index);
+	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
+	d->index);
 	set_alpha(d->echo, d->list[d->index].alpha);
-	hash_table_insert_index(&d->list[d->index], d->echo, hash_echo(d->list[d->index].head));
+	hash_table_insert_index(&d->list[d->index], d->echo,
+	hash_echo(d->list[d->index].head));
 	d->count++;
 	d->index++;
 }
 
-int			replace(t_mini *d, t_env *env, int a, int len)
+int		replace(t_mini *d, t_env *tmp, int a, int len)
 {
-	char	*tmp;
 	int		i;
 
 	if (d->args[a][len] == '\0')
 		return (0);
 	i = ft_strlen(d->args[a]);
-	env->set = 0;
+	tmp->set = 0;
 	if (d->args[a][len] == '=')
-		env->set = 1;
-	tmp = env->head;
-	clear_str(env->list);
-	clear_str(env->echo);
-	ft_strlcpy(env->list, d->args[a], i + 1);
-	ft_strlcpy(env->echo, &d->args[a][len + 1], (i - len));
+		tmp->set = 1;
+	d->list[tmp->index].set = tmp->set;
+	clear_str(d->list[tmp->index].list);
+	clear_str(d->list[tmp->index].echo);
+	ft_strlcpy(d->list[tmp->index].list, d->args[a], i + 1);
+	ft_strlcpy(d->list[tmp->index].echo, &d->args[a][len + 1], (i - len));
 	return (0);
 }
 
@@ -151,7 +150,7 @@ int		check_cmp(t_mini *d, int a)
 	if (d->args[a][len] == '=')
 	{
 		str = malloc(sizeof(char *) * len);
-		/* malloc protection */
+		str == NULL ? int_malloc_error() : 0;
 		ft_strlcpy(str, d->args[a], len + 1);
 	}
 	else
@@ -160,8 +159,7 @@ int		check_cmp(t_mini *d, int a)
 	if (tmp == NULL)
 		return (1);
 	free(str);
-	// return (replace(d, d->env[i], a, len));
-	return (0);
+	return (replace(d, tmp, a, len));
 }
 
 int		**export(t_mini *d)
