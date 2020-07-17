@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_env.c                                         :+:    :+:            */
+/*   environ_init.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:39:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/17 15:28:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			set_env(t_env *user, char *environ, int index)
 	user->alpha = ' ';
 	ft_strlcpy(user->head, environ, i + 1);
 	ft_strlcpy(user->list, environ, len + 1);
-	ft_strlcpy(user->echo, &environ[i + 1], (len - i));
+	ft_strlcpy(user->echo, &environ[i + 1], (len - i + 1));
 }
 
 void			init(t_env **tmp, int x)
@@ -60,7 +60,6 @@ void			init_env(t_mini *d)
 	extern char **environ;
 
 	d->index = 0;
-	d->count = -1;
 	init(d->echo, ECHO);
 	while (environ[d->index] != NULL)
 	{
@@ -68,7 +67,6 @@ void			init_env(t_mini *d)
 		hash_table_insert_index(&d->list[d->index], d->echo,
 		hash_echo(d->list[d->index].head));
 		d->index++;
-		d->count++;
 	}
 	alpha(d->echo);
 }

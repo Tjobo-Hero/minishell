@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_commands.c                                    :+:    :+:            */
+/*   commands_init.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 16:46:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 21:29:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/17 13:38:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ void	set_on_off(t_mini *d, char c)
 		d->doubleq = 0;
 	else if (c == '\"')
 		d->doubleq = 1;
-	else if (c == '\\' && d->slash)
-		d->slash = 0;
-	else if (c == '\\')
-		d->slash = 1;
-	if (d->singleq || d->doubleq || d->slash)
+	if (d->singleq || d->doubleq)
 		d->set = 1;
 	else
 		d->set = 0;

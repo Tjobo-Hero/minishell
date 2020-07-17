@@ -6,46 +6,85 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 19:50:17 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 20:45:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/17 18:00:14 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	*str_double(t_mini *d, char *arg, int i)
-// {
-// 	char	*str;
+void	fill_str(t_mini *d, char *str, char *arg)
+{
+	char	c;
+	int		i;
+	int		x;
 
-// 	while (arg[i] != '\0')
-// 	{
-// 		if (str[i - 1] != '\\' && (str[i] == '\"' || str[i] == "\'" || str[i] == '\\'))
-// 			set_on_off(d, str[i]);
-// 		if (set == 0)
-// 			break ;
-// 		if (str[i] == '\\' && str)
-// 		i++;
-// 	}
-// 	}
-// }
+	i = 0;
+	x = 0;
+	c = ' ';
+	while (arg[i] != '\0')
+	{
+		if ((arg[i] == '\'' || arg[i] == '\"') && d->set == 0)
+		{
+			d->set = 1;
+			c = arg[i];
+		}
+		else if ((arg[i] == '\'' || arg[i] == '\"') && arg[i] == c)
+		{
+			d->set = 0;
+			c = ' ';
+		}
+		else if (((arg[i] == '\'' || arg[i] == '\"') && arg[i] != c && d->set == 0))
+		{
+			str[x] = arg[i];
+			x++;
+		}
+		else if (arg[i] != '\'' || arg[i] != '\"')
+		{
+			str[x] = arg[i];
+			x++;
+		}
+		i++;
+	}
+}
 
-// char	*make_list(t_mini *d, char *arg)
-// {
-// 	int		i;
-// 	int		x;
+char	*check_arg(t_mini *d, char *arg)
+{
+	char	str[PATH_MAX];
+	char	c;
+	int		i;
+	int		is;
 
-// 	i = 0;
-// 	d->singleq = 0;
-// 	d->doubleq = 0;
-// 	d->slash = 0;
-// 	d->set = ' ';
-// 	while (str[i] != '\0' && str[i] != '=')
-// 		i++;
-// 	if (str[i] == '=')
-// 		x = i + 1;
-// 	if (str[i] == '\"')
-// 		return (str_double(d, arg, x));
-// 	return (NULL);
-// }
+	i = 0;
+	is = 0;
+	c = ' ';
+	d->set = 0;
+	fill_str(d, str, arg);
+	printf("str: %s\n", str);
+	while (arg[i] != '\0')
+	{
+		if ((arg[i] == '\'' || arg[i] == '\"') && c == ' ')
+		{
+			d->set += 1;
+			c = arg[i];
+		}
+		else if ((arg[i] == '\'' || arg[i] == '\"') && arg[i] == c)
+		{
+			d->set = 0;
+			c = ' ';
+		}
+		else if (i > 0 && arg[i] == '=' && is < 1)
+			is += 1;
+		else if (i > 0 && (arg[i] == '\'' || arg[i] == '\"' || arg[i]== '\\') && arg[i] != c && is == 0 && d->set > 1)
+			return (NULL);
+		else if (is == 0 && (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) || (arg[i] > 95 && arg[i] < 97) || arg[i] > 122))
+			return (NULL);
+		i++;
+	}
+	if (d->set == 1)
+		return (NULL);
+	clear_str(str);
+	return ("h");
+}
 
 int		find_lowest(t_env **echo, t_env *new, int cmp)
 {
@@ -101,13 +140,10 @@ void	set_alpha(t_env **echo, int cmp)
 void	new_list(t_mini *d, char *arg)
 {
 	char 	*str;
-	int		i;
 
-	i = 0;
-	if (arg[0] < 65 || (arg[0] > 90 && arg[0] < 95) ||
-		(arg[0] > 95 && arg[0] < 97) || arg[0] > 122)
-		return ;
-	// str = make_list(d, arg);
+	str = check_arg(d, arg);
+	if (str == NULL)
+		printf("bash: export: `%s': not a valid identifier\n", arg);
 	str = arg;
 	set_env(&d->list[d->index], str, d->index);
 	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
@@ -115,7 +151,6 @@ void	new_list(t_mini *d, char *arg)
 	set_alpha(d->echo, d->list[d->index].alpha);
 	hash_table_insert_index(&d->list[d->index], d->echo,
 	hash_echo(d->list[d->index].head));
-	d->count++;
 	d->index++;
 	// free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:38:07 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/17 15:28:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		**unset(t_mini *d)
 			delete_lst(d->args[a], d->echo);
 			set_alpha_index(d->echo, index_cmp, alpha_cmp);
 			d->index--;
-			d->count--;
 		}
 		if (d->args[a][ft_strlen(d->args[a]) - 1] == '=')
 			ft_printf("unset: %s: invalid parameter name\n", d->args[a]);

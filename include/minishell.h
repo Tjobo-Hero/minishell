@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 21:36:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/17 17:20:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ typedef struct	s_mini
 	int		doubleq;
 	int		slash;
 	int		set;
-	int		exec;
+	int		check;
 	char	**environ;
-	char	**exp;
-	int		c_exp;
 	char	*line;
 	char	**cmd;
 	int		c_cmd;
@@ -61,9 +59,7 @@ typedef struct	s_mini
 	char	**args;
 	int		c_arg;
 	int		ret;
-	char	*home_path;
 	int		index;
-	int		count;
 	t_env	list[ENV_SIZE];
 	t_env	*echo[ECHO];
 }				t_mini;
