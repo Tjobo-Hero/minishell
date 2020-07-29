@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/17 15:28:44 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/28 17:44:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void			init_env(t_mini *d)
 		set_env(&d->list[d->index], environ[d->index], d->index);
 		hash_table_insert_index(&d->list[d->index], d->echo,
 		hash_echo(d->list[d->index].head));
+		// printf("[%d] %s\n", d->index, d->list[d->index].head);
+		// printf("ENVIRON: %s\n\n", environ[d->index]);
 		d->index++;
 	}
 	alpha(d->echo);

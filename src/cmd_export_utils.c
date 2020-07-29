@@ -6,84 +6,105 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 19:50:17 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/17 18:00:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/28 17:50:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fill_str(t_mini *d, char *str, char *arg)
+int		check_first(char *arg)
 {
-	char	c;
 	int		i;
-	int		x;
 
 	i = 0;
-	x = 0;
-	c = ' ';
-	while (arg[i] != '\0')
+	while (arg[i] != '=' && arg[i] != '\0')
 	{
-		if ((arg[i] == '\'' || arg[i] == '\"') && d->set == 0)
-		{
-			d->set = 1;
-			c = arg[i];
-		}
-		else if ((arg[i] == '\'' || arg[i] == '\"') && arg[i] == c)
-		{
-			d->set = 0;
-			c = ' ';
-		}
-		else if (((arg[i] == '\'' || arg[i] == '\"') && arg[i] != c && d->set == 0))
-		{
-			str[x] = arg[i];
-			x++;
-		}
-		else if (arg[i] != '\'' || arg[i] != '\"')
-		{
-			str[x] = arg[i];
-			x++;
-		}
+		if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) ||
+		(arg[i] > 95 && arg[i] < 97) || arg[i] > 122)
+			return (0);
 		i++;
 	}
+	return (1);
+}
+
+int		check2(char *arg)
+{
+	int i;
+	int s;
+	int dou;
+	int slash;
+
+	i = 0;
+	s = 1;
+	dou = 1;
+	while (arg[i] != '\0')
+	{
+		if (arg[i] != '\\' && arg[i - 1] != '\\')
+			slash = 0;
+		else if (arg[i] == '\\')
+			slash++;
+		if (arg[i] == '\'' && slash % 2 == 0 && dou != -1)
+			s *= -1;
+		else if (arg[i] == '\"' && slash % 2 == 0 && s != -1)
+			dou *= -1;
+		i++;
+	}
+	if (dou == -1 || s == -1 || arg[i - 1] == '\\')
+		return (0);
+	return (1);
+}
+
+void	fill(char *str, char *arg, int *i, int *x)
+{
+	char	c;
+
+	c = arg[*i];
+	*i = *i + 1;
+	while (arg[*i] != '\0')
+	{
+		if (arg[*i] == c)
+			break;
+		if (c == '\'' && arg[*i] == '\\')
+		{
+			str[*x] = '\\';
+			*x = *x + 1;
+		}
+		str[*x] = arg[*i];
+		*x = *x + 1;
+		*i = *i + 1;
+	}
+	*i = *i + 1;
 }
 
 char	*check_arg(t_mini *d, char *arg)
 {
 	char	str[PATH_MAX];
-	char	c;
+	char	*tmp;
 	int		i;
-	int		is;
+	int		x;
 
 	i = 0;
-	is = 0;
-	c = ' ';
-	d->set = 0;
-	fill_str(d, str, arg);
-	printf("str: %s\n", str);
+	x = 0;
+	(void)d;
+	if (check2(arg) == 0)
+		return (NULL);
 	while (arg[i] != '\0')
 	{
-		if ((arg[i] == '\'' || arg[i] == '\"') && c == ' ')
+		if (arg[i] == '\'' && arg[i - 1] != '\\')
+			fill(str, arg, &i, &x);
+		else if (arg[i] == '\"' && arg[i - 1] != '\\')
+			fill(str, arg, &i, &x);
+		else
 		{
-			d->set += 1;
-			c = arg[i];
+			str[x] = arg[i];
+			x++;
+			i++;
 		}
-		else if ((arg[i] == '\'' || arg[i] == '\"') && arg[i] == c)
-		{
-			d->set = 0;
-			c = ' ';
-		}
-		else if (i > 0 && arg[i] == '=' && is < 1)
-			is += 1;
-		else if (i > 0 && (arg[i] == '\'' || arg[i] == '\"' || arg[i]== '\\') && arg[i] != c && is == 0 && d->set > 1)
-			return (NULL);
-		else if (is == 0 && (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) || (arg[i] > 95 && arg[i] < 97) || arg[i] > 122))
-			return (NULL);
-		i++;
 	}
-	if (d->set == 1)
-		return (NULL);
+	printf("string: %s\n", str);
+	tmp = str;
 	clear_str(str);
-	return ("h");
+	return (tmp);
 }
 
 int		find_lowest(t_env **echo, t_env *new, int cmp)

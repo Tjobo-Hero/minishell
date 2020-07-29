@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 16:46:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/17 13:38:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/07/28 18:15:07 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	get_commands(t_mini *d)
 	i = 0;
 	x = 0;
 	d->c_cmd = count(d, d->line, ';');
-	d->cmd = ft_memalloc(sizeof(char*) * (d->c_cmd));
+	d->cmd = ft_memalloc(sizeof(char*) * (d->c_cmd + 1));
 	if (d->cmd == NULL)
 		return (void_malloc_error());
 	if (d->cmd == NULL)
@@ -127,9 +127,18 @@ void	get_commands(t_mini *d)
 	{
 		while (d->line[x] == ';')
 			x++;
+		if (d->line[x] == ' ')
+			x++;
 		d->cmd[i] = commands(d, d->line, &x, ';');
 		if (d->cmd[i] == NULL)
 			return (void_malloc_error());
+		i++;
+	}
+	d->cmd[i] = NULL;
+	i = 0;
+	while (d->cmd[i] != NULL)
+	{
+		printf("COMMAND: %s\n", d->cmd[i]);
 		i++;
 	}
 	split_commands(d);
