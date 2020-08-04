@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 19:50:17 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/03 09:55:07 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/04 18:00:42 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	new_list(t_mini *d, char *arg)
 	d->index);
 	set_alpha(d->echo, d->list[d->index].alpha);
 	hash_table_insert_index(&d->list[d->index], d->echo,
-	hash_echo(d->list[d->index].head));
+	hash_echo(d->list[d->index].head, ECHO));
 	d->index++;
 	// free(str);
 }
