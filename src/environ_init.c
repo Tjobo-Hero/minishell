@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/04 19:07:07 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/04 23:01:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void			hash_table_insert_index2(t_mini *d , char *command, int index, int hash)
 
 void			init_commands(t_mini *d)
 {
-	t_cmd	*tmp;
 	int		i;
 
 	i = 0;
