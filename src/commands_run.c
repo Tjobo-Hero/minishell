@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/03 09:53:40 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/04 12:04:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		**run_commands(t_mini *d)
 	len = ft_strlen(d->args[0]);
 	while (i < 5)
 	{
-		if (!ft_strncmp(d->args[0], find_command(i), len))
+		if (!ft_strncmp(d->args[0], find_command(i), ft_strlen(find_command(i)))
+			&& len == (int)ft_strlen(find_command(i)))
 		{
 			d->ret = (int)start_command(i)(d);
 			return (0);

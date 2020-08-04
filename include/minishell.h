@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/17 17:20:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/03 21:03:41 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,15 @@ int		get_next_line(int fd, char **line);
 
 int		main(void);
 void	init_env(t_mini *d);
-void	get_commands(t_mini *d);
+// void	get_commands(t_mini *d);
+int		new_count_commands(char *str, int *count, char c);
+char	**new_fill_commands(char *str, int *count, int w, char ch);
 void	check_single_double(t_mini *d);
 void	ft_free(t_mini *d, char **args, int i);
 void	free_environ(char **environ);
 
 /* commands */
-int		count_commands(char *cmd, char c);
+// int		count_commands(char *cmd, char c);
 int		**run_commands(t_mini *d);
 int		**pwd(t_mini *d);
 int		**cd(t_mini *d);
