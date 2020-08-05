@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/04 18:25:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/05 11:57:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ t_env	*look_up(char *name, t_env **hash_table);
 void	delete_lst(char *name, t_env **hash_table);
 void	print_echo(t_env **hash_table);
 void	clear_str(char *str);
-void	hash_table_insert_index(t_env *user, t_env **env, int index);
+void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int index);
 int		**alpha(t_env **env);
 t_env	*find_free(t_env **env);
-void	init(t_env **tmp);
+void	init(t_env **tmp, t_cmd **command, int x);
 void	init_commands(t_mini *d);
 void	set_on_off(t_mini *d, char c);
 

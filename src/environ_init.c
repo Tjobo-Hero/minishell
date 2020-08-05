@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/04 23:01:13 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/05 12:20:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			set_env(t_env *user, char *environ, int index)
+void	set_env(t_env *user, char *environ, int index)
 {
 	int		i;
 	int		len;
@@ -31,44 +31,28 @@ void			set_env(t_env *user, char *environ, int index)
 	ft_strlcpy(user->echo, &environ[i + 1], (len - i + 1));
 }
 
-void			init(t_env **tmp)
+void	init(t_env **tmp, t_cmd **command, int x)
 {
 	int	i;
 
 	i = 0;
-	while (i < ECHO)
+	if (tmp != NULL)
 	{
-		tmp[i] = NULL;
+		while (i < x)
+		{
+			tmp[i] = NULL;
+			i++;
+		}
+		return ;
+	}
+	while (i < x)
+	{
+		command[i] = NULL;
 		i++;
 	}
 }
 
-void			hash_table_insert_index(t_env *user, t_env **env, int hash)
-{
-	if (user == NULL)
-		return ;
-	user->next = env[hash];
-	env[hash] = user;
-	return ;
-}
-
-void			init_env(t_mini *d)
-{
-	extern char **environ;
-
-	d->index = 0;
-	init(d->echo);
-	while (environ[d->index] != NULL)
-	{
-		set_env(&d->list[d->index], environ[d->index], d->index);
-		hash_table_insert_index(&d->list[d->index], d->echo,
-		hash_echo(d->list[d->index].head, ECHO));
-		d->index++;
-	}
-	alpha(d->echo);
-}
-
-void			set_env1(t_cmd *user, char *command, int index)
+void	set_env_cmd(t_cmd *user, char *command, int index)
 {
 	int		len;
 
@@ -77,33 +61,47 @@ void			set_env1(t_cmd *user, char *command, int index)
 	ft_strlcpy(user->head, command, len + 1);
 }
 
-void			hash_table_insert_index2(t_mini *d , char *command, int index, int hash)
+void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int hash)
 {
-	if (command == NULL)
-		return ;
-	set_env1(&d->cmd_list[index], command, index);
-	ft_strlcpy(d->cmd_list[index].head, command, ft_strlen(command) + 1);
-	d->cmd_list[index].index = index;
-	d->cmd_list[index].next = d->commands[hash];
-	d->commands[hash] = &d->cmd_list[index];
+	char	*cmd;
+
+	user->next = env[hash];
+	env[hash] = user;
+	if (d->index == 0)
+	{
+		while (d->index < 7)
+		{
+			d->index == 0 ? cmd = "pwd" : 0;
+			d->index == 1 ? cmd = "cd" : 0;
+			d->index == 2 ? cmd = "export" : 0;
+			d->index == 3 ? cmd = "unset" : 0;
+			d->index == 4 ? cmd = "exit" : 0;
+			d->index == 5 ? cmd = "env" : 0;
+			d->index == 6 ? cmd = "echo" : 0;
+			set_env_cmd(&d->cmd_list[d->index], cmd, d->index);
+			ft_strlcpy(d->cmd_list[d->index].head, cmd, ft_strlen(cmd) + 1);
+			d->cmd_list[d->index].index = d->index;
+			d->cmd_list[d->index].next = d->commands[hash_echo(cmd, 7)];
+			d->commands[hash_echo(cmd, 7)] = &d->cmd_list[d->index];
+			d->index++;
+		}
+		d->index = 0;
+	}
 }
 
-void			init_commands(t_mini *d)
+void	init_env(t_mini *d)
 {
-	int		i;
+	extern char **environ;
 
-	i = 0;
-	while (i < 8)
+	d->index = 0;
+	init(d->echo, NULL, ECHO);
+	init(NULL, d->commands, 8);
+	while (environ[d->index] != NULL)
 	{
-		d->commands[i] = NULL;
-		i++;
+		set_env(&d->list[d->index], environ[d->index], d->index);
+		hash_table_insert_index(d, &d->list[d->index], d->echo,
+		hash_echo(d->list[d->index].head, ECHO));
+		d->index++;
 	}
-	i = 0;
-	hash_table_insert_index2(d, "pwd", 0, hash_echo("pwd", 7));
-	hash_table_insert_index2(d, "cd", 1, hash_echo("cd", 7));
-	hash_table_insert_index2(d, "export", 2, hash_echo("export", 7));
-	hash_table_insert_index2(d, "unset", 3, hash_echo("unset", 7));
-	hash_table_insert_index2(d, "exit", 4, hash_echo("exit", 7));
-	hash_table_insert_index2(d, "env", 5, hash_echo("env", 7));
-	hash_table_insert_index2(d, "echo", 6, hash_echo("echo", 7));
+	alpha(d->echo);
 }
