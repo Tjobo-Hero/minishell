@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/25 10:58:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/25 11:06:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	get_commands(t_mini *d)
 		d->c_arg = new_count_commands(d->cmd[i], count, ' ');
 		d->args = new_fill_commands(d->cmd[i], count, d->c_arg);
 		run_commands(d);
+		ft_free(d, d->args, 1);
 		i++;
 	}
+	ft_free(d, d->cmd, 0);
 }
 
 int		main(void)
@@ -46,6 +48,7 @@ int		main(void)
 		if (!(get_next_line(0, &d.line)))
 			return (0);
 		get_commands(&d);
+		free(d.line);
 	}
 	return (0);
 }
