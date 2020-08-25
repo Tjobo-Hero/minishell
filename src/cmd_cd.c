@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:37:46 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/25 11:02:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,9 @@ char	*get_user(t_mini *d)
 	return (tmp->list);
 }
 
-int		**error_return(t_mini *d, int i)
+int		**error_return(t_mini *d)
 {
-	if (i == 0)
-		ft_printf("%s\n", "cd: too many arguments");
-	else if (i == 1)
-		ft_printf("bash: cd: %s: %s\n", d->args[1], strerror(errno));
+	ft_printf("bash: cd: %s: %s\n", d->args[1], strerror(errno));
 	return ((int**)1);
 }
 
@@ -53,18 +50,16 @@ int		**cd(t_mini *d)
 	if (d->args[1] == NULL)
 	{
 		if (chdir(get_user(d)))
-			return (error_return(d, 1));
+			return (error_return(d));
 		return (update_env(d));
 	}
-	if (d->c_arg >= 3)
-		return (error_return(d, 0));
 	if (ft_strncmp(d->args[1], "~", ft_strlen(d->args[1])) == 0)
 	{
 		if (chdir(get_user(d)))
-			return (error_return(d, 1));
+			return (error_return(d));
 		return (update_env(d));
 	}
 	if (chdir(d->args[1]))
-		return (error_return(d, 1));
+		return (error_return(d));
 	return (update_env(d));
 }
