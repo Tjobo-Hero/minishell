@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/25 10:55:32 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/27 09:53:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ void	init(t_env **tmp, t_cmd **command, int x);
 void	init_commands(t_mini *d);
 void	set_on_off(t_mini *d, char c);
 
+char	*check_arg(t_mini *d, char *arg);
 #endif

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 19:51:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/28 14:53:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,18 @@ int		**export(t_mini *d)
 	int	a;
 
 	a = 1;
-	if (!d->args[1])
-		return (print(d->echo));
-	while (d->args[a])
-	{
-		if (check_cmp(d, a) == 1)
-			new_list(d, d->args[a]);
-		a++;
-	}
+	// if (!d->args[1])
+	// 	return (print(d->echo));
+	// while (d->args[a])
+	// {
+	// 	if (check_cmp(d, a) == 1)
+	// 		new_list(d, d->args[a]);
+	// 	a++;
+	// }
+	char *str;
+	str = check_arg(d, d->args[a]);
+	if (str == NULL)
+		printf("error\n");
+	printf("\n");
 	return (NULL);
 }
