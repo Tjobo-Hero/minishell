@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/28 15:18:18 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/28 17:56:10 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int		check_first_part(char *arg)
 	int		slash;
 
 	i = 0;
-	// slash = 0;
+	slash = 0;
 	while (arg[i] != '=' && arg[i] != '\0')
 	{
-		if (arg[i] != '\\' && (arg[i] != 34 || arg[i] != 39 || arg[i] != 95))
-			slash = 0;
-		else if (arg[i] == '\\')
+		if (arg[i] == '\\')
 			slash++;
-		else if ((arg[i] == 34 || arg[i] == 39 || arg[i] == 95) && slash % 2 == 1)
+		else if (arg[i] != '\\' && (arg[i] != 34 && arg[i] != 39 && arg[i] != 95))
+			slash = 0;
+		else if ((arg[i] == 34 || arg[i] == 39 || arg[i] == 95) && slash % 2 == 0)
 			return (0);
-		else if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) || (arg[i] < 97 && arg[i] > 122))
+		else if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) || (arg[i] < 97 && arg[i] > 122) || arg[i] != 34 || arg[i] != 39 || arg[i] != 95)
 			return (0);
 		if (slash > 1)
 			return (0);
@@ -102,7 +102,7 @@ int		check_for_quotes(char *arg)
 	{
 		if (arg[i] != '\\' && arg[i - 1] != '\\')
 			slash = 0;
-		else if (arg[i] == '\\')
+		else if (arg[i] == '\\' && s == 1)
 			slash++;
 		if ((arg[i] == '\'' || arg[i] == '`') && slash % 2 == 0 && dou != -1)
 			s *= -1;
@@ -122,6 +122,23 @@ void	fill_str(char *str, char c, int *i, int *slash)
 	*slash = 0;
 }
 
+int		fill_single_quote(char *arg, char *str, int *c, int i)
+{
+	i++;
+	while (arg[i] != '\'')
+	{
+		str[*c] = arg[i];
+		i++;
+		*c = *c + 1;
+	}
+	return (i);
+}
+
+// void	fill_double_quote(char *str, char c, int *i, int *slash)
+// {
+
+// }
+
 void	make_string(char *arg, char *str)
 {
 	int		i;
@@ -130,16 +147,21 @@ void	make_string(char *arg, char *str)
 
 	i = 0;
 	c = 0;
+	slash = 0;
 	while (arg[i] != '\0')
 	{
 		if ((arg[i] > 64 && arg[i] < 91) || arg[i] == 95 || (arg[i] > 96 && arg[i] < 123))
 			fill_str(str, arg[i], &c, &slash);
 		else if (arg[i] == '=')
 			fill_str(str, arg[i], &c, &slash);
-		else if (arg[i] == '\\' && slash % 2 == 1)
+		if ((arg[i] == '\'' || arg[i] == '`' || arg[i] == '\\' || arg[i] == '\"') && slash % 2 == 1)
 			fill_str(str, arg[i], &c, &slash);
-		// else if ((arg[i] == '\'' || arg[i] == '`' || arg[i] == '\"') && slash % 2 == 1)
-		// 	fill_str(str, arg[i], &c, &slash);
+		else if (arg[i] == '\\')
+			slash++;
+		else if ((arg[i] == '\'' || arg[i] == '`') && slash % 2 == 0)
+			i = fill_single_quote(arg, str, &c, i);
+		// else if (arg[i] == '\"' && slash % 2 == 0)
+		// 	fill_double_quote(str, arg[i], &c, &slash);
 		i++;
 	}
 }
@@ -160,10 +182,10 @@ char	*check_arg(t_mini *d, char *arg)
 	if (check_for_quotes(arg) == 0)
 		return (NULL);
 	printf("passed\n");
-	printf("Second check: ");
-	if (check_first_part(arg) == 0)
-		return (NULL);
-	printf("passed\n");
+	// printf("Second check: ");
+	// if (check_first_part(arg) == 0)
+	// 	return (NULL);
+	// printf("passed\n");
 	make_string(arg, str);
 	// while (arg[i] != '\0')
 	// {
