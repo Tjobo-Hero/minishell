@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/28 17:56:10 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/31 12:04:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		check_for_quotes(char *arg)
 			slash = 0;
 		else if (arg[i] == '\\' && s == 1)
 			slash++;
-		if ((arg[i] == '\'' || arg[i] == '`') && slash % 2 == 0 && dou != -1)
+		if (arg[i] == '\'' && slash % 2 == 0 && dou != -1)
 			s *= -1;
 		else if (arg[i] == '\"' && slash % 2 == 0 && s != -1)
 			dou *= -1;
@@ -119,14 +119,21 @@ void	fill_str(char *str, char c, int *i, int *slash)
 {
 	str[*i] = c;
 	*i = *i + 1;
-	*slash = 0;
+	// *slash = 0;
+	(void)*slash;
 }
 
 int		fill_single_quote(char *arg, char *str, int *c, int i)
 {
+	printf("\n----SINGLE----\n");
 	i++;
 	while (arg[i] != '\'')
 	{
+		if (arg[i] == '\\' || arg[i] == '\"')
+		{
+			str[*c] = '\\';
+			*c = *c + 1;
+		}
 		str[*c] = arg[i];
 		i++;
 		*c = *c + 1;
@@ -134,10 +141,33 @@ int		fill_single_quote(char *arg, char *str, int *c, int i)
 	return (i);
 }
 
-// void	fill_double_quote(char *str, char c, int *i, int *slash)
-// {
+int		fill_double_quote(char *arg, char *str, int *c, int i)
+{
+	int	slash;
 
-// }
+	slash = 0;
+	printf("\n----DOUBLE----\n");
+	i++;
+	while (arg[i] != '\0')
+	{
+		if (arg[i] == '\\' && (arg[i + 1] != '\'' || arg[i + 1] != '\"'))
+		{
+			slash++;
+			str[*c] = '\\';
+			*c = *c + 1;
+		}
+		else
+		{
+			str[*c] = arg[i];
+			*c = *c + 1;
+			slash = 0;
+		}
+		i++;
+		if (arg[i] == '\"' && slash % 2 == 0)
+			break ;
+	}
+	return (i);
+}
 
 void	make_string(char *arg, char *str)
 {
@@ -150,18 +180,22 @@ void	make_string(char *arg, char *str)
 	slash = 0;
 	while (arg[i] != '\0')
 	{
+		if (arg[i] != '\\' && arg[i - 1] != '\\')
+			slash = 0;
+		else if (arg[i] == '\\')
+			slash++;
 		if ((arg[i] > 64 && arg[i] < 91) || arg[i] == 95 || (arg[i] > 96 && arg[i] < 123))
 			fill_str(str, arg[i], &c, &slash);
 		else if (arg[i] == '=')
 			fill_str(str, arg[i], &c, &slash);
-		if ((arg[i] == '\'' || arg[i] == '`' || arg[i] == '\\' || arg[i] == '\"') && slash % 2 == 1)
+		else if (arg[i] == '\\' && slash % 2 == 0)
 			fill_str(str, arg[i], &c, &slash);
-		else if (arg[i] == '\\')
-			slash++;
-		else if ((arg[i] == '\'' || arg[i] == '`') && slash % 2 == 0)
+		else if ((arg[i] == '\'' || arg[i] == '\"') && slash % 2 == 1)
+			fill_str(str, arg[i], &c, &slash);
+		else if (arg[i] == '\'' && slash % 2 == 0)
 			i = fill_single_quote(arg, str, &c, i);
-		// else if (arg[i] == '\"' && slash % 2 == 0)
-		// 	fill_double_quote(str, arg[i], &c, &slash);
+		else if (arg[i] == '\"' && slash % 2 == 0)
+			i = fill_double_quote(arg, str, &c, i);
 		i++;
 	}
 }
@@ -171,10 +205,8 @@ char	*check_arg(t_mini *d, char *arg)
 	char	str[PATH_MAX];
 	char	*tmp;
 	int		i;
-	int		x;
 
 	i = 0;
-	x = 0;
 	(void)d;
 	clear_str(str);
 	printf("----- EXPORT -----\n");
@@ -187,21 +219,6 @@ char	*check_arg(t_mini *d, char *arg)
 	// 	return (NULL);
 	// printf("passed\n");
 	make_string(arg, str);
-	// while (arg[i] != '\0')
-	// {
-	// 	if (arg[i] == '\'' && arg[i - 1] != '\\')
-	// 		fill(str, arg, &i, &x);
-	// 	else if (arg[i] == '\"' && arg[i - 1] != '\\')
-	// 		fill(str, arg, &i, &x);
-	// 	else
-	// 	{
-	// 		str[x] = arg[i];
-	// 		x++;
-	// 		i++;
-	// 	}
-	// }
-	// printf("string: %s\n", str);
-	// tmp = str;
 	printf("String: %s\n", str);
 	tmp = str;
 	clear_str(str);

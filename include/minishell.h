@@ -6,10 +6,9 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/27 09:53:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/08/31 12:00:10 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
