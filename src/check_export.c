@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/02 13:26:17 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/02 13:31:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ void	make_string(t_mini *d, char *arg, char *str)
 			slash = 0;
 		else if (arg[d->i] == '\\')
 			slash++;
-		if ((arg[d->i] > 64 && arg[d->i] < 91) || arg[d->i] == 95 ||
-			(arg[d->i] > 96 && arg[d->i] < 123))
+		if (arg[d->i] != '\\' && arg[d->i] != '\'' && arg[d->i] != '\"')
 			c += fill_str(str, arg[d->i], c);
 		else if ((arg[d->i] == '\\' && slash % 2 == 0) || (arg[d->i] == '=') ||
 				((arg[d->i] == '\'' || arg[d->i] == '\"') && slash % 2 == 1))
@@ -133,8 +132,6 @@ void	make_string(t_mini *d, char *arg, char *str)
 			c = fill_single_quote(d, arg, str, c);
 		else if (arg[d->i] == '\"' && slash % 2 == 0)
 			c = fill_double_quote(d, arg, str, c);
-		// else if (arg[d->i] != '\\' || arg[d->i] != '\'' || arg[d->i] != '\"')
-		// 	c += fill_str(str, arg[d->i], c);
 		d->i++;
 	}
 }
