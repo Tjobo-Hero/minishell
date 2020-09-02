@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/28 14:53:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/02 13:21:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int		check_cmp(t_mini *d, int a)
 
 int		**export(t_mini *d)
 {
+	char	list[PATH_MAX];
+	char	echo[PATH_MAX];
 	int	a;
 
 	a = 1;
@@ -106,10 +108,10 @@ int		**export(t_mini *d)
 	// 		new_list(d, d->args[a]);
 	// 	a++;
 	// }
-	char *str;
-	str = check_arg(d, d->args[a]);
-	if (str == NULL)
-		printf("error\n");
+	if (check_arg(d, d->args[a], list, echo) == 0)
+		printf("FAILED\n");
+	printf("LIST= %s\n", list);
+	printf("ECHO= %s\n", echo);
 	printf("\n");
 	return (NULL);
 }

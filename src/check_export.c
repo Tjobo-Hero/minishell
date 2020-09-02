@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/02 12:07:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/02 13:26:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,27 +133,35 @@ void	make_string(t_mini *d, char *arg, char *str)
 			c = fill_single_quote(d, arg, str, c);
 		else if (arg[d->i] == '\"' && slash % 2 == 0)
 			c = fill_double_quote(d, arg, str, c);
+		// else if (arg[d->i] != '\\' || arg[d->i] != '\'' || arg[d->i] != '\"')
+		// 	c += fill_str(str, arg[d->i], c);
 		d->i++;
 	}
 }
 
-char	*check_arg(t_mini *d, char *arg)
+int		check_arg(t_mini *d, char *arg, char *list, char *echo)
 {
-	char	str[PATH_MAX];
-	char	*tmp;
+	int		i;
 
-	clear_str(str);
+	i = 0;
+	clear_str(list);
+	clear_str(echo);
 	printf("----- EXPORT -----\n");
 	printf("Check for quotes: ");
 	if (check_for_quotes(arg) == 0)
-		return (NULL);
+		return (0);
 	printf("passed\n");
-	make_string(d, arg, str);
-	printf("String: %s\n", str);
+	make_string(d, arg, list);
 	printf("Check first part: ");
-	if (check_first_part(str) == 0)
-		return (NULL);
+	if (check_first_part(list) == 0)
+		return (0);
 	printf("passed\n");
-	tmp = str;
-	return (tmp);
+	while (list[i] != '=' && list[i] != '\0')
+		i++;
+	if (ft_strchr(list, '=') == 0)
+		ft_strlcpy(echo, list, ft_strlen(list) + 1);
+	else
+		ft_strlcpy(echo, &list[i + 1], (ft_strlen(list) - i) + 1);
+	echo = list;
+	return (1);
 }

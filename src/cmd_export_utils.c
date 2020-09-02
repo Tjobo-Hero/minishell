@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 19:50:17 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/27 09:53:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/02 13:10:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ void	new_list(t_mini *d, char *arg)
 {
 	char 	*str;
 
-	str = check_arg(d, arg);
-	if (str == NULL)
-		printf("bash: export: `%s': not a valid identifier\n", arg);
+	// str = check_arg(d, arg);
+	// if (str == NULL)
+	// 	printf("bash: export: `%s': not a valid identifier\n", arg);
 	str = arg;
 	set_env(&d->list[d->index], str, d->index);
 	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
