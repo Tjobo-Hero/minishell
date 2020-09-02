@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/31 12:04:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/02 12:07:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,78 +15,17 @@
 int		check_first_part(char *arg)
 {
 	int		i;
-	int		slash;
 
 	i = 0;
-	slash = 0;
 	while (arg[i] != '=' && arg[i] != '\0')
 	{
-		if (arg[i] == '\\')
-			slash++;
-		else if (arg[i] != '\\' && (arg[i] != 34 && arg[i] != 39 && arg[i] != 95))
-			slash = 0;
-		else if ((arg[i] == 34 || arg[i] == 39 || arg[i] == 95) && slash % 2 == 0)
-			return (0);
-		else if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) || (arg[i] < 97 && arg[i] > 122) || arg[i] != 34 || arg[i] != 39 || arg[i] != 95)
-			return (0);
-		if (slash > 1)
+		if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) ||
+			(arg[i] < 97 && arg[i] > 122))
 			return (0);
 		i++;
 	}
 	return (1);
-	// int i;
-	// int s;
-	// int dou;
-	// int slash;
-
-	// i = 0;
-	// s = 1;
-	// dou = 1;
-	// while (arg[i] != '=' && arg[i] != '\0')
-	// {
-	// 	if (arg[i] != '\\')
-	// 		slash = 0;
-	// 	else if (arg[i] == '\\')
-	// 		slash++;
-	// 	if ((arg[i] == '\'' || arg[i] == '`') && slash % 2 == 1 && dou != -1)
-	// 		s *= -1;
-	// 	else if (arg[i] == '\"' && slash % 2 == 1 && s != -1)
-	// 		dou *= -1;
-	// 	i++;
-	// }
-	// if (dou == -1 || s == -1 || arg[i - 1] == '\\')
-	// 	return (0);
-	// if (slash > 1)
-	// 	return (0);
-	// return (1);
 }
-
-// int		check_for_quotes(char *arg)
-// {
-// 	int i;
-// 	int s;
-// 	int dou;
-// 	int slash;
-
-// 	i = 0;
-// 	s = 1;
-// 	dou = 1;
-// 	while (arg[i] != '\0')
-// 	{
-// 		if (arg[i] != '\\' && arg[i - 1] != '\\')
-// 			slash = 0;
-// 		else if (arg[i] == '\\')
-// 			slash++;
-// 		if (arg[i] == '\'' && slash % 2 == 0 && dou != -1)
-// 			s *= -1;
-// 		else if (arg[i] == '\"' && slash % 2 == 0 && s != -1)
-// 			dou *= -1;
-// 		i++;
-// 	}
-// 	if (dou == -1 || s == -1 || arg[i - 1] == '\\')
-// 		return (0);
-// 	return (1);
-// }
 
 int		check_for_quotes(char *arg)
 {
@@ -115,88 +54,86 @@ int		check_for_quotes(char *arg)
 	return (1);
 }
 
-void	fill_str(char *str, char c, int *i, int *slash)
+int		fill_str(char *str, char c, int i)
 {
-	str[*i] = c;
-	*i = *i + 1;
-	// *slash = 0;
-	(void)*slash;
+	str[i] = c;
+	return (1);
 }
 
-int		fill_single_quote(char *arg, char *str, int *c, int i)
+int		fill_single_quote(t_mini *d, char *arg, char *str, int c)
 {
-	printf("\n----SINGLE----\n");
-	i++;
-	while (arg[i] != '\'')
+	int	i;
+
+	i = c;
+	d->i++;
+	while (arg[d->i] != '\'')
 	{
-		if (arg[i] == '\\' || arg[i] == '\"')
+		if (arg[d->i] == '\\' || arg[d->i] == '\"')
 		{
-			str[*c] = '\\';
-			*c = *c + 1;
+			str[i] = '\\';
+			i++;
 		}
-		str[*c] = arg[i];
+		str[i] = arg[d->i];
 		i++;
-		*c = *c + 1;
+		d->i++;
 	}
 	return (i);
 }
 
-int		fill_double_quote(char *arg, char *str, int *c, int i)
+int		fill_double_quote(t_mini *d, char *arg, char *str, int c)
 {
 	int	slash;
+	int	i;
 
-	slash = 0;
-	printf("\n----DOUBLE----\n");
-	i++;
-	while (arg[i] != '\0')
+	d->i++;
+	i = c;
+	while (arg[d->i] != '\0')
 	{
-		if (arg[i] == '\\' && (arg[i + 1] != '\'' || arg[i + 1] != '\"'))
-		{
+		if (arg[d->i] == '\\')
 			slash++;
-			str[*c] = '\\';
-			*c = *c + 1;
-		}
 		else
-		{
-			str[*c] = arg[i];
-			*c = *c + 1;
 			slash = 0;
+		if (slash % 2 == 1)
+		{
+			str[i] = '\\';
+			i++;
+			if (arg[d->i + 1] != '\"')
+				i += fill_str(str, arg[d->i], i);
 		}
-		i++;
-		if (arg[i] == '\"' && slash % 2 == 0)
+		else if (arg[d->i] != '\\')
+			i += fill_str(str, arg[d->i], i);
+		d->i++;
+		if (arg[d->i] == '\"' && slash % 2 == 0)
 			break ;
 	}
 	return (i);
 }
 
-void	make_string(char *arg, char *str)
+void	make_string(t_mini *d, char *arg, char *str)
 {
-	int		i;
 	int		c;
 	int		slash;
 
-	i = 0;
+	d->i = 0;
 	c = 0;
 	slash = 0;
-	while (arg[i] != '\0')
+	while (d->i < (int)ft_strlen(arg))
 	{
-		if (arg[i] != '\\' && arg[i - 1] != '\\')
+		if (arg[d->i] != '\\' && arg[d->i - 1] != '\\')
 			slash = 0;
-		else if (arg[i] == '\\')
+		else if (arg[d->i] == '\\')
 			slash++;
-		if ((arg[i] > 64 && arg[i] < 91) || arg[i] == 95 || (arg[i] > 96 && arg[i] < 123))
-			fill_str(str, arg[i], &c, &slash);
-		else if (arg[i] == '=')
-			fill_str(str, arg[i], &c, &slash);
-		else if (arg[i] == '\\' && slash % 2 == 0)
-			fill_str(str, arg[i], &c, &slash);
-		else if ((arg[i] == '\'' || arg[i] == '\"') && slash % 2 == 1)
-			fill_str(str, arg[i], &c, &slash);
-		else if (arg[i] == '\'' && slash % 2 == 0)
-			i = fill_single_quote(arg, str, &c, i);
-		else if (arg[i] == '\"' && slash % 2 == 0)
-			i = fill_double_quote(arg, str, &c, i);
-		i++;
+		if ((arg[d->i] > 64 && arg[d->i] < 91) || arg[d->i] == 95 ||
+			(arg[d->i] > 96 && arg[d->i] < 123))
+			c += fill_str(str, arg[d->i], c);
+		else if ((arg[d->i] == '\\' && slash % 2 == 0) || (arg[d->i] == '=') ||
+				((arg[d->i] == '\'' || arg[d->i] == '\"') && slash % 2 == 1))
+			c += fill_str(str, arg[d->i], c);
+		else if (arg[d->i] == '\'' && slash % 2 == 0)
+			c = fill_single_quote(d, arg, str, c);
+		else if (arg[d->i] == '\"' && slash % 2 == 0)
+			c = fill_double_quote(d, arg, str, c);
+		d->i++;
 	}
 }
 
@@ -204,23 +141,19 @@ char	*check_arg(t_mini *d, char *arg)
 {
 	char	str[PATH_MAX];
 	char	*tmp;
-	int		i;
 
-	i = 0;
-	(void)d;
 	clear_str(str);
 	printf("----- EXPORT -----\n");
-	printf("First check: ");
+	printf("Check for quotes: ");
 	if (check_for_quotes(arg) == 0)
 		return (NULL);
 	printf("passed\n");
-	// printf("Second check: ");
-	// if (check_first_part(arg) == 0)
-	// 	return (NULL);
-	// printf("passed\n");
-	make_string(arg, str);
+	make_string(d, arg, str);
 	printf("String: %s\n", str);
+	printf("Check first part: ");
+	if (check_first_part(str) == 0)
+		return (NULL);
+	printf("passed\n");
 	tmp = str;
-	clear_str(str);
 	return (tmp);
 }
