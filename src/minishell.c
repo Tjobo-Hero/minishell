@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/08/25 11:06:06 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 09:12:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int		main(void)
 		write(1, "minishell> ", 11);
 		if (!(get_next_line(0, &d.line)))
 			return (0);
-		get_commands(&d);
+		if (ft_strncmp(d.line, "\n", ft_strlen(d.line)) != 0)
+			get_commands(&d);
 		free(d.line);
 	}
 	return (0);

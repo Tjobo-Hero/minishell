@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/02 13:21:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 10:34:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct		s_cmd
 typedef struct	s_mini
 {
 	int		i;
+	char	nw_head[HEAD_MAX];
+	char	nw_list[PATH_MAX];
+	char	nw_echo[STR_MAX];
 	int		singleq;
 	int		doubleq;
 	int		slash;
@@ -93,7 +96,7 @@ int		**export(t_mini *d);
 int		**env(t_mini *d);
 int		**unset(t_mini *d);
 void	execute(t_mini *d, char **cmd);
-void	new_list(t_mini *d, char *arg);
+void	new_list(t_mini *d);
 
 /* Utils */
 int		int_malloc_error(void);
@@ -112,5 +115,5 @@ void	init(t_env **tmp, t_cmd **command, int x);
 void	init_commands(t_mini *d);
 void	set_on_off(t_mini *d, char c);
 
-int		check_arg(t_mini *d, char *arg, char *list, char *echo);
+int		check_arg(t_mini *d, char *arg);
 #endif

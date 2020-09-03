@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/02 13:21:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 10:36:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,70 +48,47 @@ int		**print(t_env **echo)
 	return (0);
 }
 
-int		replace(t_mini *d, t_env *tmp, int a, int len)
+int		replace(t_mini *d, t_env *tmp)
 {
-	int		i;
-
-	if (d->args[a][len] == '\0')
-		return (0);
-	i = ft_strlen(d->args[a]);
 	tmp->set = 0;
-	if (d->args[a][len] == '=')
+	if (ft_strchr(d->nw_list, '=') != 0)
 		tmp->set = 1;
 	d->list[tmp->index].set = tmp->set;
 	clear_str(d->list[tmp->index].list);
 	clear_str(d->list[tmp->index].echo);
-	ft_strlcpy(d->list[tmp->index].list, d->args[a], i + 1);
-	ft_strlcpy(d->list[tmp->index].echo, &d->args[a][len + 1], (i - len));
+	ft_strlcpy(d->list[tmp->index].list, d->nw_list, ft_strlen(d->nw_list));
+	ft_strlcpy(d->list[tmp->index].echo, d->nw_echo, ft_strlen(d->nw_echo) + 1);
 	return (0);
 }
 
-int		check_cmp(t_mini *d, int a)
+int		check_cmp(t_mini *d)
 {
 	t_env	*tmp;
-	char	*str;
-	int		i;
-	int		len;
 
-	len = 0;
-	i = 0;
-	str = NULL;
-	while (d->args[a][len] != '=' && d->args[a][len] != '\0')
-		len++;
-	if (d->args[a][len] == '=')
-	{
-		str = malloc(sizeof(char *) * len);
-		str == NULL ? int_malloc_error() : 0;
-		ft_strlcpy(str, d->args[a], len + 1);
-	}
-	else
-		str = ft_strdup(d->args[a]);
-	tmp = look_up(str, d->echo);
+	tmp = look_up(d->nw_head, d->echo);
 	if (tmp == NULL)
 		return (1);
-	free(str);
-	return (replace(d, tmp, a, len));
+	return (replace(d, tmp));
 }
 
 int		**export(t_mini *d)
 {
-	char	list[PATH_MAX];
-	char	echo[PATH_MAX];
 	int	a;
 
 	a = 1;
-	// if (!d->args[1])
-	// 	return (print(d->echo));
-	// while (d->args[a])
-	// {
-	// 	if (check_cmp(d, a) == 1)
-	// 		new_list(d, d->args[a]);
-	// 	a++;
-	// }
-	if (check_arg(d, d->args[a], list, echo) == 0)
-		printf("FAILED\n");
-	printf("LIST= %s\n", list);
-	printf("ECHO= %s\n", echo);
+	if (!d->args[1])
+		return (print(d->echo));
+	while (d->args[a])
+	{
+		clear_str(d->nw_list);
+		clear_str(d->nw_head);
+		clear_str(d->nw_echo);
+		if (check_arg(d, d->args[a]) == 0)
+			printf("bash: export: `%s': not a valid identifier\n", d->nw_list);
+		else if (check_cmp(d) == 1)
+			new_list(d);
+		a++;
+	}
 	printf("\n");
 	return (NULL);
 }

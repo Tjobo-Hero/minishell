@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/02 13:31:33 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 09:38:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,29 +136,29 @@ void	make_string(t_mini *d, char *arg, char *str)
 	}
 }
 
-int		check_arg(t_mini *d, char *arg, char *list, char *echo)
+int		check_arg(t_mini *d, char *arg)
 {
 	int		i;
 
 	i = 0;
-	clear_str(list);
-	clear_str(echo);
+	clear_str(d->nw_list);
+	clear_str(d->nw_echo);
 	printf("----- EXPORT -----\n");
 	printf("Check for quotes: ");
 	if (check_for_quotes(arg) == 0)
 		return (0);
 	printf("passed\n");
-	make_string(d, arg, list);
+	make_string(d, arg, d->nw_list);
 	printf("Check first part: ");
-	if (check_first_part(list) == 0)
+	if (check_first_part(d->nw_list) == 0)
 		return (0);
 	printf("passed\n");
-	while (list[i] != '=' && list[i] != '\0')
+	while (d->nw_list[i] != '=' && d->nw_list[i] != '\0')
 		i++;
-	if (ft_strchr(list, '=') == 0)
-		ft_strlcpy(echo, list, ft_strlen(list) + 1);
+	if (ft_strchr(d->nw_list, '=') == 0)
+		ft_strlcpy(d->nw_echo, d->nw_list, ft_strlen(d->nw_list) + 1);
 	else
-		ft_strlcpy(echo, &list[i + 1], (ft_strlen(list) - i) + 1);
-	echo = list;
+		ft_strlcpy(d->nw_echo, &d->nw_list[i + 1], (ft_strlen(d->nw_list) - i) + 1);
+	ft_strlcpy(d->nw_head, d->nw_list, i + 1);
 	return (1);
 }
