@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 11:04:43 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:37:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 11:46:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char				*ft_strnstr(const char *haystack,
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
+int					ft_isalpha_str(char *str);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);

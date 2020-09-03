@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/03 10:34:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 10:54:35 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,7 @@ void	init_commands(t_mini *d);
 void	set_on_off(t_mini *d, char c);
 
 int		check_arg(t_mini *d, char *arg);
+void	make_string(t_mini *d, char *arg, char *str);
+int		find_lowest(t_env **echo, t_env *new, int cmp);
+void	set_alpha(t_env **echo, int cmp);
 #endif

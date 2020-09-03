@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/05 09:17:05 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/07/16 18:37:29 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/09/03 11:46:37 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = 	ft_memset.c \
 		ft_strncmp.c \
 		ft_atoi.c \
 		ft_isalpha.c \
+		ft_isalpha_str.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
 		ft_isascii.c \

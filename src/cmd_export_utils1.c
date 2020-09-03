@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_export_utils.c                                 :+:    :+:            */
+/*   cmd_export_utils1.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/16 19:50:17 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/03 10:38:45 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/09/03 13:49:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,63 @@ void	set_alpha(t_env **echo, int cmp)
 	}
 }
 
-void	new_list(t_mini *d)
+int		check_first_part(char *arg)
 {
-	set_env(&d->list[d->index], d->nw_list, d->index);
-	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
-	d->index);
-	set_alpha(d->echo, d->list[d->index].alpha);
-	hash_table_insert_index(d, &d->list[d->index], d->echo,
-	hash_echo(d->list[d->index].head, ECHO));
-	d->index++;
+	int		i;
+
+	i = 0;
+	while (arg[i] != '=' && arg[i] != '\0')
+	{
+		if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) ||
+			(arg[i] < 97 && arg[i] > 122))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		check_for_quotes(char *arg)
+{
+	int i;
+	int s;
+	int dou;
+	int slash;
+
+	i = 0;
+	s = 1;
+	dou = 1;
+	while (arg[i] != '\0')
+	{
+		if (arg[i] != '\\' && arg[i - 1] != '\\')
+			slash = 0;
+		else if (arg[i] == '\\' && s == 1)
+			slash++;
+		if (arg[i] == '\'' && slash % 2 == 0 && dou != -1)
+			s *= -1;
+		else if (arg[i] == '\"' && slash % 2 == 0 && s != -1)
+			dou *= -1;
+		i++;
+	}
+	if (dou == -1 || s == -1)
+		return (0);
+	return (1);
+}
+
+int		check_arg(t_mini *d, char *arg)
+{
+	int		i;
+
+	i = 0;
+	if (check_for_quotes(arg) == 0)
+		return (0);
+	make_string(d, arg, d->nw_list);
+	if (check_first_part(d->nw_list) == 0)
+		return (0);
+	while (d->nw_list[i] != '=' && d->nw_list[i] != '\0')
+		i++;
+	if (ft_strchr(d->nw_list, '=') != 0)
+		ft_strlcpy(d->nw_echo, &d->nw_list[i + 1],
+		(ft_strlen(d->nw_list) - i) + 1);
+	ft_strlcpy(d->nw_head, d->nw_list, i + 1);
+	return (1);
 }

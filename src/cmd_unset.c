@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/17 15:28:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 13:15:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,25 @@ int		**unset(t_mini *d)
 {
 	t_env	*tmp;
 	int		a;
-	int		index_cmp;
-	int		alpha_cmp;
 
 	a = 1;
 	while (d->args[a])
 	{
-		tmp = look_up(d->args[a], d->echo);
-		if (tmp)
+		clear_str(d->nw_list);
+		check_arg(d, d->args[a]);
+		if ((ft_isalpha_str(d->nw_list) == 0 && !ft_strchr(d->nw_list, '_')) || d->nw_list[0] == '\0')
+			ft_printf("bash: unset: `%s': not a valid identifier\n",
+			d->nw_list);
+		else
 		{
-			index_cmp = tmp->index;
-			alpha_cmp = tmp->alpha;
-			delete_lst(d->args[a], d->echo);
-			set_alpha_index(d->echo, index_cmp, alpha_cmp);
-			d->index--;
+			tmp = look_up(d->nw_list, d->echo);
+			if (tmp)
+			{
+				delete_lst(d->nw_list, d->echo);
+				set_alpha_index(d->echo, tmp->index, tmp->alpha);
+				d->index--;
+			}
 		}
-		if (d->args[a][ft_strlen(d->args[a]) - 1] == '=')
-			ft_printf("unset: %s: invalid parameter name\n", d->args[a]);
 		a++;
 	}
 	return (0);
