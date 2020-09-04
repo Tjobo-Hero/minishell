@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/05 10:33:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/03 13:52:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 	tmp = hash_table[i];
 	while (tmp)
 	{
-		if  (!strncmp(name, tmp->head,  strlen(tmp->head)) &&
+		if (!strncmp(name, tmp->head, strlen(tmp->head)) &&
 			len == (int)ft_strlen(tmp->head))
 			break ;
 		tmp = tmp->next;
