@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/05 12:20:51 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/04 15:34:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_env(t_env *user, char *environ, int index)
 	user->index = index;
 	user->alpha = ' ';
 	ft_strlcpy(user->head, environ, i + 1);
-	ft_strlcpy(user->list, environ, len + 1);
+	ft_strlcpy(user->list, &environ[i + 1], (len - i) + 1);
 	ft_strlcpy(user->echo, &environ[i + 1], (len - i + 1));
 }
 

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/03 13:52:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/04 10:29:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		**(*start_command(int i))(t_mini *d)
 {
-	int	**(*command[6])(t_mini *d);
+	int	**(*command[7])(t_mini *d);
 
 	command[0] = &pwd;
 	command[1] = &cd;
@@ -22,7 +22,7 @@ int		**(*start_command(int i))(t_mini *d)
 	command[3] = &unset;
 	// command[4] = &exit;
 	command[5] = &env;
-	// command[6] = &echo;
+	command[6] = &echo;
 	return (command[i]);
 }
 

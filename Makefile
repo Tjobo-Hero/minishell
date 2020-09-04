@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/09/03 10:55:20 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/09/04 13:51:52 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,10 +62,12 @@ SRC_FILES		=	minishell \
 					cmd_env \
 					cmd_unset \
 					cmd_export \
+					cmd_echo \
 					utils \
 					commands \
 					cmd_export_utils1 \
 					cmd_export_utils2 \
+					cmd_export_utils3 \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)

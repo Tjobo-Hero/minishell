@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/03 10:54:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/04 15:58:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct	s_mini
 	char	nw_head[HEAD_MAX];
 	char	nw_list[PATH_MAX];
 	char	nw_echo[STR_MAX];
+	char	nw_tmp[STR_MAX];
+	char	nw_set;
 	int		singleq;
 	int		doubleq;
 	int		slash;
@@ -95,6 +97,7 @@ int		**cd(t_mini *d);
 int		**export(t_mini *d);
 int		**env(t_mini *d);
 int		**unset(t_mini *d);
+int		**echo(t_mini *d);
 void	execute(t_mini *d, char **cmd);
 void	new_list(t_mini *d);
 
@@ -119,4 +122,5 @@ int		check_arg(t_mini *d, char *arg);
 void	make_string(t_mini *d, char *arg, char *str);
 int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
+void	make_echo(t_mini *d, char *echo, char *arg);
 #endif
