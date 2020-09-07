@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/02 12:56:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/07 21:02:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	new_set(char *str, char c, int *i)
 {
-	*i = *i + 1;
+	(*i)++;
 	while (str[*i] != c && str[*i] != '\0')
-		*i = *i + 1;
+		(*i)++;
 }
 
 int		if_same_loop(char *str, int *x, char c)
@@ -26,7 +26,7 @@ int		if_same_loop(char *str, int *x, char c)
 	i = 0;
 	while (str[*x] == c)
 	{
-		*x = *x + 1;
+		(*x)++;
 		i++;
 	}
 	return (i);

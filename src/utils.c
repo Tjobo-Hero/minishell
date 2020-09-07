@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 21:36:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/07 13:31:04 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ void	clear_str(char *str)
 		str[i] = '\0';
 		i++;
 	}
+}
+
+void	clear_new(t_mini *d)
+{
+	clear_str(d->nw_list);
+	clear_str(d->nw_head);
+	clear_str(d->nw_echo);
+	clear_str(d->nw_tmp);
 }

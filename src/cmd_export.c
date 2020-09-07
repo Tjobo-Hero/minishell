@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/04 15:40:46 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/07 13:31:40 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ int		**export(t_mini *d)
 		return (print(d->echo));
 	while (d->args[a])
 	{
-		clear_str(d->nw_list);
-		clear_str(d->nw_head);
-		clear_str(d->nw_echo);
-		clear_str(d->nw_tmp);
+		clear_new(d);
 		if (check_arg(d, d->args[a]) == 0 || d->nw_head[0] == '\0')
 			printf("bash: export: `%s': not a valid identifier\n", d->nw_tmp);
 		else
