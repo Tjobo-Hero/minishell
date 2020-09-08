@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/07 21:38:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/08 10:51:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,42 @@ int		create_str(t_mini *d, char *arg)
 	return (1);
 }
 
-int		find_pipes(t_mini *d)
+void	set_arguments_correct(t_mini *d, int set)
+{
+	d->c_arg = set;
+	while (d->args[set])
+	{
+		free(d->args[set]);
+		d->args[set] = NULL;
+		set++;
+	}
+}
+
+void	find_pipes(t_mini *d)
 {
 	int	i;
+	int	x;
+	int	set;
 
 	i = 0;
-	d->pipes = 0;
-	while (d->args[i])
+	x = 0;
+	d->pipes = NULL;
+	while (d->args[i] && ft_strncmp(d->args[i], "|", 1) != 0)
+		i++;
+	if (!d->args[i])
+		return ;
+	i++;
+	set = i;
+	d->pipes = malloc(sizeof(char **) * (d->c_arg - i) + 1);
+	while (i < d->c_arg)
 	{
-		if (ft_strncmp(d->args[i], "|", 1) != 0)
-			return (i + 1);
+		d->pipes[x] = ft_strdup(d->args[i]);
+		x++;
 		i++;
 	}
-	return (0);
+	d->pipes[x] = NULL;
+	d->c_pipe = x;
+	set_arguments_correct(d, set - 1);
 }
 
 void	get_commands(t_mini *d)
@@ -62,7 +85,7 @@ void	get_commands(t_mini *d)
 		d->args = new_fill_commands(d->cmd[i], count, d->c_arg);
 		while (d->args[x])
 			x += create_str(d, d->args[x]);
-		d->pipes = find_pipes(d);
+		find_pipes(d);
 		run_commands(d);
 		ft_free(d, d->args, 1);
 		i++;

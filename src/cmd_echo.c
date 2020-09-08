@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/07 14:21:32 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/08 09:33:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		**echo(t_mini *d)
 		echo_n_option(d);
 	while (d->args[a])
 	{
+		printf("test\n");
 		if (ft_strncmp(d->args[a], "$", 1) == 0)
 			dollar_sign(d, d->args[a]);
 		a++;
