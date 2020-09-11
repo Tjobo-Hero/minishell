@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/07 21:02:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:33:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**new_fill_commands(char *str, int *count, int w)
 		ft_strlcpy(tmp[i], &str[c], d + 1);
 		while (c != count[i])
 			c++;
-		while (str[c] == ' ' || str[c] == ';')
+		while ((str[c] == ' ' || str[c] == ';') && str[c] != '\0')
 			c++;
 		i++;
 		d = count[i] - c;

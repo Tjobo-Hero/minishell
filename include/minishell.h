@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/08 10:35:09 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/11 16:18:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define STR_MAX 256
 # define HEAD_MAX 50
 
+int	g_ret;
+
 typedef struct		s_env
 {
 	char			head[HEAD_MAX];
@@ -50,30 +52,31 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct	s_mini
+typedef struct		s_new
 {
-	int		i;
 	char	nw_head[HEAD_MAX];
 	char	nw_list[PATH_MAX];
 	char	nw_echo[STR_MAX];
 	char	nw_tmp[STR_MAX];
 	char	nw_set;
-	int		singleq;
-	int		doubleq;
-	int		slash;
-	int		set;
-	int		check;
-	char	**environ;
+}					t_new;
+
+typedef struct	s_mini
+{
+	int		c;
 	char	*line;
-	char	**cmd;
-	int		c_cmd;
+	int		set;
+	int		i;
+	char	**environ;
 	char	cwd[PATH_MAX];
 	char	**args;
 	int		c_arg;
 	char	**pipes;
 	int		c_pipe;
+	int		**pipe;
 	int		ret;
 	int		index;
+	t_new	new;
 	t_env	list[ENV_SIZE];
 	t_env	*echo[ECHO];
 	t_cmd	cmd_list[8];
@@ -87,7 +90,7 @@ void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
 char	**new_fill_commands(char *str, int *count, int w);
 void	check_single_double(t_mini *d);
-void	ft_free(t_mini *d, char **args, int i);
+void	ft_free(char **args);
 void	free_environ(char **environ);
 
 /* commands */
@@ -109,7 +112,7 @@ int		hash_echo(char *name, int count);
 t_env	*look_up(char *name, t_env **hash_table);
 void	delete_lst(char *name, t_env **hash_table);
 void	print_echo(t_env **hash_table);
-void	clear_new(t_mini *d);
+void	clear_new(t_new *new);
 void	clear_str(char *str);
 void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int index);
@@ -117,11 +120,12 @@ int		**alpha(t_env **env);
 t_env	*find_free(t_env **env);
 void	init(t_env **tmp, t_cmd **command, int x);
 void	init_commands(t_mini *d);
-void	set_on_off(t_mini *d, char c);
 
-int		check_arg(t_mini *d, char *arg);
+int		check_arg(t_mini *d, t_new *new, char *arg);
 void	make_string(t_mini *d, char *arg, char *str);
 int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
+
+void	new_split(t_mini *d, char *line);
 #endif

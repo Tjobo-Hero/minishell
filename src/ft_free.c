@@ -6,29 +6,21 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/08 10:52:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/09 15:16:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free(t_mini *d, char **args, int i)
+void	ft_free(char **args)
 {
 	int	x;
 
-	x = d->c_pipe;
-	while (x > 0 && i == 1)
+	x = 0;
+	while (args[x])
 	{
-		free(d->pipes[x - 1]);
-		x--;
-	}
-	if (i == 1 && d->pipes != NULL)
-		free(d->pipes);
-	i = (i == 1 ? d->c_arg : d->c_cmd);
-	while (i > 0)
-	{
-		free(args[i - 1]);
-		i--;
+		free(args[x]);
+		x++;
 	}
 	free(args);
 }
