@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/11 16:18:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 11:25:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ typedef struct	s_mini
 	char	cwd[PATH_MAX];
 	char	**args;
 	int		c_arg;
-	char	**pipes;
+	char	**new_args;
 	int		c_pipe;
 	int		**pipe;
+	int		count_pipe[PATH_MAX];
 	int		ret;
 	int		index;
 	t_new	new;
@@ -128,4 +129,6 @@ void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
 void	new_split(t_mini *d, char *line);
+void	do_pipes(t_mini *d, int c);
+void	count_init(int *count);
 #endif

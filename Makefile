@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/09/10 09:47:36 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/09/16 10:48:42 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,9 @@ SRC_FILES		=	minishell \
 					cmd_export_utils1 \
 					cmd_export_utils2 \
 					cmd_export_utils3 \
-					new_split \
+					new_split2 \
+					pipes \
+					# new_split \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
