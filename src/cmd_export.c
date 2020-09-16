@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/09 13:09:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 16:17:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,26 @@ int		**print(t_env **echo)
 int		replace(t_mini *d, t_env *tmp)
 {
 	tmp->set = 0;
-	if (d->new.nw_set == '=')
+	if (d->new.set == '=')
 		tmp->set = 1;
 	d->list[tmp->index].set = tmp->set;
 	clear_str(d->list[tmp->index].list);
 	clear_str(d->list[tmp->index].echo);
-	ft_strlcpy(d->list[tmp->index].list, d->new.nw_list, ft_strlen(d->new.nw_list) + 1);
-	ft_strlcpy(d->list[tmp->index].echo, d->new.nw_echo, ft_strlen(d->new.nw_echo) + 1);
+	ft_strlcpy(d->list[tmp->index].list, d->new.list, ft_strlen(d->new.list) + 1);
+	ft_strlcpy(d->list[tmp->index].echo, d->new.echo, ft_strlen(d->new.echo) + 1);
 	return (0);
 }
 
 void	set_new_env(t_env *user, t_mini *d)
 {
 	user->set = 0;
-	if (d->new.nw_set == '=')
+	if (d->new.set == '=')
 		user->set = 1;
 	user->index = d->index;
 	user->alpha = ' ';
-	ft_strlcpy(user->head, d->new.nw_head, ft_strlen(d->new.nw_head) + 1);
-	ft_strlcpy(user->list, d->new.nw_list, ft_strlen(d->new.nw_list) + 1);
-	ft_strlcpy(user->echo, d->new.nw_echo, ft_strlen(d->new.nw_echo) + 1);
+	ft_strlcpy(user->head, d->new.head, ft_strlen(d->new.head) + 1);
+	ft_strlcpy(user->list, d->new.list, ft_strlen(d->new.list) + 1);
+	ft_strlcpy(user->echo, d->new.echo, ft_strlen(d->new.echo) + 1);
 }
 
 void	new_list(t_mini *d)
@@ -98,12 +98,12 @@ int		**export(t_mini *d)
 	while (d->args[a])
 	{
 		clear_new(&d->new);
-		if (check_arg(d, &d->new, d->args[a]) == 0 || d->new.nw_head[0] == '\0')
-			printf("bash: export: `%s': not a valid identifier\n", d->new.nw_tmp);
+		if (check_arg(d, &d->new, d->args[a]) == 0 || d->new.head[0] == '\0')
+			printf("bash: export: `%s': not a valid identifier\n", d->new.tmp);
 		else
 		{
-			tmp = look_up(d->new.nw_head, d->echo);
-			if (tmp != NULL && d->new.nw_set == '=')
+			tmp = look_up(d->new.head, d->echo);
+			if (tmp != NULL && d->new.set == '=')
 				replace(d, tmp);
 			else if (tmp == NULL)
 				new_list(d);

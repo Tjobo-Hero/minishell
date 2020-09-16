@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/09 13:07:06 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:26:58 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,20 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	char	tmp[PATH_MAX];
 
 	i = 0;
-	d->new.nw_set = ' ';
+	d->new.set = ' ';
 	clear_str(tmp);
 	if (check_for_quotes(arg) == 0)
 		return (0);
-	make_string(d, arg, new->nw_tmp);
-	while (new->nw_tmp[i] != '=' && new->nw_tmp[i] != '\0')
+	make_string(d, arg, new->tmp);
+	while (new->tmp[i] != '=' && new->tmp[i] != '\0')
 		i++;
-	ft_strlcpy(tmp, new->nw_tmp, ft_strlen(new->nw_tmp) + 1);
+	ft_strlcpy(tmp, new->tmp, ft_strlen(new->tmp) + 1);
 	if (check_first_part(tmp) == 0)
 		return (0);
 	if (tmp[i] == '=')
-		new->nw_set = '=';
-	ft_strlcpy(new->nw_list, &tmp[i + 1], ft_strlen(tmp));
-	ft_strlcpy(new->nw_head, tmp, i + 1);
-	make_echo(d, new->nw_echo, arg);
+		new->set = '=';
+	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
+	ft_strlcpy(new->head, tmp, i + 1);
+	make_echo(d, new->echo, arg);
 	return (1);
 }

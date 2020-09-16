@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/16 11:25:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 16:13:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@
 # include <errno.h>
 # include <string.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <stdio.h>
 
 # define ENV_SIZE 50
 # define ECHO 20
@@ -33,6 +42,15 @@
 # define HEAD_MAX 50
 
 int	g_ret;
+
+typedef struct		s_pipe
+{
+	int			fd_in;
+	int			fd_out;
+	char		*input;
+	char		*output;
+	int			ispipe[2];
+}					t_pipe;
 
 typedef struct		s_env
 {
@@ -54,34 +72,32 @@ typedef struct		s_cmd
 
 typedef struct		s_new
 {
-	char	nw_head[HEAD_MAX];
-	char	nw_list[PATH_MAX];
-	char	nw_echo[STR_MAX];
-	char	nw_tmp[STR_MAX];
-	char	nw_set;
+	char	head[HEAD_MAX];
+	char	list[PATH_MAX];
+	char	echo[STR_MAX];
+	char	tmp[STR_MAX];
+	char	set;
 }					t_new;
 
 typedef struct	s_mini
 {
 	int		c;
 	char	*line;
-	int		set;
 	int		i;
 	char	**environ;
 	char	cwd[PATH_MAX];
 	char	**args;
-	int		c_arg;
-	char	**new_args;
-	int		c_pipe;
-	int		**pipe;
-	int		count_pipe[PATH_MAX];
+	char	**tmp_args;
 	int		ret;
 	int		index;
+	int		**pipes;
+	int		pids;
 	t_new	new;
 	t_env	list[ENV_SIZE];
 	t_env	*echo[ECHO];
 	t_cmd	cmd_list[8];
 	t_cmd	*commands[8];
+	t_pipe	pipe;
 }				t_mini;
 
 int		get_next_line(int fd, char **line);
@@ -129,6 +145,7 @@ void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
 void	new_split(t_mini *d, char *line);
-void	do_pipes(t_mini *d, int c);
-void	count_init(int *count);
+void	pipes(t_mini *d, int c, int *count);
+
+void	redirect(t_mini *d);
 #endif

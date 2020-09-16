@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/09 13:09:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:26:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ int		**unset(t_mini *d)
 	{
 		clear_new(&d->new);
 		check_arg(d, &d->new, d->args[a]);
-		if ((ft_isalpha_str(d->new.nw_tmp) == 0 && !ft_strchr(d->new.nw_tmp, '_'))
-			|| d->new.nw_tmp[0] == '\0')
-			ft_printf("bash: unset: `%s': not a valid identifier\n", d->new.nw_tmp);
+		if ((ft_isalpha_str(d->new.tmp) == 0 && !ft_strchr(d->new.tmp, '_'))
+			|| d->new.tmp[0] == '\0')
+			ft_printf("bash: unset: `%s': not a valid identifier\n", d->new.tmp);
 		else
 		{
-			tmp = look_up(d->new.nw_head, d->echo);
+			tmp = look_up(d->new.head, d->echo);
 			if (tmp)
 			{
-				delete_lst(d->new.nw_tmp, d->echo);
+				delete_lst(d->new.tmp, d->echo);
 				set_alpha_index(d->echo, tmp->index, tmp->alpha);
 				d->index--;
 			}

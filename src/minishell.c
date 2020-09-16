@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/16 11:47:41 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 16:39:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,132 +17,75 @@ void	screen_clean(void)
 	write(1, "\e[1;1H\e[2J", 11);
 }
 
-int		create_str(t_mini *d)
+int		*pipes_init(int *count, int i, int x)
 {
-	char	*tmp;
-	int		i;
-	int		x;
+	int	*tmp;
+	int	len;
 
-	x = 0;
-	while (d->args[x])
+	tmp = ft_calloc((x), sizeof(count));
+	len = 0;
+	while (count[len] != 0)
 	{
-		i = ft_strlen(d->args[x]);
-		tmp = malloc(sizeof(char *) * (i + 1));
-		make_string(d, d->args[x], tmp);
-		ft_bzero(d->args[x], i);
-		ft_strlcpy(d->args[x], tmp, ft_strlen(tmp) + 1);
-		free(tmp);
-		x++;
+		tmp[len] = count[len];
+		len++;
 	}
-	return (1);
+	tmp[len] = i;
+	free(count);
+	return (tmp);
 }
 
-void	set_arguments_correct(t_mini *d)
-{
-	int		i;
-
-	i = 0;
-	while (d->args[i] && ft_strncmp(d->args[i], "|", 1) != 0)
-		i++;
-	free(d->args[i]);
-	d->args[i] = NULL;
-	i++;
-	while (d->args[i])
-	{
-		free(d->args[i]);
-		i++;
-	}
-}
-
-void	pipes_init(t_mini *d)
+void	pipes_init2(t_mini *d, int count)
 {
 	int	i;
 
 	i = 0;
-	if (d->c_pipe == 0)
-		return ;
-	d->pipe = ft_calloc(d->c_pipe, sizeof(int *));
-	if (d->pipe == NULL)
+	// p->pids = 0;
+	d->pipes = ft_calloc(count, sizeof(int *));
+	if (d->pipes == NULL)
 		exit(1);
-	while (i < d->c_pipe)
+	while (i + 1 < count)
 	{
-		d->pipe[i] = ft_calloc(3, sizeof(int *));
-		if (d->pipe[i] == NULL)
+		d->pipes[i] = ft_calloc(3, sizeof(int));
+		if (d->pipes[i] == NULL)
 			exit(1);
-		if (pipe(d->pipe[i]) == -1)
+		if (pipe(d->pipes[i]) == -1)
 			exit(1);
+		// printf("PIPE: %d\n", *d->pipes[i]);
 		i++;
 	}
-}
-
-char	*make_pipe_str(t_mini *d, int *i)
-{
-	char	*new;
-	char	*tmp;
-
-	(*i)++;
-	tmp = ft_strdup("");
-	while (d->args[*i] != NULL && ft_strncmp(d->args[*i], "|", 1) != 0)
-	{
-		new = tmp;
-		free(tmp);
-		tmp = ft_strjoin(new, d->args[*i]);
-		if (d->args[*i + 1] != NULL && ft_strncmp(d->args[*i + 1], "|", 1) != 0)
-		{
-			new = tmp;
-			free(tmp);
-			tmp = ft_strjoin(new, " ");
-		}
-		(*i)++;
-	}
-	return (tmp);
 }
 
 void	find_pipes(t_mini *d)
 {
 	int		i;
 	int		x;
+	int		*count;
 
 	i = 0;
 	x = 0;
-	d->c_pipe = 0;
-	// d->pipes = NULL;
-	count_init(d->count_pipe);
-	while (d->args[i])
+	count = ft_calloc((x + 1), sizeof(int));
+	while (d->tmp_args[i])
 	{
-		if (ft_strncmp(d->args[i], "|", 1) == 0)
+		if (ft_strncmp(d->tmp_args[i], "|", 1) == 0)
 		{
-			d->count_pipe[d->c_pipe] = i;
-			d->c_pipe++;
+			count = pipes_init(count, i, x + 1);
+			x++;
 		}
 		i++;
 	}
-	if (d->c_pipe == 0)
-		return ;
-	d->count_pipe[d->c_pipe] = i;
-	while (d->count_pipe[x] != 0)
+	count[x] = i;
+	count[x + 1] = 0;
+	if (x != 0)
+		pipes_init2(d, x + 1);
+	i = 0;
+	while (count[i] != 0)
 	{
-		printf("COUNT:\t%d\n", d->count_pipe[x]);
-		x++;
+		printf("COUNT:\t%d\n", count[i]);
+		i++;
 	}
-	printf("------------------\n\n");
-	// d->pipes = malloc(sizeof(char**) * (d->c_pipe + 1));
-	// i = 0;
-	// while (d->args[i])
-	// {
-	// 	if (ft_strncmp(d->args[i], "|", 1) == 0)
-	// 	{
-	// 		d->pipes[x] = make_pipe_str(d, &i);
-	// 		x++;
-	// 	}
-	// 	else
-	// 		i++;
-	// }
-	// d->pipes[x] = NULL;
-	// set_arguments_correct(d);
-	pipes_init(d);
+	pipes(d, 0, count);
+	free(count);
 }
-
 
 void	get_commands(t_mini *d, char *line)
 {
@@ -150,20 +93,15 @@ void	get_commands(t_mini *d, char *line)
 	int		c_cmd;
 	int		i;
 	int		count[PATH_MAX];
-	int		c;
 
 	i = 0;
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
 	while (i < PATH_MAX && i < c_cmd)
 	{
-		c = 0;
 		new_split(d, cmd[i]);
 		find_pipes(d);
-		do_pipes(d, c);
-		// run_commands(d);
-		ft_free(d->args);
-		// ft_free(d->pipes);
+		ft_free(d->tmp_args);
 		i++;
 	}
 	ft_free(cmd);

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/14 15:47:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:27:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	fill_char_quote(t_mini *d, char *out, char *in, int count, char *new)
 void	fill_char_slash(t_mini *d)
 {
 	d->i++;
-	d->set = 1;
 }
 
 void	make_tmp(t_mini *d, char **arg, char *new, int c)
@@ -134,32 +133,36 @@ char	**upgrade_line(t_mini *d, char *in, char *out)
 	char	**tmp;
 	char	new[PATH_MAX];
 	int		c;
+	int		set;
 
 	c = 0;
 	d->i = 0;
 	tmp = (char**)malloc(sizeof(char*) * 1);
 	tmp[0] = NULL;
 	d->c = 0;
-	d->set = 0;
+	set = 0;
 	clear_str(new);
 	while (in[d->i] == ' ')
 		d->i++;
 	while (in[d->i] != '\0')
 	{
 		if (in[d->i] == '\\')
+		{
 			fill_char_slash(d);
-		if ((in[d->i] != '\"' && in[d->i] != '\'') || d->set == 1)
+			set = 0;
+		}
+		if ((in[d->i] != '\"' && in[d->i] != '\'') || set == 1)
 			new[d->c] = fill_char(d, out, in, c);
 		else if (in[d->i] == '\"' || in[d->i] == '\'')
 			fill_char_quote(d, out, in, c, new);
-		if ((out[c] == ' ') && d->set == 0)
+		if ((out[c] == ' ') && set == 0)
 		{
 			tmp = copy_tmp(tmp, 2);
 			if (out[c - 1] != '|')
 				make_tmp(d, tmp, new, 0);
 			d->c = 0;
 		}
-		else if ((out[c] == '|') && d->set == 0)
+		else if ((out[c] == '|') && set == 0)
 		{
 			tmp = copy_tmp(tmp, 3);
 			if (out[c - 1] != ' ')
@@ -175,7 +178,7 @@ char	**upgrade_line(t_mini *d, char *in, char *out)
 		else
 			d->i++;
 		c++;
-		d->set = 0;
+		set = 0;
 	}
 	if (in[d->i - 1] != ' ')
 	{
@@ -190,16 +193,6 @@ void	new_split(t_mini *d, char *line)
 	int		i;
 
 	i = 0;
-	clear_str(d->new.nw_tmp);
-	d->args = upgrade_line(d, line, d->new.nw_tmp);
-	while (d->args[i])
-		i++;
-	d->c_arg = i;
-	// free(line);
-	// x = ft_strlen(d->new.nw_tmp) + 1;
-	// line = malloc(sizeof(char*) * x);
-	// ft_strlcpy(line, d->new.nw_tmp, x);
-	// printf("Line:\t%s\n", line);
-	// printf("TMP:\t%s\n", d->new.nw_tmp);
-	// printf("SET:\t%d\n", d->set);
+	clear_str(d->new.tmp);
+	d->tmp_args = upgrade_line(d, line, d->new.tmp);
 }
