@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/16 14:26:58 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/18 12:06:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		check_first_part(char *arg)
 	while (arg[i] != '=' && arg[i] != '\0')
 	{
 		if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) ||
-			(arg[i] < 97 && arg[i] > 122))
+			(arg[i] < 97 || arg[i] > 122))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/16 16:13:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/21 18:48:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,17 @@
 # include <errno.h>
 # include <string.h>
 # include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <errno.h>
 # include <sys/wait.h>
 # include <signal.h>
-# include <string.h>
 # include <sys/stat.h>
-# include <stdio.h>
+# include <stdarg.h>
+#include <sys/cdefs.h>
 
 # define ENV_SIZE 50
 # define ECHO 20
 # define STR_MAX 256
 # define HEAD_MAX 50
+# define NEW 1024
 
 int	g_ret;
 
@@ -79,9 +76,20 @@ typedef struct		s_new
 	char	set;
 }					t_new;
 
+typedef struct		s_arg
+{
+	int		i;
+	int		c_i;
+	int		c;
+	int		p_i;
+	int		set;
+	int		count[PATH_MAX];
+	char	**cmds;
+
+}					t_arg;
+
 typedef struct	s_mini
 {
-	int		c;
 	char	*line;
 	int		i;
 	char	**environ;
@@ -98,6 +106,7 @@ typedef struct	s_mini
 	t_cmd	cmd_list[8];
 	t_cmd	*commands[8];
 	t_pipe	pipe;
+	t_arg	*arg;
 }				t_mini;
 
 int		get_next_line(int fd, char **line);
@@ -144,8 +153,14 @@ int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
-void	new_split(t_mini *d, char *line);
+int		check_for_quotes(char *arg);
 void	pipes(t_mini *d, int c, int *count);
 
 void	redirect(t_mini *d);
+
+void	get_commands(t_mini *d, char *line);
+char	**new_arg(char **args);
+void	count_init(int *count);
+void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
+void	find_pipes(t_mini *d);
 #endif

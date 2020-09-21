@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/09/16 14:58:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/18 11:32:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	redirect_output(char **args, t_pipe *redirs, int *i)
 	if (ft_strncmp(args[*i], ">", 2) == 0)
 		redirs->fd_out = open(redirs->output, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	else
-		redirs->fd_out = open(redirs->output, O_CREAT | O_APPEND | O_RDWR, 0644);
+		redirs->fd_out = open(redirs->output,
+		O_CREAT | O_APPEND | O_RDWR, 0644);
 }
 
 void	redirect(t_mini *d)
