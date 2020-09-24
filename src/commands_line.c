@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/21 18:47:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 14:50:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,12 @@ static char	fill_char(t_arg *arg, char c, int *count)
 
 static void	fill_char_quote(t_arg *arg, char *in, char *out, int *count)
 {
-	char	c;
-
-	c = in[arg->i];
+	// if (in[arg->i] == '\"')
+	// 	return (fill_char_double(t_arg *arg, char *in, char *out, int *count));
 	out[arg->c] = fill_char(arg, in[arg->i], count);
-	while (in[arg->i] != c && in[arg->i] != '\0')
-	{
-		if (in[arg->i] == '\\')
-			out[arg->c] = fill_char(arg, in[arg->i], count);
+	while (in[arg->i] != '\'' && in[arg->i] != '\0')
 		out[arg->c] = fill_char(arg, in[arg->i], count);
-	}
 	out[arg->c] = fill_char(arg, in[arg->i], count);
-}
-
-static void	fill_char_slash(t_arg *arg)
-{
-	arg->i++;
-	arg->set = 1;
 }
 
 static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
@@ -52,8 +41,8 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 	c = in[arg->i];
 	if (c == '|' && arg->set == 0)
 	{
-		arg->count[arg->p_i] = arg->c_i;
-		arg->p_i++;
+		arg->count[arg->a] = arg->c_i;
+		arg->a++;
 	}
 	if (c == '|' && arg->set == 1)
 	{
@@ -81,7 +70,10 @@ void	upgrade_line(t_arg *arg, char *in, char *out, int *count)
 	while (in[arg->i] != '\0')
 	{
 		if (in[arg->i] == '\\')
-			fill_char_slash(arg);
+		{
+			arg->i++;
+			arg->set = 1;
+		}
 		if (in[arg->i] == '\"' || in[arg->i] == '\'')
 			fill_char_quote(arg, in, out, count);
 		else if (in[arg->i] == '<' || in[arg->i] == '>' || in[arg->i] == '|')
@@ -97,4 +89,5 @@ void	upgrade_line(t_arg *arg, char *in, char *out, int *count)
 		arg->set = 0;
 	}
 	count[arg->c_i] = arg->c + 1;
+	arg->count[arg->a] = arg->c_i + 1;
 }

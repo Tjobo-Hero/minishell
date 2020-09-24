@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/09 15:16:17 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 13:16:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ void	free_environ(char **environ)
 		i--;
 	}
 	free(environ);
+}
+
+void	free_int_array(int **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	while (i >= 0)
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i--;
+	}
+	free(arr);
+	arr = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/21 18:48:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 13:49:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,26 @@ typedef struct		s_arg
 	int		i;
 	int		c_i;
 	int		c;
-	int		p_i;
 	int		set;
-	int		count[PATH_MAX];
-	char	**cmds;
+	int		a;
+	int		count[20];
 
 }					t_arg;
 
 typedef struct	s_mini
 {
 	char	*line;
+	char	**split_line;
 	int		i;
 	char	**environ;
 	char	cwd[PATH_MAX];
 	char	**args;
-	char	**tmp_args;
 	int		ret;
 	int		index;
 	int		**pipes;
 	int		pids;
+	int		forked;
+	int		fd;
 	t_new	new;
 	t_env	list[ENV_SIZE];
 	t_env	*echo[ECHO];
@@ -120,14 +121,15 @@ void	ft_free(char **args);
 void	free_environ(char **environ);
 
 /* commands */
-int		**run_commands(t_mini *d);
+void	command(t_mini *d);
+// static int	**run_commands(t_mini *d);
 int		**pwd(t_mini *d);
 int		**cd(t_mini *d);
 int		**export(t_mini *d);
 int		**env(t_mini *d);
 int		**unset(t_mini *d);
 int		**echo(t_mini *d);
-void	execute(t_mini *d, char **cmd);
+void	check_if_forked(t_mini *d);
 void	new_list(t_mini *d);
 
 /* Utils */
@@ -154,13 +156,13 @@ void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
 int		check_for_quotes(char *arg);
-void	pipes(t_mini *d, int c, int *count);
-
-void	redirect(t_mini *d);
 
 void	get_commands(t_mini *d, char *line);
-char	**new_arg(char **args);
 void	count_init(int *count);
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
-void	find_pipes(t_mini *d);
+
+void	pipes(t_mini *d);
+void	redirect(t_mini *d, int n);
+char	**new_arg(char **args, int c, int n);
+void	free_int_array(int **arr);
 #endif

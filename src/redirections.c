@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/09/18 11:32:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 12:19:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@ void	redirect_output(char **args, t_pipe *redirs, int *i)
 		O_CREAT | O_APPEND | O_RDWR, 0644);
 }
 
-void	redirect(t_mini *d)
+void	redirect(t_mini *d, int n)
 {
 	int		i;
 
 	i = 0;
-	while (d->args[i])
+	while (d->split_line[i] && i < n)
 	{
-		if (ft_strncmp(d->args[i], "<", 2) == 0 && d->args[i + 1])
+		if (ft_strncmp(d->split_line[i], "<", 2) == 0 && d->split_line[i + 1])
 		{
-			d->pipe.input = d->args[i + 1];
+			d->pipe.input = d->split_line[i + 1];
 			if (d->pipe.fd_in > 0)
 				close(d->pipe.fd_in);
 			d->pipe.fd_in = open(d->pipe.input, O_RDONLY);
 		}
-		if ((ft_strncmp(d->args[i], ">", 2) == 0 ||
-			ft_strncmp(d->args[i], ">>", 3) == 0) && d->args[i + 1])
-			redirect_output(d->args, &d->pipe, &i);
+		if ((ft_strncmp(d->split_line[i], ">", 2) == 0 ||
+			ft_strncmp(d->split_line[i], ">>", 3) == 0) && d->split_line[i + 1])
+			redirect_output(d->split_line, &d->pipe, &i);
 		i++;
 	}
 }

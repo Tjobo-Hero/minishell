@@ -6,17 +6,17 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/21 10:48:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 14:09:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fd(int fd)
-{
-	if (fd > 1)
-		close(fd);
-}
+// void	close_fd(int fd)
+// {
+// 	if (fd > 1)
+// 		close(fd);
+// }
 
 void	close_pipes(t_mini *d, int n)
 {
@@ -35,25 +35,9 @@ void	close_pipes(t_mini *d, int n)
 	}
 }
 
-void	do_pipes2(t_mini *d, int c, int *count)
-{
-	int		i;
-	int		start;
-	char	**new;
 
-	i = 0;
-	start = (c == 0) ? 0 : count[c - 1] + 1;
-	if (start == 0)
-		d->args = malloc(sizeof(char*) * ((count[c] - start) + 1));
-	else
-		d->args = malloc(sizeof(char*) * ((count[c] - 1) + 1));
-	while (start < count[c])
-	{
-		d->args[i] = ft_strdup(d->tmp_args[start]);
-		start++;
-		i++;
-	}
-	d->args[i] = NULL;
+static void	pipes_start(t_mini *d, int c, int n)
+{
 	ft_bzero(&d->pipe, sizeof(t_pipe));
 	if (d->pipes && d->pipes[c] && d->pipes[c][1] > 1)
 	{
@@ -65,33 +49,51 @@ void	do_pipes2(t_mini *d, int c, int *count)
 		d->pipe.fd_in = d->pipes[c - 1][0];
 		d->pipe.ispipe[0] = 1;
 	}
-	redirect(d);
-	i = 0;
-	// while (d->args[i])
-	// {
-	// 	printf("ARG:\t%s\n", d->args[i]);
-	// 	i++;
-	// }
-	// printf("\n");
-	i = 0;
-	new = new_arg(d->args);
-	char	**tmp;
-	tmp = d->args;
+	redirect(d, n);
+	d->args = new_arg(d->split_line, c, n);
+	command(d);
 	ft_free(d->args);
-	d->args = new;
-	// while (d->args[i])
-	// {
-	// 	printf("ARG:\t%s\n", d->args[i]);
-	// 	i++;
-	// }
-	// run_commands(d);
-	// close_pipes(d, c);
+	free_int_array(d->pipes);
+	close_pipes(d, c);
 	return ;
 }
 
-void	pipes(t_mini *d, int c, int *count)
+static void	pipes_init(t_mini *d, int count)
 {
-	do_pipes2(d, c, count);
-	// if (count[c + 1] != 0)
-	// 	pipes(d, c + 1, count);
+	int	i;
+
+	i = 0;
+	d->pids = 0;
+	d->pipes = ft_calloc(count, sizeof(int *));
+	if (d->pipes == NULL)
+		exit(1);
+	while (i + 1 < count)
+	{
+		d->pipes[i] = ft_calloc(3, sizeof(int));
+		if (d->pipes[i] == NULL)
+			exit(1);
+		if (pipe(d->pipes[i]) == -1)
+			exit(1);
+		i++;
+	}
+}
+
+void	pipes(t_mini *d)
+{
+	int		i;
+	int		x;
+
+	i = 0;
+	x = 0;
+	while (d->split_line[i])
+		i++;
+	if (i != 0)
+		pipes_init(d, i + 1);
+	i = 0;
+	while (d->arg->count[i] != 0)
+	{
+		pipes_start(d, x, d->arg->count[i]);
+		x = d->arg->count[i];
+		i++;
+	}
 }

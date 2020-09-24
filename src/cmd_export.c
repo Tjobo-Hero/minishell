@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/16 16:17:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 14:09:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ int		**export(t_mini *d)
 	int		a;
 
 	a = 1;
+		int i = 0;
+	while (d->args[i])
+	{
+		printf("ARG:\t%s\n", d->args[i]);
+		i++;
+	}
 	if (!d->args[a])
 		return (print(d->echo));
 	while (d->args[a])

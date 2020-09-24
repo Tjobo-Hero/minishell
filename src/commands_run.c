@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/18 10:53:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/24 13:50:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,35 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 	return (tmp);
 }
 
-int		**run_commands(t_mini *d)
+static int	**run_commands(t_mini *d, int forked)
 {
 	t_cmd	*tmp;
 	int		i;
 
 	i = 0;
+	d->fd = (d->pipe.fd_out > 0) ? d->pipe.fd_out : 1;
+	d->forked = forked;
 	check_single_double(d);
 	tmp = look_up_commands(d->args[0], d->commands);
 	if (tmp == NULL)
-		execute(d, d->args);
+		check_if_forked(d);
 	else
 		d->ret = (int)start_command(tmp->index)(d);
 	return (0);
+}
+
+void		command(t_mini *d)
+{
+	if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
+	{
+		if (fork() == 0)
+		{
+			run_commands(d, 1);
+			exit(0);
+		}
+		else
+			d->pids++;
+	}
+	else
+		run_commands(d, 0);
 }
