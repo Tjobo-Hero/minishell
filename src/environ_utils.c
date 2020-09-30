@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/04 18:00:17 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 14:09:30 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,14 @@ void	print_echo(t_env **hash_table)
 	}
 }
 
-int		hash_echo(char *name, int count)
-{
-	int				length;
-	unsigned int	value;
-	int				i;
-
-	value = 0;
-	i = 0;
-	length = strlen(name);
-	while (i < length)
-	{
-		value += name[i];
-		value = (value * name[i]) % count;
-		i++;
-	}
-	return (value);
-}
-
 t_env	*look_up(char *name, t_env **hash_table)
 {
 	t_env	*tmp;
 	int		i;
 
-	i = hash_echo(name, ECHO);
+	i = hash(name, ECHO);
 	tmp = hash_table[i];
-	while (tmp != NULL && strncmp(tmp->head, name, strlen(name)) != 0)
+	while (tmp != NULL && ft_strncmp(tmp->head, name, strlen(name)) != 0)
 		tmp = tmp->next;
 	return (tmp);
 }
@@ -73,7 +55,7 @@ void	delete_lst(char *name, t_env **hash_table)
 	t_env	*pre;
 	int		i;
 
-	i = hash_echo(name, ECHO);
+	i = hash(name, ECHO);
 	tmp = hash_table[i];
 	pre = NULL;
 	while (tmp != NULL && strncmp(tmp->head, name, strlen(name)) != 0)

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 13:50:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 17:51:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 	int		i;
 	int		len;
 
-	i = hash_echo(name, 7);
+	i = hash(name, COMMAND);
 	len = ft_strlen(name);
 	tmp = hash_table[i];
 	while (tmp)
 	{
-		if (!strncmp(name, tmp->head, strlen(tmp->head)) &&
-			len == (int)ft_strlen(tmp->head))
+		if (!strncmp(name, tmp->command, strlen(tmp->command)) &&
+			len == (int)ft_strlen(tmp->command))
 			break ;
 		tmp = tmp->next;
 	}
@@ -48,12 +48,10 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 static int	**run_commands(t_mini *d, int forked)
 {
 	t_cmd	*tmp;
-	int		i;
 
-	i = 0;
 	d->fd = (d->pipe.fd_out > 0) ? d->pipe.fd_out : 1;
 	d->forked = forked;
-	check_single_double(d);
+	check_arg_and_remove_case(d);
 	tmp = look_up_commands(d->args[0], d->commands);
 	if (tmp == NULL)
 		check_if_forked(d);
@@ -64,16 +62,16 @@ static int	**run_commands(t_mini *d, int forked)
 
 void		command(t_mini *d)
 {
-	if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
-	{
-		if (fork() == 0)
-		{
-			run_commands(d, 1);
-			exit(0);
-		}
-		else
-			d->pids++;
-	}
-	else
+	// if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
+	// {
+	// 	if (fork() == 0)
+	// 	{
+	// 		run_commands(d, 1);
+	// 		exit(1);
+	// 	}
+	// 	else
+	// 		d->pids++;
+	// }
+	// else
 		run_commands(d, 0);
 }

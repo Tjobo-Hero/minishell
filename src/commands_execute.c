@@ -6,69 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 14:49:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 15:10:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	fill_char2(t_arg *arg, char c)
-{
-	arg->c++;
-	arg->i++;
-	return (c);
-}
-
-static void	fill_char_double2(t_arg *arg, char *in, char *out)
-{
-	char	c;
-
-	c = '\"';
-	arg->i++;
-			printf("CHAR: %c\n", in[arg->i]);
-	while (in[arg->i] != c)
-	{
-		if (in[arg->i] == '\\' && in[arg->i + 1] != '\"')
-			out[arg->c] = fill_char2(arg, in[arg->i]);
-		else if (in[arg->i] == '\\' && in[arg->i + 1] == '\"')
-		{
-			arg->i++;
-			out[arg->c] = fill_char2(arg, in[arg->i]);
-		}
-		else
-			out[arg->c] = fill_char2(arg, in[arg->i]);
-	}
-	arg->i++;
-}
-
-static void	fill_char_single2(t_arg *arg, char *in, char *out)
-{
-	char	c;
-
-	c = in[arg->i];
-	arg->i++;
-	out[arg->c] = fill_char2(arg, in[arg->i]);
-	while (in[arg->i] != c)
-		out[arg->c] = fill_char2(arg, in[arg->i]);
-	arg->i++;
-}
-
-void	upgrade_line2(t_arg *arg, char *in, char *out)
-{
-	arg->i = 0;
-	arg->c = -1;
-	arg->set = 0;
-	printf("IN: %s\n", in);
-	while (in[arg->i] != '\0')
-	{
-		if (in[arg->i] == '\'')
-			fill_char_single2(arg, in, out);
-		else if (in[arg->i] == '\"')
-			fill_char_double2(arg, in, out);
-		else
-			out[arg->c] = fill_char2(arg, in[arg->i]);
-	}
-}
 
 char	*make_str(t_env *tmp, int *i, int *c)
 {
@@ -113,43 +55,105 @@ void	make_environ(t_mini *d)
 	d->environ[c] = NULL;
 }
 
-static void	execute(t_mini *d, char **cmd)
+void		close_ifnot_and_dup(t_mini *d)
 {
-	char	**tmp;
-	int		i;
+	int i;
 
 	i = 0;
-	while (cmd[i])
-		i++;
-	tmp = (char**)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (cmd[i])
+	while (d->pipes[i])
 	{
-		clear_str(d->new.tmp);
-		upgrade_line2(d->arg, cmd[i], d->new.tmp);
-		printf("TMP:\t%s\n", d->new.tmp);
-		tmp[i] = ft_strdup(d->new.tmp);
+		if (d->pipes[i][0] > 2 && d->pipes[i][0] != d->pipe.fd_in)
+			close(d->pipes[i][0]);
+		if (d->pipes[i][1] > 2 && d->pipes[i][1] != d->pipe.fd_out)
+			close(d->pipes[i][1]);
 		i++;
 	}
-	tmp[i] = NULL;
+	if (d->pipe.fd_in > 0 && dup2(d->pipe.fd_in, 0) < 0)
+		exit(1);
+	if (d->pipe.fd_out > 0 && dup2(d->pipe.fd_out, 1) < 0)
+		exit(1);
+}
+
+static char	*update_path(char *cmd, char *path)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strtrim(path, ":");
+	tmp2 = ft_strjoin(tmp, "/");
+	free(tmp);
+	tmp = ft_strjoin(tmp2, cmd);
+	free(tmp2);
+	return (tmp);
+}
+
+static void	get_path(t_mini *d, char **abspath)
+{
+	t_env		*path;
+	struct stat	statstruct;
+	char		**new;
+	char		*tmp;
+	int			i;
+	int			count[INT_MAX];
+
+	path = look_up("PATH", d->echo);
+	if (path == NULL)
+		return ;
+	// count_init(count, INT_MAX);
+	i = new_count_commands(path->list, count, ':');
+	new = new_fill_commands(path->list, count, i);
+	i = 0;
+	while (new[i])
+	{
+		tmp = update_path(d->args[0], new[i]);
+		if (stat(tmp, &statstruct) != -1)
+		{
+			*abspath = tmp;
+			return ;
+		}
+		free(tmp);
+		i++;
+	}
+	ft_free(new);
+}
+
+static void	execute(t_mini *d, char **cmd)
+{
+	char		*tmp;
+	struct stat	statstruct;
+	char		*abspath;
+
+	abspath = NULL;
+	close_ifnot_and_dup(d);
+	get_path(d, &abspath);
+	printf("ABS:\t%s\n", abspath);
+	make_environ(d);
+	tmp = ft_strjoin("/bin/", cmd[0]);
+	if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
+		printf("bash: %s: command not found\n", d->args[0]);
+	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
+		printf("bash: %s: %s\n", d->args[0], strerror(errno));
+	exit(127);
+	// if (!abspath && execve(tmp, cmd, d->environ) == -1)
+	// 	printf("bash: %s: command not found\n", d->args[0]);
+	//  if (abspath && stat(d->args[0], &statstruct) < 0)
+		// printf("bash: %s: %s\n", d->args[0], strerror(errno));
+	// char	**tmp;
+	// int		i;
+
 	// i = 0;
-	// while (tmp[i])
-	// {
-	// 	printf("TMP:\t%s\n", tmp[i]);
-	// 	i++;
-	// }
-	// tmp = ft_strjoin("/bin/", cmd[0]);
-	// make_environ(d);
 	// if (fork() == 0)
 	// {
-	// 	if (execve(tmp, cmd, d->environ) == -1)
-	// 		ft_printf("bash: %s: command not found\n", d->args[0]);
+		// if (execve(tmp, cmd, d->environ) == -1)
+		// 	ft_printf("bash: %s: command not found\n", d->args[0]);
 	// 	exit(0);
 	// }
 	// wait(&i);
 	// free_environ(d->environ);
-	// free(tmp);
+	ft_free(d->environ);
+	free(tmp);
 	(void)cmd;
+	(void)d;
 }
 
 void	check_if_forked(t_mini *d)

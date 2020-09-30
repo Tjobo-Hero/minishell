@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/11 12:33:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 17:19:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,12 @@ int		if_same_loop(char *str, int *x, char c)
 	return (i);
 }
 
-void	count_init(int *count)
+int		*count_init(int size)
 {
-	int i;
+	int		*tmp;
 
-	i = 0;
-	while (count[i] != 0)
-	{
-		count[i] = 0;
-		i++;
-	}
+	tmp = ft_calloc(size, sizeof(int*));
+	return (tmp);
 }
 
 int		new_count_commands(char *str, int *count, char c)
@@ -51,7 +47,6 @@ int		new_count_commands(char *str, int *count, char c)
 
 	x = 0;
 	i = 0;
-	count_init(count);
 	while (str[i] == c)
 		i++;
 	while (str[i] != '\0')
@@ -70,6 +65,7 @@ int		new_count_commands(char *str, int *count, char c)
 		i++;
 	}
 	count[x] = i;
+	free(count);
 	return (x + 1);
 }
 

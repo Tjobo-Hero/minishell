@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:41:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 17:50:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,8 @@ char	*to_lower(t_mini *d, char *str)
 	return (tmp);
 }
 
-void	check_single_double(t_mini *d)
+void	check_arg_and_remove_case(t_mini *d)
 {
-	char	*tmp;
-	int		len;
-
-	tmp = NULL;
-	len = ft_strlen(d->args[0]);
-	if ((d->args[0][len - 1] == '\'' && d->args[0][len - 2] == '\'') ||
-		(d->args[0][len - 1] == '\"' && d->args[0][len - 2] == '\"'))
-	{
-		tmp = d->args[0];
-		d->args[0] = malloc(sizeof(char *) * (len - 1));
-		ft_strlcpy(d->args[0], tmp, len - 1);
-		free(tmp);
-	}
+	remove_case(d);
 	to_lower(d, d->args[0]);
 }

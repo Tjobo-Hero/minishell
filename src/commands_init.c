@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 13:31:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 18:34:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,19 @@ static void	split_line(t_mini *d, char *out, int *count)
 
 static int	split_command(t_mini *d, char *line, int *count)
 {
-	int		i;
-	char	out[PATH_MAX];
+	char	*out;
 
-	i = 0;
 	d->arg->c_i = 0;
 	d->arg->c = -1;
 	d->arg->i = 0;
 	d->arg->set = 0;
 	d->arg->a = 0;
-	count_init(count);
-	count_init(d->arg->count);
-	ft_bzero(out, PATH_MAX);
+	out = create_str(PATH_MAX);
+	count = count_init(PATH_MAX);
+	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
-	i = 0;
-	while (d->split_line[i])
-	{
-		if (!check_for_quotes(d->split_line[i]))
-			return (0);
-		i++;
-	}
+	free(out);
 	return (1);
 }
 
@@ -85,18 +77,22 @@ void		get_commands(t_mini *d, char *line)
 	char	**cmd;
 	int		c_cmd;
 	int		i;
-	int		count[PATH_MAX];
+	int		*count;
 
 	i = 0;
+	count = count_init(PATH_MAX);
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
 	while (i < PATH_MAX && i < c_cmd)
 	{
-		if (split_command(d, cmd[i], count))
-			pipes(d);
-		else
+		if (check_for_quotes(cmd[i]))
 			printf("NOT CORRECT QUOTES\n");
+		else
+			split_command(d, cmd[i], count);
+		pipes(d);
 		ft_free(d->split_line);
+		// free(count);
+		// free(d->arg->count);
 		i++;
 	}
 	ft_free(cmd);

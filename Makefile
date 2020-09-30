@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/09/21 17:35:11 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/09/30 11:43:35 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ INCLUDE_DIR		= ./include/
 SRC_FILES		=	minishell \
 					environ_init \
 					environ_utils \
+					environ_utils1 \
 					ft_free \
 					get_next_line \
 					commands_run \
@@ -73,6 +74,8 @@ SRC_FILES		=	minishell \
 					new_arg \
 					commands_init \
 					pipes_init \
+					remove_case \
+					syntax_check \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)

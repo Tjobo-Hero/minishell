@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/04 13:16:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 14:23:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		**env(t_mini *d)
 
 	i = 0;
 	c = 0;
+	printf("\n\n");
 	while (i < ECHO)
 	{
 		if (d->echo[i] != NULL)

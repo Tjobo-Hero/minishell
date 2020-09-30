@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 14:09:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 18:31:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,22 @@
 // 		close(fd);
 // }
 
-void	close_pipes(t_mini *d, int n)
-{
-	if (d->pipes)
-	{
-		if (d->pipes[n] && d->pipes[n][1] > 1)
-		{
-			close(d->pipes[n][1]);
-			d->pipes[n][1] = -1;
-		}
-		if (n > 0 && d->pipes[n - 1] && d->pipes[n - 1][0] > 1)
-		{
-			close(d->pipes[n - 1][0]);
-			d->pipes[n - 1][0] = -1;
-		}
-	}
-}
-
+// void	close_pipes(t_mini *d, int n)
+// {
+// 	if (d->pipes)
+// 	{
+// 		if (d->pipes[n] && d->pipes[n][1] > 1)
+// 		{
+// 			close(d->pipes[n][1]);
+// 			d->pipes[n][1] = -1;
+// 		}
+// 		if (n > 0 && d->pipes[n - 1] && d->pipes[n - 1][0] > 1)
+// 		{
+// 			close(d->pipes[n - 1][0]);
+// 			d->pipes[n - 1][0] = -1;
+// 		}
+// 	}
+// }
 
 static void	pipes_start(t_mini *d, int c, int n)
 {
@@ -52,10 +51,10 @@ static void	pipes_start(t_mini *d, int c, int n)
 	redirect(d, n);
 	d->args = new_arg(d->split_line, c, n);
 	command(d);
-	ft_free(d->args);
-	free_int_array(d->pipes);
-	close_pipes(d, c);
-	return ;
+	// ft_free(d->args);
+	// ft_free(d->orig);
+	// free_int_array(d->pipes);
+	// close_pipes(d, c);
 }
 
 static void	pipes_init(t_mini *d, int count)
@@ -78,6 +77,23 @@ static void	pipes_init(t_mini *d, int count)
 	}
 }
 
+// void	soul_goodman(t_mini *d, int *i)
+// {
+// 	int soul;
+// 	int child;
+
+// 	child = 0;
+// 	soul = 0;
+// 	while (soul < d->pids)
+// 	{
+// 		waitpid(-1, &child, 0);
+// 		// return_values(child, d);
+// 		soul++;
+// 	}
+// 	(*i)++;
+	// free_int_array(p->pipes);
+// }
+
 void	pipes(t_mini *d)
 {
 	int		i;
@@ -88,7 +104,7 @@ void	pipes(t_mini *d)
 	while (d->split_line[i])
 		i++;
 	if (i != 0)
-		pipes_init(d, i + 1);
+		pipes_init(d, i);
 	i = 0;
 	while (d->arg->count[i] != 0)
 	{
@@ -96,4 +112,6 @@ void	pipes(t_mini *d)
 		x = d->arg->count[i];
 		i++;
 	}
+	// i = 0;
+	// soul_goodman(d, &i);
 }

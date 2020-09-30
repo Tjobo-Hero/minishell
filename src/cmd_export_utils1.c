@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/18 12:06:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 18:18:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,51 +70,24 @@ int		check_first_part(char *arg)
 	i = 0;
 	while (arg[i] != '=' && arg[i] != '\0')
 	{
-		if (arg[i] < 65 || (arg[i] > 90 && arg[i] < 95) ||
-			(arg[i] < 97 || arg[i] > 122))
+		if (arg[i] > 64 && arg[i] < 91)
+			i++;
+		else if (arg[i] > 94 && arg[i] < 123)
+			i++;
+		else
 			return (0);
-		i++;
 	}
-	return (1);
-}
-
-int		check_for_quotes(char *arg)
-{
-	int i;
-	int s;
-	int dou;
-	int slash;
-
-	i = 0;
-	s = 1;
-	dou = 1;
-	while (arg[i] != '\0')
-	{
-		if (arg[i] != '\\' && arg[i - 1] != '\\')
-			slash = 0;
-		else if (arg[i] == '\\' && s == 1)
-			slash++;
-		if (arg[i] == '\'' && slash % 2 == 0 && dou != -1)
-			s *= -1;
-		else if (arg[i] == '\"' && slash % 2 == 0 && s != -1)
-			dou *= -1;
-		i++;
-	}
-	if (dou == -1 || s == -1)
-		return (0);
 	return (1);
 }
 
 int		check_arg(t_mini *d, t_new *new, char *arg)
 {
 	int		i;
-	char	tmp[PATH_MAX];
+	char	*tmp;
 
 	i = 0;
 	d->new.set = ' ';
-	clear_str(tmp);
-	if (check_for_quotes(arg) == 0)
-		return (0);
+	tmp = create_str(PATH_MAX);
 	make_string(d, arg, new->tmp);
 	while (new->tmp[i] != '=' && new->tmp[i] != '\0')
 		i++;
@@ -126,5 +99,6 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
 	ft_strlcpy(new->head, tmp, i + 1);
 	make_echo(d, new->echo, arg);
+	free(tmp);
 	return (1);
 }

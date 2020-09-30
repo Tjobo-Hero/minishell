@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/08/25 11:02:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 17:52:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int		**update_env(t_mini *d)
 		return (0);
 	getcwd(d->cwd, sizeof(d->cwd));
 	i = ft_strlen(d->cwd);
-	clear_str(d->list[check->index].list);
-	clear_str(d->list[check->index].echo);
-	ft_strlcpy(d->list[check->index].list, d->cwd, i + 1);
-	ft_strlcpy(d->list[check->index].echo, d->cwd, i + 1);
+	free(check->list);
+	check->list = malloc(sizeof(char*) * (i + 1));
+	ft_strlcpy(check->list, d->cwd, i + 1);
+	check->echo = check->list;
 	return (0);
 }
 

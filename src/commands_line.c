@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 14:50:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/25 12:12:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,23 @@ static char	fill_char(t_arg *arg, char c, int *count)
 
 static void	fill_char_quote(t_arg *arg, char *in, char *out, int *count)
 {
-	// if (in[arg->i] == '\"')
-	// 	return (fill_char_double(t_arg *arg, char *in, char *out, int *count));
+	arg->set = 1;
 	out[arg->c] = fill_char(arg, in[arg->i], count);
+	if (in[arg->i - 1] == '\"')
+	{
+		while (in[arg->i] != '\"')
+		{
+			out[arg->c] = fill_char(arg, in[arg->i], count);
+			if (in[arg->i] == '\"' && in[arg->i + 1] == '\"')
+				out[arg->c] = fill_char(arg, in[arg->i], count);
+		}
+		arg->set = 0;
+		out[arg->c] = fill_char(arg, in[arg->i], count);
+		return ;
+	}
 	while (in[arg->i] != '\'' && in[arg->i] != '\0')
 		out[arg->c] = fill_char(arg, in[arg->i], count);
+	arg->set = 0;
 	out[arg->c] = fill_char(arg, in[arg->i], count);
 }
 
