@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 15:08:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 21:34:38 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		main(void)
 	char	*line;
 
 	init_env(&d);
-	// screen_clean();
+	screen_clean();
 	while (1)
 	{
 	// 	signal(SIGINT, block_ctrl_c);

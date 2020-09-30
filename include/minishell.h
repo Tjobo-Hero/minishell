@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 20:13:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 21:40:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct	s_mini
 	char	**split_line;
 	int		i;
 	char	**environ;
-	char	cwd[PATH_MAX];
+	char	*cwd;
 	char	**args;
 	char	**orig;
 	int		ret;
@@ -104,9 +104,7 @@ typedef struct	s_mini
 	int		forked;
 	int		fd;
 	t_new	new;
-	t_env	list[ENV_SIZE];
 	t_env	**echo;
-	t_cmd	cmd_list[8];
 	t_cmd	**commands;
 	t_pipe	pipe;
 	t_arg	*arg;
