@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 20:30:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 21:03:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ void	create_delete_new(t_new *tmp, int i)
 		tmp->echo = malloc(sizeof(char*) * PATH_MAX);
 		tmp->list = malloc(sizeof(char*) * PATH_MAX);
 		tmp->tmp = malloc(sizeof(char*) * PATH_MAX);
+	}
+	else if (i == 0 || i == 1)
+	{
 		ft_bzero(tmp->head, sizeof(PATH_MAX));
 		ft_bzero(tmp->echo, sizeof(PATH_MAX));
 		ft_bzero(tmp->list, sizeof(PATH_MAX));
 		ft_bzero(tmp->tmp, sizeof(PATH_MAX));
 	}
-	else
+	else if (i == 3)
 	{
 		free(tmp->head);
 		free(tmp->echo);

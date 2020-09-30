@@ -89,10 +89,10 @@ int		**export(t_mini *d)
 	a = 1;
 	if (!d->args[a])
 		return (print(d->echo));
-	while (d->args[a])
+	create_delete_new(&d->new, 0);
+	while (d->orig[a])
 	{
-		create_delete_new(&d->new, 0);
-		if (check_arg(d, &d->new, d->args[a]) == 0 || d->new.head[0] == '\0')
+		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
 			printf("bash: export: `%s': not a valid identifier\n", d->new.tmp);
 		else
 		{
@@ -101,9 +101,10 @@ int		**export(t_mini *d)
 				replace(d, tmp);
 			else if (tmp == NULL)
 				new_list(d);
-			create_delete_new(&d->new, 1);
 		}
+		create_delete_new(&d->new, 1);
 		a++;
 	}
+	create_delete_new(&d->new, 2);
 	return (NULL);
 }

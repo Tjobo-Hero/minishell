@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 18:31:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 21:05:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	pipes_start(t_mini *d, int c, int n)
 	redirect(d, n);
 	d->args = new_arg(d->split_line, c, n);
 	command(d);
-	// ft_free(d->args);
-	// ft_free(d->orig);
-	// free_int_array(d->pipes);
+	ft_free(d->args);
+	ft_free(d->orig);
+	free_int_array(d->pipes);
 	// close_pipes(d, c);
 }
 
