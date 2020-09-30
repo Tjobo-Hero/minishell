@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 18:22:46 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 20:13:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				hash(char *name, int count)
 	return (value);
 }
 
-static char		*set_elem(char *environ, int i, int len, int type)
+char		*set_elem(char *environ, int i, int len, int type)
 {
 	char	*tmp;
 

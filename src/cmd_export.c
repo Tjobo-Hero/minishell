@@ -63,28 +63,23 @@ int		replace(t_mini *d, t_env *tmp)
 	return (0);
 }
 
-// void	set_new_env(t_env *user, t_mini *d)
-// {
-// 	user->set = 0;
-// 	if (d->new.set == '=')
-// 		user->set = 1;
-// 	user->index = d->index;
-// 	user->alpha = ' ';
-// 	ft_strlcpy(user->head, d->new.head, ft_strlen(d->new.head) + 1);
-// 	ft_strlcpy(user->list, d->new.list, ft_strlen(d->new.list) + 1);
-// 	ft_strlcpy(user->echo, d->new.echo, ft_strlen(d->new.echo) + 1);
-// }
+void	new_list(t_mini *d)
+{
+	t_env	*new;
 
-// void	new_list(t_mini *d)
-// {
-// 	set_new_env(&d->list[d->index], d);
-// 	d->list[d->index].alpha = find_lowest(d->echo, &d->list[d->index],
-// 	d->index);
-// 	set_alpha(d->echo, d->list[d->index].alpha);
-// 	hash_table_insert_index(d, &d->list[d->index], d->echo,
-// 	hash_echo(d->list[d->index].head, ECHO));
-// 	d->index++;
-// }
+	new = malloc(sizeof(t_env));
+	new->set = 0;
+	if (d->new.set)
+		new->set = 1;
+	new->index = d->index;
+	new->head = set_elem(d->new.head, ft_strlen(d->new.head) + 1, 0, 1);
+	new->list = set_elem(d->new.list, ft_strlen(d->new.list) + 1, 0, 1);
+	new->echo = set_elem(d->new.echo, ft_strlen(d->new.echo) + 1, 0, 1);
+	new->next = NULL;
+	new->alpha = find_lowest(d->echo, new, d->index);
+	push_back(&d->echo[hash(new->head, ECHO)], new);
+	d->index++;
+}
 
 int		**export(t_mini *d)
 {
@@ -111,5 +106,4 @@ int		**export(t_mini *d)
 		a++;
 	}
 	return (NULL);
-	(void)d;
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 17:19:16 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 20:13:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,4 +171,5 @@ void	redirect(t_mini *d, int n);
 char	**new_arg(char **args, int c, int n);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
+char		*set_elem(char *environ, int i, int len, int type);
 #endif
