@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/09/30 11:43:35 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/01 12:55:44 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,9 +73,9 @@ SRC_FILES		=	minishell \
 					redirections \
 					new_arg \
 					commands_init \
-					pipes_init \
 					remove_case \
 					syntax_check \
+					# pipes_init \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)

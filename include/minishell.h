@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 21:40:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/06 10:30:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,10 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <stdarg.h>
-#include <sys/cdefs.h>
+# include <sys/cdefs.h>
 
-# define ENV_SIZE 50
 # define ECHO 10
 # define COMMAND 7
-# define STR_MAX 256
-# define HEAD_MAX 50
-# define NEW 1024
 
 int	g_ret;
 
@@ -92,17 +88,18 @@ typedef struct	s_mini
 {
 	char	*line;
 	char	**split_line;
-	int		i;
 	char	**environ;
 	char	*cwd;
 	char	**args;
 	char	**orig;
+	int		**pipes;
 	int		ret;
 	int		index;
-	int		**pipes;
+	int		i;
 	int		pids;
 	int		forked;
 	int		fd;
+	int		is_child;
 	t_new	new;
 	t_env	**echo;
 	t_cmd	**commands;
@@ -110,9 +107,9 @@ typedef struct	s_mini
 	t_arg	*arg;
 }				t_mini;
 
+int		main(void);
 int		get_next_line(int fd, char **line);
 
-int		main(void);
 void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
 char	**new_fill_commands(char *str, int *count, int w);
@@ -158,7 +155,7 @@ int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
-int		check_for_quotes(char *arg);
+int		syntax_check(char *arg);
 
 void	get_commands(t_mini *d, char *line);
 int		*count_init(int size);
@@ -169,5 +166,6 @@ void	redirect(t_mini *d, int n);
 char	**new_arg(char **args, int c, int n);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
-char		*set_elem(char *environ, int i, int len, int type);
+char	*set_elem(char *environ, int i, int len, int type);
+int	ft_write(int fd, char *str);
 #endif

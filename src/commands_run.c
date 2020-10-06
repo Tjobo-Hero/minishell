@@ -6,11 +6,17 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 17:51:51 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/06 10:32:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	close_fd(int fd)
+{
+	if (fd > 1)
+		close(fd);
+}
 
 int		**(*start_command(int i))(t_mini *d)
 {
@@ -62,16 +68,18 @@ static int	**run_commands(t_mini *d, int forked)
 
 void		command(t_mini *d)
 {
-	// if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
-	// {
-	// 	if (fork() == 0)
-	// 	{
-	// 		run_commands(d, 1);
-	// 		exit(1);
-	// 	}
-	// 	else
-	// 		d->pids++;
-	// }
-	// else
+	if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
+	{
+		if (fork() == 0)
+		{
+			run_commands(d, 1);
+			exit(0);
+		}
+		else
+			d->pids++;
+	}
+	else
 		run_commands(d, 0);
+	close_fd(d->pipe.fd_in);
+	close_fd(d->pipe.fd_out);
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/09 18:15:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:02:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ char	*ft_make_line(char **line, char *buf)
 		lenght++;
 	if (buf[lenght] == '\n')
 	{
-		*line = ft_substr(buf, 0, lenght);
+		*line = ft_substr(buf, 0, lenght + 1);
 		if (!*line)
 		{
 			free(buf);
 			return (0);
 		}
 		waiting = buf;
-		buf = ft_strdup(&buf[lenght + 1]);
+		buf = ft_strdup(&buf[lenght + 2]);
 		free(waiting);
 		if (!buf)
 		{

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/25 12:12:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:39:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,14 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 	}
 }
 
-void	upgrade_line(t_arg *arg, char *in, char *out, int *count)
+static void	spaces(t_arg *arg, char *in)
+{
+	while (in[arg->i] == ' ')
+		arg->i++;
+	arg->i--;
+}
+
+void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 {
 	while (in[arg->i] == ' ')
 		arg->i++;
@@ -90,14 +97,12 @@ void	upgrade_line(t_arg *arg, char *in, char *out, int *count)
 			fill_char_quote(arg, in, out, count);
 		else if (in[arg->i] == '<' || in[arg->i] == '>' || in[arg->i] == '|')
 			fill_redirection(arg, in, out, count);
+		else if (in[arg->i] == '\n')
+			arg->i++;
 		else
 			out[arg->c] = fill_char(arg, in[arg->i], count);
 		if (in[arg->i] == ' ')
-		{
-			while (in[arg->i] == ' ')
-				arg->i++;
-			arg->i--;
-		}
+			spaces(arg, in);
 		arg->set = 0;
 	}
 	count[arg->c_i] = arg->c + 1;

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/30 21:03:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/02 10:47:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ void	void_malloc_error(void)
 {
 	ft_printf("malloc fail");
 	exit(1);
-}
-
-void	clear_str(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		str[i] = '\0';
-		i++;
-	}
-	str[i] = '\0';
 }
 
 void	create_delete_new(t_new *tmp, int i)
@@ -70,14 +57,6 @@ void	create_delete_new(t_new *tmp, int i)
 	}
 }
 
-void	clear_new(t_new *new)
-{
-	clear_str(new->list);
-	clear_str(new->head);
-	clear_str(new->echo);
-	clear_str(new->tmp);
-}
-
 char	*create_str(int size)
 {
 	char	*tmp;
@@ -85,4 +64,13 @@ char	*create_str(int size)
 	tmp = malloc(sizeof(char*) * size + 1);
 	ft_bzero(tmp, size);
 	return (tmp);
+}
+
+int	ft_write(int fd, char *str)
+{
+	int	ret;
+	ret = write(fd, str, ft_strlen(str));
+	if (ret == -1)
+		exit(1);
+	return (ret);
 }

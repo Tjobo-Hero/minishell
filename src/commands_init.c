@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 18:34:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/05 16:40:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,21 @@ void		get_commands(t_mini *d, char *line)
 	int		c_cmd;
 	int		i;
 	int		*count;
+	int		x;
 
 	i = 0;
+	x = syntax_check(line);
+	if (x == -1 || x == -2)
+	{
+		printf("NOT CORRECT\n");
+		return ;
+	}
 	count = count_init(PATH_MAX);
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
 	while (i < PATH_MAX && i < c_cmd)
 	{
-		if (check_for_quotes(cmd[i]))
-			printf("NOT CORRECT QUOTES\n");
-		else
-			split_command(d, cmd[i], count);
+		split_command(d, cmd[i], count);
 		pipes(d);
 		ft_free(d->split_line);
 		// free(count);
@@ -96,5 +100,4 @@ void		get_commands(t_mini *d, char *line)
 		i++;
 	}
 	ft_free(cmd);
-	free(line);
 }

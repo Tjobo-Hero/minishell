@@ -12,18 +12,21 @@
 
 #include "minishell.h"
 
-int		print_export2(t_env *tmp, int *i)
+int		print_export2(t_mini *d, t_env *tmp, int *i)
 {
-	ft_printf("declare -x %s", tmp->head);
-	tmp->set ? write(1, "=\"", 2) : 0;
-	ft_printf("%s", tmp->list);
-	tmp->set ? write(1, "\"", 1) : 0;
-	write(1, "\n", 1);
+	// ft_printf("declare -x %s", tmp->head);
+	ft_putstr_fd("declare -x ", d->fd);
+	ft_putstr_fd(tmp->head, d->fd);
+	tmp->set ? write(d->fd, "=\"", 2) : 0;
+	// ft_printf("%s", tmp->list);
+	ft_putstr_fd(tmp->list, d->fd);
+	tmp->set ? write(d->fd, "\"", 1) : 0;
+	write(d->fd, "\n", 1);
 	*i = 0;
 	return (1);
 }
 
-int		**print(t_env **echo)
+int		**print(t_mini *d)
 {
 	t_env	*tmp;
 	int		i;
@@ -33,9 +36,9 @@ int		**print(t_env **echo)
 	c = 0;
 	while (i < ECHO)
 	{
-		if (echo[i] != NULL)
+		if (d->echo[i] != NULL)
 		{
-			tmp = echo[i];
+			tmp = d->echo[i];
 			while (tmp)
 			{
 				if (tmp->alpha == c)
@@ -44,7 +47,7 @@ int		**print(t_env **echo)
 			}
 		}
 		if (tmp != NULL && tmp->alpha == c)
-			c += print_export2(tmp, &i);
+			c += print_export2(d, tmp, &i);
 		else
 			i++;
 	}
@@ -88,7 +91,7 @@ int		**export(t_mini *d)
 
 	a = 1;
 	if (!d->args[a])
-		return (print(d->echo));
+		return (print(d));
 	create_delete_new(&d->new, 0);
 	while (d->orig[a])
 	{

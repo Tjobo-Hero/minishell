@@ -6,34 +6,28 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 21:05:02 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/06 12:37:42 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	close_fd(int fd)
-// {
-// 	if (fd > 1)
-// 		close(fd);
-// }
-
-// void	close_pipes(t_mini *d, int n)
-// {
-// 	if (d->pipes)
-// 	{
-// 		if (d->pipes[n] && d->pipes[n][1] > 1)
-// 		{
-// 			close(d->pipes[n][1]);
-// 			d->pipes[n][1] = -1;
-// 		}
-// 		if (n > 0 && d->pipes[n - 1] && d->pipes[n - 1][0] > 1)
-// 		{
-// 			close(d->pipes[n - 1][0]);
-// 			d->pipes[n - 1][0] = -1;
-// 		}
-// 	}
-// }
+void	close_pipes(t_mini *d, int n)
+{
+	if (d->pipes)
+	{
+		if (d->pipes[n] && d->pipes[n][1] > 1)
+		{
+			close(d->pipes[n][1]);
+			d->pipes[n][1] = -1;
+		}
+		if (n > 0 && d->pipes[n - 1] && d->pipes[n - 1][0] > 1)
+		{
+			close(d->pipes[n - 1][0]);
+			d->pipes[n - 1][0] = -1;
+		}
+	}
+}
 
 static void	pipes_start(t_mini *d, int c, int n)
 {
@@ -53,8 +47,7 @@ static void	pipes_start(t_mini *d, int c, int n)
 	command(d);
 	ft_free(d->args);
 	ft_free(d->orig);
-	free_int_array(d->pipes);
-	// close_pipes(d, c);
+	close_pipes(d, c);
 }
 
 static void	pipes_init(t_mini *d, int count)
@@ -77,22 +70,42 @@ static void	pipes_init(t_mini *d, int count)
 	}
 }
 
-// void	soul_goodman(t_mini *d, int *i)
-// {
-// 	int soul;
-// 	int child;
+void	return_values(int i, t_mini *p)
+{
+	if (WIFEXITED(i))
+		p->ret = WEXITSTATUS(i);
+	if (WIFSIGNALED(i))
+	{
+		p->ret = WTERMSIG(i);
+		if (p->ret == 2)
+		{
+			p->ret = 130;
+			p->is_child = 1;
+		}
+		if (p->ret == 3)
+		{
+			p->ret = 131;
+			p->is_child = 2;
+		}
+	}
+}
 
-// 	child = 0;
-// 	soul = 0;
-// 	while (soul < d->pids)
-// 	{
-// 		waitpid(-1, &child, 0);
-// 		// return_values(child, d);
-// 		soul++;
-// 	}
-// 	(*i)++;
-	// free_int_array(p->pipes);
-// }
+void	soul_goodman(t_mini *d, int *i)
+{
+	int soul;
+	int child;
+
+	child = 0;
+	soul = 0;
+	while (soul < d->pids)
+	{
+		waitpid(-1, &child, 0);
+		return_values(child, d);
+		soul++;
+	}
+	(*i)++;
+	free_int_array(d->pipes);
+}
 
 void	pipes(t_mini *d)
 {
@@ -112,6 +125,6 @@ void	pipes(t_mini *d)
 		x = d->arg->count[i];
 		i++;
 	}
-	// i = 0;
-	// soul_goodman(d, &i);
+	i = 0;
+	soul_goodman(d, &i);
 }

@@ -6,21 +6,21 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 15:10:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/06 11:56:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*make_str(t_env *tmp, int *i, int *c)
+char	*make_str(t_env *tmp, int *i, int *c, int *x)
 {
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
-	if (str == NULL)
-		return (*char_malloc_error());
+	str == NULL ? char_malloc_error() : 0;
 	*i = 0;
 	*c = *c + 1;
+	*x = *x + 1;
 	return (str);
 }
 
@@ -45,10 +45,7 @@ void	make_environ(t_mini *d)
 				tmp = tmp->next;
 		}
 		if (tmp != NULL && tmp->index == c)
-		{
-			d->environ[x] = make_str(tmp, &i, &c);
-			x++;
-		}
+			d->environ[x] = make_str(tmp, &i, &c, &x);
 		else
 			i++;
 	}
@@ -94,12 +91,12 @@ static void	get_path(t_mini *d, char **abspath)
 	char		**new;
 	char		*tmp;
 	int			i;
-	int			count[INT_MAX];
+	int			*count;
 
 	path = look_up("PATH", d->echo);
 	if (path == NULL)
 		return ;
-	// count_init(count, INT_MAX);
+	count = count_init(PATH_MAX);
 	i = new_count_commands(path->list, count, ':');
 	new = new_fill_commands(path->list, count, i);
 	i = 0;
@@ -115,6 +112,7 @@ static void	get_path(t_mini *d, char **abspath)
 		i++;
 	}
 	ft_free(new);
+	(void)abspath;
 }
 
 static void	execute(t_mini *d, char **cmd)
@@ -126,34 +124,18 @@ static void	execute(t_mini *d, char **cmd)
 	abspath = NULL;
 	close_ifnot_and_dup(d);
 	get_path(d, &abspath);
-	printf("ABS:\t%s\n", abspath);
 	make_environ(d);
 	tmp = ft_strjoin("/bin/", cmd[0]);
 	if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
 		printf("bash: %s: command not found\n", d->args[0]);
 	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
-	exit(127);
-	// if (!abspath && execve(tmp, cmd, d->environ) == -1)
-	// 	printf("bash: %s: command not found\n", d->args[0]);
-	//  if (abspath && stat(d->args[0], &statstruct) < 0)
-		// printf("bash: %s: %s\n", d->args[0], strerror(errno));
-	// char	**tmp;
-	// int		i;
-
-	// i = 0;
-	// if (fork() == 0)
-	// {
-		// if (execve(tmp, cmd, d->environ) == -1)
-		// 	ft_printf("bash: %s: command not found\n", d->args[0]);
-	// 	exit(0);
-	// }
-	// wait(&i);
-	// free_environ(d->environ);
+	else if (abspath && execve(d->args[0], d->args, d->environ) == -1)
+		printf("bash: %s: %s\n", d->args[0], strerror(errno));
+	d->is_child = 0;
 	ft_free(d->environ);
 	free(tmp);
-	(void)cmd;
-	(void)d;
+	exit(127);
 }
 
 void	check_if_forked(t_mini *d)
