@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/09/24 12:19:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/07 17:42:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void	redirect_output(char **args, t_pipe *redirs, int *i)
 void	redirect(t_mini *d, int n)
 {
 	int		i;
+	int		x;
 
-	i = 0;
-	while (d->split_line[i] && i < n)
+	x = d->arg->count[n];
+	i = d->arg->count[n - 1];
+	while (d->split_line[i] && i < x)
 	{
 		if (ft_strncmp(d->split_line[i], "<", 2) == 0 && d->split_line[i + 1])
 		{

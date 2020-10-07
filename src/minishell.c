@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/06 11:51:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/07 13:00:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		main(void)
 	init_env(&d);
 	screen_clean();
 	d.is_child = 0;
+	d.ret = 0;
 	while (1)
 	{
 	// 	signal(SIGINT, block_ctrl_c);
@@ -61,6 +62,8 @@ int		main(void)
 			ft_printf("exit\n");
 			exit(0);
 		}
+		d.ret += g_ret;
+		g_ret = 0;
 		if (ft_strncmp(line, "\n", ft_strlen(line)) != 0)
 			get_commands(&d, line);
 		free(line);

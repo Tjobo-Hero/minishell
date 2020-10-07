@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/06 12:37:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/07 18:24:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,29 @@ void	close_pipes(t_mini *d, int n)
 	}
 }
 
-static void	pipes_start(t_mini *d, int c, int n)
+static void	pipes_start(t_mini *d, int c, int n, int x)
 {
+	d->orig = NULL;
 	ft_bzero(&d->pipe, sizeof(t_pipe));
-	if (d->pipes && d->pipes[c] && d->pipes[c][1] > 1)
+	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
 	{
-		d->pipe.fd_out = d->pipes[c][1];
+		d->pipe.fd_out = d->pipes[x][1];
 		d->pipe.ispipe[1] = 1;
 	}
-	if (d->pipes && c > 0 && d->pipes[c - 1] && d->pipes[c - 1][0] > 1)
+	if (d->pipes && x > 0 && d->pipes[x - 1] && d->pipes[x - 1][0] > 1)
 	{
-		d->pipe.fd_in = d->pipes[c - 1][0];
+		d->pipe.fd_in = d->pipes[x - 1][0];
 		d->pipe.ispipe[0] = 1;
 	}
-	redirect(d, n);
+	redirect(d, x);
 	d->args = new_arg(d->split_line, c, n);
+	if (d->args == NULL)
+		exit(1);
 	command(d);
 	ft_free(d->args);
-	ft_free(d->orig);
-	close_pipes(d, c);
+	if (d->orig)
+		ft_free(d->orig);
+	close_pipes(d, x);
 }
 
 static void	pipes_init(t_mini *d, int count)
@@ -114,14 +118,15 @@ void	pipes(t_mini *d)
 
 	i = 0;
 	x = 0;
-	while (d->split_line[i])
+	while (d->arg->count[i] != 0)
 		i++;
+	// printf("LENGTH:\t%d\n", i);
 	if (i != 0)
 		pipes_init(d, i);
 	i = 0;
 	while (d->arg->count[i] != 0)
 	{
-		pipes_start(d, x, d->arg->count[i]);
+		pipes_start(d, x, d->arg->count[i], i);
 		x = d->arg->count[i];
 		i++;
 	}

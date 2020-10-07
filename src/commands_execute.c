@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/06 11:56:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/07 18:25:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ static void	get_path(t_mini *d, char **abspath)
 
 static void	execute(t_mini *d, char **cmd)
 {
-	char		*tmp;
 	struct stat	statstruct;
 	char		*abspath;
 
@@ -125,17 +124,16 @@ static void	execute(t_mini *d, char **cmd)
 	close_ifnot_and_dup(d);
 	get_path(d, &abspath);
 	make_environ(d);
-	tmp = ft_strjoin("/bin/", cmd[0]);
 	if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
 		printf("bash: %s: command not found\n", d->args[0]);
 	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
-	else if (abspath && execve(d->args[0], d->args, d->environ) == -1)
+	else if (abspath && execve(abspath, d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
 	d->is_child = 0;
 	ft_free(d->environ);
-	free(tmp);
 	exit(127);
+	(void)cmd;
 }
 
 void	check_if_forked(t_mini *d)

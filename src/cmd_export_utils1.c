@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 20:28:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/07 18:26:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
 	ft_strlcpy(new->head, tmp, i + 1);
 	make_echo(d, new->echo, arg);
-	printf("LIST:\t%s\n", new->list);
-	printf("ECHO:\t%s\n", new->echo);
 	free(tmp);
 	return (1);
 }
