@@ -14,11 +14,9 @@
 
 int		print_export2(t_mini *d, t_env *tmp, int *i)
 {
-	// ft_printf("declare -x %s", tmp->head);
 	ft_putstr_fd("declare -x ", d->fd);
 	ft_putstr_fd(tmp->head, d->fd);
 	tmp->set ? write(d->fd, "=\"", 2) : 0;
-	// ft_printf("%s", tmp->list);
 	ft_putstr_fd(tmp->list, d->fd);
 	tmp->set ? write(d->fd, "\"", 1) : 0;
 	write(d->fd, "\n", 1);
@@ -79,7 +77,8 @@ void	new_list(t_mini *d)
 	new->list = set_elem(d->new.list, ft_strlen(d->new.list) + 1, 0, 1);
 	new->echo = set_elem(d->new.echo, ft_strlen(d->new.echo) + 1, 0, 1);
 	new->next = NULL;
-	new->alpha = find_lowest(d->echo, new, d->index);
+	new->alpha = find_lowest(d->echo, new, new->index);
+	set_alpha(d->echo, new->alpha);
 	push_back(&d->echo[hash(new->head, ECHO)], new);
 	d->index++;
 }

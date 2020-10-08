@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/07 18:24:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/08 12:10:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void	pipes(t_mini *d)
 	x = 0;
 	while (d->arg->count[i] != 0)
 		i++;
-	// printf("LENGTH:\t%d\n", i);
 	if (i != 0)
 		pipes_init(d, i);
 	i = 0;

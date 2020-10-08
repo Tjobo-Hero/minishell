@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/07 18:26:09 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/08 13:40:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 
 	i = 0;
 	d->new.set = ' ';
+	new->alpha = ' ';
 	tmp = create_str(PATH_MAX);
 	make_string(d, arg, new->tmp);
 	while (new->tmp[i] != '=' && new->tmp[i] != '\0')

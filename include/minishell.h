@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/06 10:30:24 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/08 13:40:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct		s_new
 	char	*echo;
 	char	*tmp;
 	char	set;
+	int		alpha;
 }					t_new;
 
 typedef struct		s_arg

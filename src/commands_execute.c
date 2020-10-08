@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/07 18:25:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:46:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ static void	execute(t_mini *d, char **cmd)
 	close_ifnot_and_dup(d);
 	get_path(d, &abspath);
 	make_environ(d);
-	if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
-		printf("bash: %s: command not found\n", d->args[0]);
-	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
+	if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
+	else if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
+		printf("bash: %s: command not found\n", d->args[0]);
 	else if (abspath && execve(abspath, d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
 	d->is_child = 0;
