@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_putnbr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 10:35:01 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/13 10:42:28 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/13 10:35:01 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:36:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

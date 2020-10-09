@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_character.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <marvin@codam.nl>                   +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/12 15:32:08 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/06 11:53:12 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/12/12 15:32:08 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:39:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

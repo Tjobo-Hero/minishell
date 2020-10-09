@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_digit_bonus.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <marvin@codam.nl>                   +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/09 11:41:41 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/08 12:30:55 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/12/09 11:41:41 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:39:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

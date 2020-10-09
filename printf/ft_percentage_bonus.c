@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_percentage_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 12:32:25 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/08 12:32:26 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/01/08 12:32:25 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:40:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

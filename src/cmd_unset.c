@@ -6,55 +6,62 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/09 13:01:10 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/09/30 21:32:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	delete_env(t_mini *d, int i)
-// {
-// 	char	*tmp;
+void	set_alpha_index(t_env **echo, int index, int alpha)
+{
+	t_env	*tmp;
+	int		i;
 
-// 	while (d->env[i + 1])
-// 	{
-// 		tmp = d->env[i];
-// 		d->env[i] = d->env[i + 1];
-// 		d->env[i + 1] = tmp;
-// 		i++;
-// 	}
-// 	free(d->env[i]);
-// 	d->env[i] = NULL;
-// 	free(d->env[i + 1]);
-// 	d->c_env--;
-// }
+	i = 0;
+	while (i < ECHO)
+	{
+		if (echo[i])
+		{
+			tmp = echo[i];
+			while (tmp)
+			{
+				if (tmp->index > index)
+					tmp->index--;
+				if (tmp->alpha > alpha)
+					tmp->alpha--;
+				tmp = tmp->next;
+			}
+		}
+		i++;
+	}
+}
 
 int		**unset(t_mini *d)
 {
-// 	int		i;
-// 	int		a;
-// 	int		len;
+	t_env	*tmp;
+	int		a;
 
-// 	a = 1;
-// 	len = 0;
-// 	while (d->args[a])
-// 	{
-// 		i = 0;
-// 		while (d->env[i])
-// 		{
-// 			if (ft_strchr(d->args[a], '='))
-// 				break ;
-// 			len = ft_strlen(d->args[a]);
-// 			if (ft_strncmp(d->env[i], d->args[a], len) == 0
-// 				&& (d->env[i][len] == '=' || d->env[i][len] == '\0'))
-// 			{
-// 				delete_env(d, i);
-// 				break ;
-// 			}
-// 			i++;
-// 		}
-// 		a++;
-// 	}
-(void)d;
+	a = 1;
+	create_delete_new(&d->new, 0);
+	while (d->orig[a])
+	{
+		check_arg(d, &d->new, d->orig[a]);
+		if ((ft_isalpha_str(d->new.tmp) == 0 && !ft_strchr(d->new.tmp, '_'))
+			|| d->new.tmp[0] == '\0')
+			ft_printf("bash: unset: `%s': not a valid identifier\n", d->new.tmp);
+		else
+		{
+			tmp = look_up(d->new.head, d->echo);
+			if (tmp)
+			{
+				delete_lst(d->new.tmp, d->echo);
+				set_alpha_index(d->echo, tmp->index, tmp->alpha);
+				d->index--;
+			}
+		}
+		create_delete_new(&d->new, 1);
+		a++;
+	}
+	create_delete_new(&d->new, 2);
 	return (0);
 }
