@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 14:31:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 17:07:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,20 @@ static void	make_line(t_arg *arg, char *in, char *out)
 	arg->set = 0;
 	while (in[arg->i] != '\0')
 	{
-		if (in[arg->i] == '\'')
+		if (in[arg->i] == '\\')
+		{
+			arg->set = 1;
+			arg->i++;
+		}
+		if (in[arg->i] == '\'' && arg->set == 0)
 			fill_char_single(arg, in, out);
-		else if (in[arg->i] == '\"')
+		else if (in[arg->i] == '\"' && arg->set == 0)
 			fill_char_double(arg, in, out);
 		else
+		{
+			arg->set = 0;
 			out[arg->c] = fill_char(arg, in[arg->i]);
+		}
 	}
 }
 
@@ -79,21 +87,15 @@ void	remove_case(t_mini *d)
 	int		i;
 
 	i = 0;
-	while (d->args[i])
-		i++;
-	d->orig = (char**)malloc(sizeof(char *) * (i + 1));
-	i = 0;
 	tmp = malloc(sizeof(char*) * PATH_MAX);
 	while (d->args[i])
 	{
 		ft_bzero(tmp, sizeof(PATH_MAX) + 1);
 		make_line(d->arg, d->args[i], tmp);
-		d->orig[i] = ft_strdup(d->args[i]);
 		free(d->args[i]);
 		d->args[i] = ft_strdup(tmp);
 		i++;
 	}
 	free(tmp);
 	d->args[i] = NULL;
-	d->orig[i] = NULL;
 }
