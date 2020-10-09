@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 18:04:40 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 10:57:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ static int	check_redirections(char *arg, int i)
 	return (i);
 }
 
+static int	set_set(int *i, int check)
+{
+	(*i)++;
+	return (check == 0 ? 0 : 1);
+}
+
 int			syntax_check(char *arg)
 {
 	int		set;
@@ -89,16 +95,15 @@ int			syntax_check(char *arg)
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '\\')
-			set = 1;
+			set = set_set(&i, 1);
 		else if ((arg[i] == '\'' || arg[i] == '\"') && set == 0)
 			i = check_quotes(arg, i);
 		else if ((arg[i] == '>' || arg[i] == '<') && set == 0)
 			i = check_redirections(arg, i);
 		else
-			set = 0;
-		if (i == -1 || i == -2)
-			return (i);
-		i++;
+			set = set_set(&i, 0);
+		if (i == -1 || i == -2 || (set == 1 && arg[i] == '\n'))
+			return (i < 0 ? i : -1);
 	}
 	return ((set == 0) ? 0 : -2);
 }

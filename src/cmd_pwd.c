@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/06 11:45:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 13:41:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	**pwd(t_mini *d)
 	char	*cwd;
 	char	*return_ptr;
 
-	(void)d;
 	cwd = create_str(PATH_MAX);
 	return_ptr = getcwd(cwd, PATH_MAX);
 	if (return_ptr == NULL)

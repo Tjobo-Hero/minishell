@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/06 11:43:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 13:50:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ int		**update_env(t_mini *d)
 	if (check == NULL)
 		return (0);
 	d->cwd = create_str(PATH_MAX);
+	// PROTECTION
 	getcwd(d->cwd, sizeof(d->cwd));
+	// PROTECTION
 	i = ft_strlen(d->cwd);
 	free(check->list);
 	check->list = malloc(sizeof(char*) * (i + 1));
 	ft_strlcpy(check->list, d->cwd, i + 1);
 	check->echo = check->list;
 	free(d->cwd);
-	return ((int**)1);
+	return ((int**)0);
 }
 
 char	*get_user(t_mini *d)
@@ -50,7 +52,7 @@ int		**error_return(t_mini *d)
 		ft_printf("bash: cd: HOME not set\n");
 	else
 		ft_printf("bash: cd: %s: %s\n", d->args[1], strerror(errno));
-	return ((int**)1);
+	return ((int**)0);
 }
 
 int		**cd(t_mini *d)

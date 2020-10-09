@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 18:07:40 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 14:32:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		get_commands(t_mini *d, char *line)
 	while (i < PATH_MAX && i < c_cmd)
 	{
 		split_command(d, cmd[i], count);
-		// pipes(d);
+		pipes(d);
 		ft_free(d->split_line);
 		// free(count);
 		// free(d->arg->count);

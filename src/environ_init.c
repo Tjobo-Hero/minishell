@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/01 12:52:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 11:18:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static void		set_env_cmd(t_mini *d)
 void			init_env(t_mini *d)
 {
 	extern char **environ;
-	char		*tmp;
 	t_env		*new;
 
 	d->index = 0;
@@ -101,7 +100,6 @@ void			init_env(t_mini *d)
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{
-		tmp = environ[d->index];
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
 		if (d->index == 0)

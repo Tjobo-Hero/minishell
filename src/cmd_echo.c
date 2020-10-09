@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 17:07:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 14:29:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		dollar_sign(t_mini *d, char *arg, int a)
 	// printf("ARG:\t%s\n", arg);
 	// printf("ARG:\t%s\n", d->args[a]);
 	// printf("ARG:\t%s\n", d->orig[a]);
-	// printf("LOOK:\t%s\n", look);
+	printf("LOOK:\t%s\n", look);
 	tmp = look_up(look, d->echo);
 	if (arg[1] == '?')
 	{
@@ -98,7 +98,7 @@ void	write_arg(t_mini *d, int a)
 		else if (d->orig[a][i] == '\"' && set == 0)
 			i = write_double(d, d->orig[a], i, a);
 		else if (d->orig[a][i] == '$' && set == 0)
-			return ((void)dollar_sign(d, d->orig[a], a));
+			i = dollar_sign(d, d->orig[a], a);
 		else
 		{
 			i += write(d->fd, &d->orig[a][i], 1);

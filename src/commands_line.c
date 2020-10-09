@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/05 13:39:13 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 14:33:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 	c = in[arg->i];
 	if (c == '|' && arg->set == 0)
 	{
-		arg->count[arg->a] = arg->c_i;
+		arg->count[arg->a] = arg->c_i + 1;
 		arg->a++;
 	}
 	if (c == '|' && arg->set == 1)

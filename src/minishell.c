@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/07 13:00:36 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 11:23:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int		main(void)
 	char	*line;
 
 	init_env(&d);
+	// print_echo(d.echo);
 	screen_clean();
 	d.is_child = 0;
 	d.ret = 0;
 	while (1)
 	{
-	// 	signal(SIGINT, block_ctrl_c);
-	// 	signal(SIGQUIT, block_ctrl_slash);
-		// write(1, "minishell> ", 11);
+		// signal(SIGINT, block_ctrl_c);
+		// signal(SIGQUIT, block_ctrl_slash);
 		start_mini(&d);
 		if (!get_next_line(0, &line))
 		{
@@ -66,6 +66,7 @@ int		main(void)
 		g_ret = 0;
 		if (ft_strncmp(line, "\n", ft_strlen(line)) != 0)
 			get_commands(&d, line);
+		// check for space with newline
 		free(line);
 	}
 	return (0);
