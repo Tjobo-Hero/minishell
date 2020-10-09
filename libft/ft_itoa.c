@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/11 16:04:28 by tvan-cit       #+#    #+#                */
-/*   Updated: 2019/11/14 10:33:13 by tvan-cit      ########   odam.nl         */
+/*   Created: 2019/11/11 16:04:28 by tvan-cit      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:35:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

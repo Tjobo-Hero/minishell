@@ -5,91 +5,100 @@
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/25 15:22:38 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/06/18 12:27:55 by rbraaksm      ########   odam.nl         */
+/*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/05 13:02:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_make_line(char *str, char **line, char *end)
+char	*ft_make_line(char **line, char *buf)
 {
-	*end = '\0';
-	(*line) = ft_strdup(str);
-	if ((*line) == NULL)
+	char		*waiting;
+	int			lenght;
+
+	lenght = 0;
+	waiting = NULL;
+	while (buf[lenght] != '\n' || buf[lenght] == '\0')
+		lenght++;
+	if (buf[lenght] == '\n')
 	{
-		free(str);
-		return (-1);
+		*line = ft_substr(buf, 0, lenght + 1);
+		if (!*line)
+		{
+			free(buf);
+			return (0);
+		}
+		waiting = buf;
+		buf = ft_strdup(&buf[lenght + 2]);
+		free(waiting);
+		if (!buf)
+		{
+			free(buf);
+			return (0);
+		}
 	}
-	str = ft_memmove(str, (end + 1), (ft_strlen(end + 1) + 1));
-	return (1);
+	return (buf);
 }
 
-int		ft_end_of_file(char *str, char **line)
+char	*ft_making_buf(int const fd, char *bufin, int *ret)
 {
-	int check;
-
-	check = 0;
-	if (str)
-		check = ft_make_line(str, line, ft_strchr(str, '\0'));
-	free(str);
-	if (check == -1)
-		return (-1);
-	return (1);
-}
-
-char	*ft_read_more(char *str, int *ret, int fd)
-{
-	char	*buf;
+	char	buf[BUFFER_SIZE + 1];
 	char	*tmp;
 
-	buf = malloc(BUFFER_SIZE + 1);
-	if (buf == 0)
+	while (*ret > 0)
 	{
-		free(str);
-		return (0);
+		*ret = read(fd, buf, BUFFER_SIZE);
+		if (*ret < 0)
+		{
+			free(bufin);
+			return (0);
+		}
+		buf[*ret] = '\0';
+		tmp = bufin;
+		bufin = ft_strjoin((const char*)bufin, buf);
+		free(tmp);
+		if (!bufin)
+			return (0);
+		if (ft_strchr(bufin, '\n'))
+			break ;
 	}
-	*ret = read(fd, buf, BUFFER_SIZE);
-	if (*ret < 0)
-	{
-		free(buf);
-		free(str);
-		return (0);
-	}
-	buf[*ret] = '\0';
-	tmp = str;
-	str = ft_strjoin(str, buf);
-	free(tmp);
+	return (bufin);
+}
+
+int		ft_last_line(char **line, char *buf)
+{
+	*line = ft_strdup(buf);
 	free(buf);
-	if (str == 0)
-		return (0);
-	return (str);
+	if (!*line)
+		return (-1);
+	return (0);
 }
 
 int		get_next_line(int fd, char **line)
 {
+	static char	*buf;
 	int			ret;
-	static char	*str;
-	int			check;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
+	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
-	if (str == NULL)
-		str = ft_strdup("");
-	if (!str)
+	ret = 1;
+	if (!buf)
+		buf = ft_strdup("");
+	if (!buf)
 		return (-1);
-	if (ft_strchr(str, '\n') != NULL)
+	while (ret > 0)
 	{
-		check = ft_make_line(str, line, ft_strchr(str, '\n'));
-		if (check == -1)
+		if ((ft_strchr(buf, '\n')) != NULL)
+		{
+			buf = ft_make_line(line, buf);
+			if (!buf)
+				return (-1);
+			return (1);
+		}
+		buf = ft_making_buf(fd, buf, &ret);
+		if (!buf)
 			return (-1);
-		return (1);
 	}
-	else
-		str = ft_read_more(str, &ret, fd);
-	if (str == 0)
-		return (-1);
-	if (ret == 0)
-		return (ft_end_of_file(str, line));
-	return (get_next_line(fd, line));
+	return (ft_last_line(line, buf));
 }

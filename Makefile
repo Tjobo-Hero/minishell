@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/06/26 13:56:32 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/01 12:55:44 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,15 +48,34 @@ OBJ_DIR			= ./obj/
 INCLUDE_DIR		= ./include/
 
 
-SRC_FILES		=	main \
+SRC_FILES		=	minishell \
+					environ_init \
+					environ_utils \
+					environ_utils1 \
 					ft_free \
 					get_next_line \
-					run_commands \
+					commands_run \
+					commands_check \
+					commands_execute \
 					cmd_pwd \
 					cmd_cd \
 					cmd_env \
+					cmd_unset \
 					cmd_export \
+					cmd_echo \
 					utils \
+					commands \
+					cmd_export_utils1 \
+					cmd_export_utils2 \
+					cmd_export_utils3 \
+					commands_line \
+					pipes \
+					redirections \
+					new_arg \
+					commands_init \
+					remove_case \
+					syntax_check \
+					# pipes_init \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)
@@ -65,7 +84,7 @@ OBJ_FILES 		:= $(SRC_FILES:%=$(OBJ_DIR)%)
 OBJS			= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
-	
+
 $(NAME):		$(OBJ_FILES)
 				@cd libft && $(MAKE);
 				@cd printf && $(MAKE);

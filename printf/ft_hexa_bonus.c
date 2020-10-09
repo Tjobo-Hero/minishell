@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_hexa_bonus.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 12:32:05 by rbraaksm       #+#    #+#                */
-/*   Updated: 2020/01/08 12:32:09 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/01/08 12:32:05 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/07/16 18:40:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

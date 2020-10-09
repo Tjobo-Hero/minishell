@@ -3,24 +3,41 @@
 /*                                                        ::::::::            */
 /*   cmd_env.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/06/25 14:55:02 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/09 14:00:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		cmd_env(char **env)
+int		**env(t_mini *d)
 {
-	int i_env;
+	t_env	*tmp;
+	int		i;
+	int		c;
 
-	i_env = 0;
-	while (env[i_env] != NULL)
+	i = 0;
+	c = 0;
+	tmp = NULL;
+	while (i < ECHO)
 	{
-		ft_printf("%s\n", env[i_env]);
-		i_env++;
+		if (d->echo[i] != NULL)
+		{
+			tmp = d->echo[i];
+			while (tmp && tmp->index != c)
+				tmp = tmp->next;
+		}
+		if (tmp != NULL && tmp->index == c && tmp->set)
+		{
+			ft_printf("%s=", tmp->head);
+			ft_printf("%s\n", tmp->echo);
+			i = 0;
+			c++;
+		}
+		else
+			i++;
 	}
 	return (0);
 }
