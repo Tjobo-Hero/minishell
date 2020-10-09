@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 17:08:18 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 17:49:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
+	ft_bzero(out, PATH_MAX);
 	free(out);
 	return (1);
 }
@@ -101,9 +102,9 @@ void		get_commands(t_mini *d, char *line)
 			pipes(d);
 			ft_free(d->split_line);
 			ft_free(d->orig);
+			// free(count);
+			free(d->arg->count);
 		}
-		free(count);
-		free(d->arg->count);
 		i++;
 	}
 	ft_free(cmd);
