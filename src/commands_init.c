@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 14:32:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 16:03:49 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -46,12 +47,15 @@ static void	split_line(t_mini *d, char *out, int *count)
 		{
 			d->split_line[x] = malloc(sizeof(char*) * len + 1);
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
+			printf("SPLIT:\t%s\n", d->split_line[x]);
+			d->orig[x] = ft_strdup(d->split_line[x]);
 			x++;
 		}
 		start = count[i] + 1;
 		i++;
 	}
 	d->split_line[x] = NULL;
+	d->orig[x] = NULL;
 }
 
 static int	split_command(t_mini *d, char *line, int *count)

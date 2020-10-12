@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 14:29:17 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 16:02:29 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		dollar_sign(t_mini *d, char *arg, int a)
 	t_env	*tmp;
 
 	i = 1;
+	// printf("ARG:\t%s\n", arg);
 	while (arg[i] != '\0' && ft_isalnum(arg[i]))
 		i++;
 	look = malloc(sizeof(char*) * i + 1);
@@ -27,7 +28,7 @@ int		dollar_sign(t_mini *d, char *arg, int a)
 	// printf("ARG:\t%s\n", arg);
 	// printf("ARG:\t%s\n", d->args[a]);
 	// printf("ARG:\t%s\n", d->orig[a]);
-	printf("LOOK:\t%s\n", look);
+	// printf("LOOK:\t%s\n", look);
 	tmp = look_up(look, d->echo);
 	if (arg[1] == '?')
 	{
@@ -86,11 +87,13 @@ void	write_arg(t_mini *d, int a)
 
 	i = 0;
 	set = 0;
+	printf("ORIG_IN:\t%s\n", d->orig[a]);
 	while (d->orig[a][i] != '\0')
 	{
+		printf("ORIG:\t%c\n set:%i\n", (d->orig[a][i]), set);
 		if (d->orig[a][i] == '\\')
 		{
-			set = 0;
+			set = 1;
 			i++;
 		}
 		else if (d->orig[a][i] == '\'' && set == 0)
@@ -98,12 +101,15 @@ void	write_arg(t_mini *d, int a)
 		else if (d->orig[a][i] == '\"' && set == 0)
 			i = write_double(d, d->orig[a], i, a);
 		else if (d->orig[a][i] == '$' && set == 0)
-			i = dollar_sign(d, d->orig[a], a);
+		{
+			printf("TEST\n");
+			return ((void)dollar_sign(d, &d->orig[a][i], a));
+		}
 		else
 		{
 			i += write(d->fd, &d->orig[a][i], 1);
 			set = 0;
-			i++;
+			// i++;
 		}
 	}
 }
@@ -118,11 +124,6 @@ int		**echo(t_mini *d)
 	while (d->args[a])
 	{
 		write_arg(d, a);
-		// if (ft_strncmp(d->args[a], "$", 1) == 0 && d->orig[a][0] != '\'')
-		// 	dollar_sign(d, d->args[a]);
-		// else
-
-		// 	ft_putstr_fd(d->args[a], d->fd);
 		a++;
 		if (d->args[a])
 			ft_putchar_fd(' ', d->fd);
