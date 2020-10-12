@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/18 12:02:35 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 12:08:32 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 17:05:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	**new_arg(char **args, int c, int n)
 	int		i;
 	int		x;
 
-	i = c;
 	x = 0;
+	i = c;
 	while (args[c] && c < n && (ft_strncmp(args[c], "<", 2) &&
 		ft_strncmp(args[c], ">", 2) && ft_strncmp(args[c], ">>", 3)))
 		c++;

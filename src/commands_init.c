@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 16:03:49 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/12 11:34:38 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	split_line(t_mini *d, char *out, int *count)
 		{
 			d->split_line[x] = malloc(sizeof(char*) * len + 1);
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
-			printf("SPLIT:\t%s\n", d->split_line[x]);
 			d->orig[x] = ft_strdup(d->split_line[x]);
 			x++;
 		}
@@ -72,6 +71,7 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
+	ft_bzero(out, PATH_MAX);
 	free(out);
 	return (1);
 }
@@ -94,13 +94,17 @@ void		get_commands(t_mini *d, char *line)
 	count = count_init(PATH_MAX);
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
-	while (i < PATH_MAX && i < c_cmd)
+	while (cmd && cmd[i])
 	{
 		split_command(d, cmd[i], count);
-		pipes(d);
-		ft_free(d->split_line);
-		// free(count);
-		// free(d->arg->count);
+		if (d->split_line[0])
+		{
+			pipes(d);
+			ft_free(d->split_line);
+			ft_free(d->orig);
+			// free(count);
+			free(d->arg->count);
+		}
 		i++;
 	}
 	ft_free(cmd);

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 16:01:38 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/12 11:35:08 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	close_pipes(t_mini *d, int n)
 
 static void	pipes_start(t_mini *d, int c, int n, int x)
 {
-	// d->orig = NULL;
 	ft_bzero(&d->pipe, sizeof(t_pipe));
 	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
 	{
@@ -49,8 +48,6 @@ static void	pipes_start(t_mini *d, int c, int n, int x)
 		exit(1);
 	command(d);
 	ft_free(d->args);
-	if (d->orig)
-		ft_free(d->orig);
 	close_pipes(d, x);
 }
 

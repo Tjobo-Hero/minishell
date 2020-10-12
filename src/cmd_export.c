@@ -49,7 +49,7 @@ int		**print(t_mini *d)
 		else
 			i++;
 	}
-	return (0);
+	return ((int**)0);
 }
 
 int		replace(t_mini *d, t_env *tmp)
@@ -95,7 +95,7 @@ int		**export(t_mini *d)
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
-			printf("bash: export: `%s': not a valid identifier\n", d->new.tmp);
+			printf("bash: export: `%s': not a valid identifier\n", d->new.head);
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);
@@ -108,5 +108,5 @@ int		**export(t_mini *d)
 		a++;
 	}
 	create_delete_new(&d->new, 2);
-	return (NULL);
+	return ((int**)0);
 }

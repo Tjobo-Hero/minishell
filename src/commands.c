@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 11:29:46 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 17:50:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	**new_fill_commands(char *str, int *count, int w)
 	while (i < w)
 	{
 		tmp[i] = ft_memalloc(sizeof(char *) * (d + 1));
+		ft_bzero(tmp[i], (d + 1));
 		ft_strlcpy(tmp[i], &str[c], d + 1);
 		while (c != count[i])
 			c++;
