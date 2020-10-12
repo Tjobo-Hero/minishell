@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/09 11:23:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 15:16:40 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		main(void)
 		}
 		d.ret += g_ret;
 		g_ret = 0;
-		if (ft_strncmp(line, "\n", ft_strlen(line)) != 0)
+		// if (ft_strncmp(line, "\n", ft_strlen(line)) != 0)
 			get_commands(&d, line);
 		// check for space with newline
 		free(line);

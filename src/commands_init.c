@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 14:32:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 11:34:38 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -46,12 +47,14 @@ static void	split_line(t_mini *d, char *out, int *count)
 		{
 			d->split_line[x] = malloc(sizeof(char*) * len + 1);
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
+			d->orig[x] = ft_strdup(d->split_line[x]);
 			x++;
 		}
 		start = count[i] + 1;
 		i++;
 	}
 	d->split_line[x] = NULL;
+	d->orig[x] = NULL;
 }
 
 static int	split_command(t_mini *d, char *line, int *count)
@@ -68,6 +71,7 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
+	ft_bzero(out, PATH_MAX);
 	free(out);
 	return (1);
 }
@@ -90,13 +94,17 @@ void		get_commands(t_mini *d, char *line)
 	count = count_init(PATH_MAX);
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
-	while (i < PATH_MAX && i < c_cmd)
+	while (cmd && cmd[i])
 	{
 		split_command(d, cmd[i], count);
-		pipes(d);
-		ft_free(d->split_line);
-		// free(count);
-		// free(d->arg->count);
+		if (d->split_line[0])
+		{
+			pipes(d);
+			ft_free(d->split_line);
+			ft_free(d->orig);
+			// free(count);
+			free(d->arg->count);
+		}
 		i++;
 	}
 	ft_free(cmd);

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 12:11:16 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/09 17:48:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	change_args_if(t_mini *d, char *str)
 	free(str);
 }
 
-char	*to_lower(t_mini *d, char *str)
+static void	to_lower(t_mini *d, char *str)
 {
 	char	*tmp;
 	int		i;
@@ -36,7 +36,7 @@ char	*to_lower(t_mini *d, char *str)
 	i = 0;
 	tmp = ft_strdup(str);
 	if (tmp == NULL)
-		return (*char_malloc_error());
+		return (void_malloc_error());
 	while (str[i] != '\0')
 	{
 		if (ft_tolower(tmp[i]) > 0)
@@ -44,7 +44,6 @@ char	*to_lower(t_mini *d, char *str)
 		i++;
 	}
 	change_args_if(d, tmp);
-	return (tmp);
 }
 
 void	check_arg_and_remove_case(t_mini *d)
