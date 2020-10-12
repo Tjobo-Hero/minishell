@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 11:34:38 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/12 12:02:23 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ void		get_commands(t_mini *d, char *line)
 		return ;
 	}
 	count = count_init(PATH_MAX);
+	// Protection
 	c_cmd = new_count_commands(line, count, ';');
+	// Protection
 	cmd = new_fill_commands(line, count, c_cmd);
+	// Protection
 	while (cmd && cmd[i])
 	{
 		split_command(d, cmd[i], count);

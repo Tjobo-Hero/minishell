@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 11:18:26 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 16:00:51 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 	int			len;
 
 	new = malloc(sizeof(t_cmd));
+	// PROTECTION
 	len = ft_strlen(command) + 1;
 	new->command = malloc(sizeof(char) * len);
+	// PROTECTION
 	ft_strlcpy(new->command, command, len);
 	new->index = d->index;
 	new->next = NULL;
@@ -89,17 +91,20 @@ static void		set_env_cmd(t_mini *d)
 
 void			init_env(t_mini *d)
 {
-	extern char **environ;
+	extern char **environ; // WAT EXTERN CHAR?
 	t_env		*new;
 
 	d->index = 0;
 	d->i = 0;
 	d->echo = (t_env**)malloc(sizeof(t_env*) * ECHO);
+	// PROTECTION
 	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * COMMAND);
+	// PROTECTION
 	init(d->echo, NULL, ECHO);
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{
+		// printf("COMMAND:\t%s\n", environ[d->index]);
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
 		if (d->index == 0)

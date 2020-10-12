@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 14:09:30 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 17:52:26 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_echo(t_env **hash_table)
 			tmp = hash_table[i];
 			while (tmp != NULL)
 			{
-				printf("[%d] %s - ", tmp->alpha, tmp->head);
+				printf("[%d] %s  {%s} - ", tmp->alpha, tmp->head, tmp->list);
 				tmp = tmp->next;
 			}
 			printf("\n");

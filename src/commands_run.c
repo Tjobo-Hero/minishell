@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 16:24:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 17:34:52 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		**(*start_command(int i))(t_mini *d)
 	command[1] = &cd;
 	command[2] = &export;
 	command[3] = &unset;
-	// command[4] = &exit;
+	command[4] = &exit_own;
 	command[5] = &env;
 	command[6] = &echo;
 	return (command[i]);
@@ -72,6 +72,7 @@ void		command(t_mini *d)
 	{
 		if (fork() == 0)
 		{
+			// WAT ALS FORK < 0)?
 			run_commands(d, 1);
 			exit(0);
 		}

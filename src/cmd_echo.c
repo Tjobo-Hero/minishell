@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 11:34:54 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:13:36 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		dollar_sign(t_mini *d, char *arg)
 	while (arg[i] != '\0' && ft_isalnum(arg[i]))
 		i++;
 	look = malloc(sizeof(char*) * (i + 1));
+	// PROTECTION
 	ft_strlcpy(look, &arg[1], i);
 	tmp = look_up(look, d->echo);
 	if (arg[1] == '?')
@@ -69,7 +70,7 @@ static int	write_single(t_mini *d, char *arg, int i)
 	i++;
 	while (arg[i] != '\'')
 		i += write(d->fd, &arg[i], 1);
-	/* protection */
+	// PROTECTION
 	i++;
 	return (i);
 }
@@ -81,10 +82,10 @@ void	write_arg(t_mini *d, int a)
 
 	i = 0;
 	set = 0;
-	printf("ORIG_IN:\t%s\n", d->orig[a]);
+	// printf("ORIG_IN:\t%s\n", d->orig[a]);
 	while (d->orig[a][i] != '\0')
 	{
-		printf("ORIG:\t%c\n set:%i\n", (d->orig[a][i]), set);
+		// printf("ORIG:\t%c\n set:%i\n", (d->orig[a][i]), set);
 		if (d->orig[a][i] == '\\')
 		{
 			set = 1;

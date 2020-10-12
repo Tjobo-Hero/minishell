@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/11 16:39:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 17:07:57 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*make_str(t_env *tmp, int *i, int *c, int *x)
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
-	str == NULL ? char_malloc_error() : 0;
+	str == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	*i = 0;
 	*c = *c + 1;
 	*x = *x + 1;
@@ -35,7 +35,7 @@ void	make_environ(t_mini *d)
 	c = 0;
 	x = 0;
 	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
-	d->environ == NULL ? void_malloc_error() : 0;
+	d->environ == NULL ? void_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	while (i < ECHO)
 	{
 		if (d->echo[i])
@@ -142,7 +142,7 @@ void	check_if_forked(t_mini *d)
 		execute(d, d->args);
 	else
 	{
-		if (fork() == 0)
+		if (fork() == 0) // WAT ALS (FORK < 0) ? 
 			execute(d, d->args);
 		else
 			d->pids++;

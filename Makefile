@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/10/01 12:55:44 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/12 17:36:52 by tvan-cit      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC_FILES		=	minishell \
 					cmd_unset \
 					cmd_export \
 					cmd_echo \
+					cmd_exit \
 					utils \
 					commands \
 					cmd_export_utils1 \

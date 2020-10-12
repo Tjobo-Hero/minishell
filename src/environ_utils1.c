@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 20:13:32 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 17:14:59 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ char		*set_elem(char *environ, int i, int len, int type)
 	if (type == 1)
 	{
 		tmp = malloc(sizeof(char) * i);
+		// PROTECTION
+		// if (tmp == NULL)
+		// 	exit(0);
 		ft_strlcpy(tmp, environ, i);
 	}
 	else
 	{
 		tmp = malloc(sizeof(char) * (len - i) + 1);
+		// PROTECTION
+		// if (tmp == NULL)
+		// 	exit(0);
 		ft_strlcpy(tmp, &environ[i], (len - i) + 1);
 	}
 	return (tmp);
@@ -54,6 +60,9 @@ t_env			*new_elem(t_mini *d, char *environ)
 	int		len;
 
 	new = malloc(sizeof(t_env));
+	// PROTECTION
+	// if (new == NULL)
+	// 	exit(0);
 	i = 0;
 	new->set = 0;
 	len = ft_strlen(environ);

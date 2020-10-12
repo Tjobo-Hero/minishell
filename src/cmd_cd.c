@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 13:50:26 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/12 16:21:30 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ int		**update_env(t_mini *d)
 	if (check == NULL)
 		return (0);
 	d->cwd = create_str(PATH_MAX);
-	// PROTECTION
-	getcwd(d->cwd, sizeof(d->cwd));
-	// PROTECTION
+	// if (d->cwd == NULL)
+	// 	return (0);
+	// getcwd(d->cwd, sizeof(d->cwd));
+	// if (d->cwd == NULL)
+	// 	return (0);
 	i = ft_strlen(d->cwd);
 	free(check->list);
 	check->list = malloc(sizeof(char*) * (i + 1));
+	//PROTECTION
 	ft_strlcpy(check->list, d->cwd, i + 1);
 	check->echo = check->list;
 	free(d->cwd);
