@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/13 14:52:03 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 15:56:03 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		**update_env(t_mini *d)
 	printf("OUT: d->cwd: \t%s\n", d->cwd);
 	i = ft_strlen(d->cwd);
 	printf("I:\t[%i]\n", i);
+	printf("check->list:\t%s\n", check->list);
 	free(check->list);
 	check->list = malloc(sizeof(char*) * (i + 1));
 	//PROTECTION
