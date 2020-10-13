@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 15:11:46 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 12:42:24 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,11 @@ char	**new_fill_commands(char *str, int *count, int w)
 		i++;
 		d = count[i] - c;
 	}
+	i = 0;
+	// while (tmp[i] != NULL)
+	// {
+	// 	printf("TMP_NEW_FILL_COMMAND:\t%s\n", tmp[i]);
+	// 	i++;
+	// }
 	return (tmp);
 }

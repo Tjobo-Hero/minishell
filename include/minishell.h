@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/12 17:50:13 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 15:10:39 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
+
+/* Memory leak tool */
+# define _CRTDBG_MAP_ALLOC
+# include <stdlib.h>
+// # include <crtdbg.h>
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"

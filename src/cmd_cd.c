@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 16:21:30 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:52:03 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,33 @@ int		**update_env(t_mini *d)
 {
 	t_env	*check;
 	int		i;
+	char	*return_ptr;
 
 	check = look_up("PWD", d->echo);
 	if (check == NULL)
 		return (0);
-	d->cwd = create_str(PATH_MAX);
+	d->cwd = create_str(PATH_MAX); // WEET NIET OF HET NOG PROTECITON NODIG HEEFT AANGEZIEN DIE NU OOK IN DE FUNCTIE ZIT
 	// if (d->cwd == NULL)
 	// 	return (0);
-	// getcwd(d->cwd, sizeof(d->cwd));
+	return_ptr = getcwd(d->cwd, PATH_MAX);    // BIJ PATH_MAX stond eerst sizeof(d->cwd)
+	if (return_ptr == NULL)
+	{
+		ft_printf("bash: pwd: %s\n", strerror(errno));
+		return ((int**)1);
+	}
 	// if (d->cwd == NULL)
 	// 	return (0);
+	printf("OUT: d->cwd: \t%s\n", d->cwd);
 	i = ft_strlen(d->cwd);
+	printf("I:\t[%i]\n", i);
 	free(check->list);
 	check->list = malloc(sizeof(char*) * (i + 1));
 	//PROTECTION
 	ft_strlcpy(check->list, d->cwd, i + 1);
-	check->echo = check->list;
+	check->echo = check->list; //MOET check->list HIERNA NIET GEFREED WORDEN?
+	printf("check->echo:\t%s\n", check->echo);
+	printf("check->list:\t%s\n", check->list);
+	// free(check);
 	free(d->cwd);
 	return ((int**)0);
 }

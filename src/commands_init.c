@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 12:02:23 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:17:01 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,20 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+	//PROTECTION
 	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+	//PROTECTION
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
 		if (out[start] != '|')
 		{
 			d->split_line[x] = malloc(sizeof(char*) * len + 1);
+			//PROTECTION
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
 			d->orig[x] = ft_strdup(d->split_line[x]);
+			//PROTECTION
+			// printf("ORG_SPLIT_LINE:\t%s\n", d->orig[x]);
 			x++;
 		}
 		start = count[i] + 1;
@@ -92,7 +97,8 @@ void		get_commands(t_mini *d, char *line)
 		return ;
 	}
 	count = count_init(PATH_MAX);
-	// Protection
+	if (count == NULL)
+		exit(1);
 	c_cmd = new_count_commands(line, count, ';');
 	// Protection
 	cmd = new_fill_commands(line, count, c_cmd);
@@ -105,7 +111,7 @@ void		get_commands(t_mini *d, char *line)
 			pipes(d);
 			ft_free(d->split_line);
 			ft_free(d->orig);
-			// free(count);
+			free(count);			// STOND UIT
 			free(d->arg->count);
 		}
 		i++;

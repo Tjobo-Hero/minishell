@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 17:07:57 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:23:30 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*make_str(t_env *tmp, int *i, int *c, int *x)
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
+	// printf("STR:\t%s\n", str);
 	str == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	*i = 0;
 	*c = *c + 1;
@@ -81,6 +82,7 @@ static char	*update_path(char *cmd, char *path)
 	free(tmp);
 	tmp = ft_strjoin(tmp2, cmd);
 	free(tmp2);
+	printf("RETURN_TMP_UPDATE_PATH:\t%s\n", tmp);
 	return (tmp);
 }
 
