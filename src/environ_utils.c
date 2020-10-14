@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 17:52:26 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:31:47 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ t_env	*find_next(t_env **env, t_env *tmp, int *i)
 		tmp = tmp->next;
 	}
 	*i = *i + 1;
-	while (env[*i] == NULL)
+	// printf("I:[%i]\n", *i);
+	if (env[*i] == NULL)    // Hier stond while (env[*i] == NULL) maar ging volens fsanitizer==address fout
 		*i = *i + 1;
+	// printf("I:[%i]\n", *i);
 	while (*i < ECHO)
 	{
 		tmp = env[*i];

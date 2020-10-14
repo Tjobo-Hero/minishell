@@ -1,1 +1,45 @@
 OLD PWD klopt niet
+
+Gaat hier iets fout:
+
+minishell> env
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0007sym001ygn/T/
+__CF_USER_TEXT_ENCODING=0xF9F5:0x0:0x0
+SHELL=/bin/zsh
+HOME=/Users/tvan-cit
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.wsc9r9mnBK/Render
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Xl8T64KKot/Listeners
+PATH=/Users/tvan-cit/.brew/bin:/Users/tvan-cit/.brew/bin:/Users/tvan-cit/.brew/bin:/Users/tvan-cit/.brew/bin:/Users/tvan-cit/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/tvan-cit/.brew/bin:/Users/tvan-cit/homebrew/bin
+LOGNAME=tvan-cit
+XPC_SERVICE_NAME=0
+USER=tvan-cit
+XPC_FLAGS=0x0
+C_INCLUDE_PATH=/Users/tvan-cit/homebrew/include
+LESS=-R
+LIBRARY_PATH=/Users/tvan-cit/homebrew/lib
+LSCOLORS=Gxfxcxdxbxegedabagacad
+OLDPWD=/Users/tvan-cit/Desktop/Minishell
+PAGER=less
+PWD=/Users/tvan-cit/Desktop/Minishell
+SHLVL=1
+ZSH=/Users/tvan-cit/.oh-my-zsh
+TERM_PROGRAM=vscode
+TERM_PROGRAM_VERSION=1.35.1
+LANG=en_US.UTF-8
+TERM=xterm-256color
+_=/Users/tvan-cit/Desktop/Minishell/./minishell
+minishell> pwd
+/Users/tvan-cit/Desktop/Minishell
+minishell> cd ..
+minishell> pwd
+/Users/tvan-cit/Desktop
+minishell> minishell> pwd
+/Users/tvan-cit/Desktop
+minishell> cd ..
+minishell> pwd
+bash: �pwd: command not found
+minishell> pw
+bash: pw: command not found
+minishell> minishell> pwd
+/Users/tvan-cit
+minishell> 

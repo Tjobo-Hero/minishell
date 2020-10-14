@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 17:48:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:04:48 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	to_lower(t_mini *d, char *str)
 	i = 0;
 	tmp = ft_strdup(str);
 	if (tmp == NULL)
-		return (void_malloc_error());
+		return ((void)void_malloc_error());
 	while (str[i] != '\0')
 	{
 		if (ft_tolower(tmp[i]) > 0)

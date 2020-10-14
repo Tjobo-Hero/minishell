@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/30 10:16:13 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/21 10:57:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/14 12:36:53 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void			ft_fill_extra_flags(const char *str, t_flags *flags);
 int				ft_atoi(const char *str);
 int				ft_putchar(char c);
 int				ft_putstring(char *s);
-// int				ft_strlen(char *s);
+/* int				ft_strlen(char *s); */
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_number_length(size_t nbr, int base);
 size_t			ft_putnbr(size_t nbr, int len, t_flags *flags);

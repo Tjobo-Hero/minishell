@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/13 12:42:24 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:31:19 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		new_count_commands(char *str, int *count, char c)
 		i++;
 	}
 	count[x] = i;
-	free(count);
+	// free(count);
 	return (x + 1);
 }
 

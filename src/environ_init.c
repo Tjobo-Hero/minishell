@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 16:00:51 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:24:53 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ void			init(t_env **tmp, t_cmd **command, int x)
 		tmp[i] = NULL;
 		return ;
 	}
-	while (i < x)
+	else
 	{
+		while (i < x)
+		{
+			command[i] = NULL;
+			i++;
+		}
 		command[i] = NULL;
-		i++;
 	}
-	command[i] = NULL;
 }
 
 static t_cmd	*new_elem_cmd(t_mini *d, char *command)
@@ -96,11 +99,12 @@ void			init_env(t_mini *d)
 
 	d->index = 0;
 	d->i = 0;
-	d->echo = (t_env**)malloc(sizeof(t_env*) * ECHO);
+	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1)); // HIER GING HET FOUT volens fsanitize=address zonder +1
 	// PROTECTION
-	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * COMMAND);
+	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1)); // HIER GING HET FOUT volens fsanitize=address +1
 	// PROTECTION
 	init(d->echo, NULL, ECHO);
+	print_echo(d->echo);
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{

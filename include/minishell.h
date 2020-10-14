@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/13 15:33:05 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:24:45 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
-
-/* Memory leak tool */
-# define _CRTDBG_MAP_ALLOC
-# include <stdlib.h>
-// # include <crtdbg.h>
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"
@@ -145,7 +140,9 @@ int		hash(char *name, int count);
 void	push_back(t_env **echo, t_env *new);
 t_env	*look_up(char *name, t_env **hash_table);
 void	delete_lst(char *name, t_env **hash_table);
+
 void	print_echo(t_env **hash_table);
+
 void	clear_new(t_new *new);
 void	create_delete_new(t_new *tmp, int i);
 void	clear_str(char *str);

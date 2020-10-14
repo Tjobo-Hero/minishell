@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 15:13:36 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:17:11 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		dollar_sign(t_mini *d, char *arg)
 	t_env	*tmp;
 
 	i = 1;
-	// printf("ARG:\t%s\n", arg);
 	while (arg[i] != '\0' && ft_isalnum(arg[i]))
 		i++;
 	look = malloc(sizeof(char*) * (i + 1));
