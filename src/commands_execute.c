@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 11:46:44 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:16:42 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*make_str(t_env *tmp, int *i, int *c, int *x)
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
-	str == NULL ? char_malloc_error() : 0;
+	str == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	*i = 0;
 	*c = *c + 1;
 	*x = *x + 1;
@@ -35,7 +35,7 @@ void	make_environ(t_mini *d)
 	c = 0;
 	x = 0;
 	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
-	d->environ == NULL ? void_malloc_error() : 0;
+	d->environ == NULL ? void_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	while (i < ECHO)
 	{
 		if (d->echo[i])
@@ -124,10 +124,10 @@ static void	execute(t_mini *d, char **cmd)
 	close_ifnot_and_dup(d);
 	get_path(d, &abspath);
 	make_environ(d);
-	if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
-		printf("bash: %s: %s\n", d->args[0], strerror(errno));
-	else if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
+	if (!abspath && d->args[0][0] != '.' && stat(d->args[0], &statstruct) <= 0)
 		printf("bash: %s: command not found\n", d->args[0]);
+	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
+		printf("bash: %s: %s\n", d->args[0], strerror(errno));
 	else if (abspath && execve(abspath, d->args, d->environ) == -1)
 		printf("bash: %s: %s\n", d->args[0], strerror(errno));
 	d->is_child = 0;
@@ -142,7 +142,7 @@ void	check_if_forked(t_mini *d)
 		execute(d, d->args);
 	else
 	{
-		if (fork() == 0)
+		if (fork() == 0) // WAT ALS (FORK < 0) ? 
 			execute(d, d->args);
 		else
 			d->pids++;
