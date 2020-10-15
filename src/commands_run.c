@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 09:52:02 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 16:10:58 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,29 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 static int	**run_commands(t_mini *d, int forked)
 {
 	t_cmd	*tmp;
-	int i;
 
-	i = 0;
 	d->fd = (d->pipe.fd_out > 0) ? d->pipe.fd_out : 1;
 	d->forked = forked;
+			int z = 0;
+		while (d->split_line[z] && d->orig[z])
+		{
+			printf("RUN:\t%s\nRUN:\t%s\nRUN:\t%s\n", d->split_line[z], d->orig[z], d->args[z]);
+			z++;
+		}
+		printf("\n\n");
 	check_arg_and_remove_case(d);
+	z = 0;
+		while (d->split_line[z] && d->orig[z])
+		{
+			printf("RUN:\t%s\nRUN:\t%s\nRUN:\t%s\n", d->split_line[z], d->orig[z], d->args[z]);
+			z++;
+		}
+		printf("\n\n");
 	tmp = look_up_commands(d->args[0], d->commands);
-	while (d->args[i] != NULL)
-	{
-		// printf("ARG: \t%s\n", d->args[i]);
-		i++;
-	}
 	if (tmp == NULL)
 		check_if_forked(d);
 	else
-	{
-		// printf("TMP_INDEX:\t%d\n", tmp->index);
 		d->ret = (int)start_command(tmp->index)(d);
-	}
 	return (0);
 }
 

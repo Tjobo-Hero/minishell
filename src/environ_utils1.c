@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 14:27:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 15:42:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char		*set_elem(char *environ, int i, int len, int type)
 		tmp = malloc(sizeof(char) * i);
 		if (tmp == NULL)
 			exit(1);
-		ft_strlcpy(tmp, environ, i + 1);
+		ft_strlcpy(tmp, environ, i);
 	}
 	else
 	{
 		tmp = malloc(sizeof(char) * (len - i) + 1);
 		if (tmp == NULL)
 			exit(1);
-		ft_strlcpy(tmp, &environ[i], (len - i) + 2);
+		ft_strlcpy(tmp, &environ[i], (len - i) + 1);
 	}
 	return (tmp);
 }

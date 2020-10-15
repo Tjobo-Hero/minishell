@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 14:39:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 16:10:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,13 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->i = 0;
 	d->arg->set = 0;
 	d->arg->a = 0;
-	out = create_str(PATH_MAX);
-	ft_bzero(out, PATH_MAX + 1);
-	// free(count);
-	// count = count_init(PATH_MAX);
+	out = ft_calloc(PATH_MAX, sizeof(char*));
+	out == NULL ? int_malloc_error() : 0;
 	ft_bzero(count, PATH_MAX + 1);
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
-	ft_bzero(out, PATH_MAX + 1);
+	// ft_bzero(out, PATH_MAX);
 	free(out);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 14:22:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 15:15:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 	t_cmd		*new;
 	int			len;
 
-	new = malloc(sizeof(t_cmd) * (1));
+	new = malloc(sizeof(t_cmd));
 	if (new == NULL)
 		exit(1);
 	len = ft_strlen(command) + 1;
-	new->command = malloc(sizeof(char) * (len));
+	new->command = malloc(sizeof(char) * (len + 1));
 	if (new->command == NULL)
 		exit(1);
 	ft_strlcpy(new->command, command, len);
