@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 10:39:33 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 13:27:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		*count_init(int size)
 	int		*tmp;
 
 	tmp = ft_calloc(size, sizeof(int*));
+	tmp == NULL ? int_malloc_error() : 0;
 	return (tmp);
 }
 
@@ -65,7 +66,6 @@ int		new_count_commands(char *str, int *count, char c)
 		i++;
 	}
 	count[x] = i;
-	// free(count);
 	return (x + 1);
 }
 
@@ -78,14 +78,15 @@ char	**new_fill_commands(char *str, int *count, int w)
 
 	i = 0;
 	c = 0;
-	tmp = ft_memalloc(sizeof(char *) * (w + 1)); // MALLOC TMP
-	tmp == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
+	tmp = ft_memalloc(sizeof(char *) * (w + 1));
+	tmp == NULL ? char_malloc_error() : 0;
 	d = count[0];
 	while (str[c] == ' ')
 		c++;
 	while (i < w)
 	{
 		tmp[i] = ft_memalloc(sizeof(char *) * (d + 1));
+		tmp[i] == NULL ? char_malloc_error() : 0;
 		ft_bzero(tmp[i], (d + 1));
 		ft_strlcpy(tmp[i], &str[c], d + 1);
 		while (c != count[i])

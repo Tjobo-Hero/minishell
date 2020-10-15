@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 13:04:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 13:32:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->a = 0;
 	out = create_str(PATH_MAX);
 	ft_bzero(out, PATH_MAX + 1);
+	free(count);
 	count = count_init(PATH_MAX);
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
@@ -104,18 +105,26 @@ void		get_commands(t_mini *d, char *line)
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
 	cmd == NULL ? void_malloc_error() : 0;
-	while (cmd[i])
-	{
+	// while (cmd[i])
+	// {
 		split_command(d, cmd[i], count);
-		if (d->split_line[0])
-		{
-			pipes(d);
-			ft_free(d->split_line);
-			ft_free(d->orig);
-			free(count);
-			free(d->arg->count);
-		}
-		i++;
-	}
+	// 	if (d->split_line[0])
+	// 	{
+			// pipes(d);
+			int z = 0;
+			while (d->split_line[z])
+			{
+				free(d->split_line[z]);
+				z++;
+			}
+	// 		free(d->split_line);
+	// 		// ft_free(d->split_line);
+	// 		// ft_free(d->orig);
+	// 		// free(count);
+	// 		// free(d->arg->count);
+	// 	}
+	// 	i++;
+	// }
+	free(count);
 	ft_free(cmd);
 }
