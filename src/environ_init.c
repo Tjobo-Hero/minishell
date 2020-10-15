@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 11:18:26 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/14 15:24:53 by tvan-cit      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ void			init(t_env **tmp, t_cmd **command, int x)
 		tmp[i] = NULL;
 		return ;
 	}
-	while (i < x)
+	else
 	{
+		while (i < x)
+		{
+			command[i] = NULL;
+			i++;
+		}
 		command[i] = NULL;
-		i++;
 	}
-	command[i] = NULL;
 }
 
 static t_cmd	*new_elem_cmd(t_mini *d, char *command)
@@ -41,8 +44,10 @@ static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 	int			len;
 
 	new = malloc(sizeof(t_cmd));
+	// PROTECTION
 	len = ft_strlen(command) + 1;
 	new->command = malloc(sizeof(char) * len);
+	// PROTECTION
 	ft_strlcpy(new->command, command, len);
 	new->index = d->index;
 	new->next = NULL;
@@ -89,17 +94,21 @@ static void		set_env_cmd(t_mini *d)
 
 void			init_env(t_mini *d)
 {
-	extern char **environ;
+	extern char **environ; // WAT EXTERN CHAR?
 	t_env		*new;
 
 	d->index = 0;
 	d->i = 0;
-	d->echo = (t_env**)malloc(sizeof(t_env*) * ECHO);
-	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * COMMAND);
+	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1)); // HIER GING HET FOUT volens fsanitize=address zonder +1
+	// PROTECTION
+	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1)); // HIER GING HET FOUT volens fsanitize=address +1
+	// PROTECTION
 	init(d->echo, NULL, ECHO);
+	print_echo(d->echo);
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{
+		// printf("COMMAND:\t%s\n", environ[d->index]);
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
 		if (d->index == 0)

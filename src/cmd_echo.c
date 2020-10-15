@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/12 11:34:54 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 09:44:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	write_single(t_mini *d, char *arg, int i)
 	i++;
 	while (arg[i] != '\'')
 		i += write(d->fd, &arg[i], 1);
-	/* protection */
+	// PROTECTION
 	i++;
 	return (i);
 }
@@ -81,10 +81,8 @@ void	write_arg(t_mini *d, int a)
 
 	i = 0;
 	set = 0;
-	printf("ORIG_IN:\t%s\n", d->orig[a]);
 	while (d->orig[a][i] != '\0')
 	{
-		printf("ORIG:\t%c\n set:%i\n", (d->orig[a][i]), set);
 		if (d->orig[a][i] == '\\')
 		{
 			set = 1;

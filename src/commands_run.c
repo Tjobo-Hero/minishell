@@ -6,7 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
+<<<<<<< HEAD
+/*   Updated: 2020/10/13 12:42:28 by tvan-cit      ########   odam.nl         */
+=======
 /*   Updated: 2020/10/09 16:24:47 by rbraaksm      ########   odam.nl         */
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +30,7 @@ int		**(*start_command(int i))(t_mini *d)
 	command[1] = &cd;
 	command[2] = &export;
 	command[3] = &unset;
-	// command[4] = &exit;
+	command[4] = &exit_own;
 	command[5] = &env;
 	command[6] = &echo;
 	return (command[i]);
@@ -54,15 +58,25 @@ t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 static int	**run_commands(t_mini *d, int forked)
 {
 	t_cmd	*tmp;
+	int i;
 
+	i = 0;
 	d->fd = (d->pipe.fd_out > 0) ? d->pipe.fd_out : 1;
 	d->forked = forked;
 	check_arg_and_remove_case(d);
 	tmp = look_up_commands(d->args[0], d->commands);
+	while (d->args[i] != NULL)
+	{
+		// printf("ARG: \t%s\n", d->args[i]);
+		i++;
+	}
 	if (tmp == NULL)
 		check_if_forked(d);
 	else
+	{
+		// printf("TMP_INDEX:\t%d\n", tmp->index);
 		d->ret = (int)start_command(tmp->index)(d);
+	}
 	return (0);
 }
 
@@ -72,6 +86,7 @@ void		command(t_mini *d)
 	{
 		if (fork() == 0)
 		{
+			// WAT ALS FORK < 0)?
 			run_commands(d, 1);
 			exit(0);
 		}

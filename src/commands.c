@@ -6,7 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
+<<<<<<< HEAD
+/*   Updated: 2020/10/14 15:31:19 by tvan-cit      ########   odam.nl         */
+=======
 /*   Updated: 2020/10/09 17:50:54 by rbraaksm      ########   odam.nl         */
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +69,7 @@ int		new_count_commands(char *str, int *count, char c)
 		i++;
 	}
 	count[x] = i;
-	free(count);
+	// free(count);
 	return (x + 1);
 }
 
@@ -78,14 +82,19 @@ char	**new_fill_commands(char *str, int *count, int w)
 
 	i = 0;
 	c = 0;
-	tmp = ft_memalloc(sizeof(char *) * (w + 1));
-	tmp == NULL ? char_malloc_error() : 0;
+	tmp = ft_memalloc(sizeof(char *) * (w + 1)); // MALLOC TMP
+	tmp == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
 	d = count[0];
 	while (str[c] == ' ')
 		c++;
 	while (i < w)
 	{
+<<<<<<< HEAD
+		tmp[i] = ft_memalloc(sizeof(char *) * (d + 1)); // MALLOC TMP
+		// PROTECTION
+=======
 		tmp[i] = ft_memalloc(sizeof(char *) * (d + 1));
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 		ft_bzero(tmp[i], (d + 1));
 		ft_strlcpy(tmp[i], &str[c], d + 1);
 		while (c != count[i])
@@ -95,5 +104,11 @@ char	**new_fill_commands(char *str, int *count, int w)
 		i++;
 		d = count[i] - c;
 	}
+	i = 0;
+	// while (tmp[i] != NULL)
+	// {
+	// 	printf("TMP_NEW_FILL_COMMAND:\t%s\n", tmp[i]);
+	// 	i++;
+	// }
 	return (tmp);
 }
