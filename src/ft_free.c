@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/24 13:16:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 14:22:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ void	free_int_array(int **arr)
 	}
 	free(arr);
 	arr = NULL;
+}
+
+void free_exit_program(t_mini *d, int error_code)
+{
+	int i;
+
+	i = 0;
+	while (d->echo[i])
+	{
+		free(d->echo[i]);
+		i++;
+	}
+	free(d->echo[i]);
+	exit(error_code);
 }

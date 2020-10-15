@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 13:32:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 14:39:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-	//Protection
 	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-	//Protection
+	d->split_line == NULL || d->orig == NULL ? void_malloc_error() : 0;
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -74,8 +73,9 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->a = 0;
 	out = create_str(PATH_MAX);
 	ft_bzero(out, PATH_MAX + 1);
-	free(count);
-	count = count_init(PATH_MAX);
+	// free(count);
+	// count = count_init(PATH_MAX);
+	ft_bzero(count, PATH_MAX + 1);
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
@@ -100,31 +100,22 @@ void		get_commands(t_mini *d, char *line)
 		return ;
 	}
 	count = count_init(PATH_MAX);
-	if (count == NULL)
-		exit(1);
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(line, count, c_cmd);
 	cmd == NULL ? void_malloc_error() : 0;
-	// while (cmd[i])
-	// {
+	while (cmd[i])
+	{
 		split_command(d, cmd[i], count);
-	// 	if (d->split_line[0])
-	// 	{
-			// pipes(d);
-			int z = 0;
-			while (d->split_line[z])
-			{
-				free(d->split_line[z]);
-				z++;
-			}
-	// 		free(d->split_line);
-	// 		// ft_free(d->split_line);
-	// 		// ft_free(d->orig);
-	// 		// free(count);
-	// 		// free(d->arg->count);
-	// 	}
-	// 	i++;
-	// }
-	free(count);
+		if (d->split_line[0])
+		{
+			pipes(d);
+			ft_free(d->split_line);
+			ft_free(d->orig);
+		}
+		free(count);
+		free(d->arg->count);
+		free(d->arg);
+		i++;
+	}
 	ft_free(cmd);
 }
