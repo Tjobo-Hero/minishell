@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:57:06 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:17:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		dollar_sign(t_mini *d, char *arg)
 	while (arg[i] != '\0' && ft_isalnum(arg[i]))
 		i++;
 	look = malloc(sizeof(char*) * (i + 1));
-	look == NULL ? int_malloc_error() : 0;
+	look == NULL ? malloc_error() : 0;
 	ft_strlcpy(look, &arg[1], i);
 	tmp = look_up(look, d->echo);
 	if (arg[1] == '?')
@@ -32,7 +32,7 @@ int		dollar_sign(t_mini *d, char *arg)
 			ft_putstr_fd(&arg[2], d->fd);
 	}
 	if (tmp != NULL)
-		ft_putstr_fd(tmp->list, d->fd);
+		ft_putstr_fd(tmp->echo, d->fd);
 	free(look);
 	return (i);
 }

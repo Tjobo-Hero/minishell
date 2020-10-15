@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:24:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:29:38 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	pipes_start(t_mini *d, int c, int n, int x)
 	}
 	redirect(d, x);
 	d->args = new_arg(d->split_line, c, n);
-	if (d->args == NULL)
-		exit(1);
 	command(d);
 	ft_free(d->args);
 	close_pipes(d, x);
@@ -58,11 +56,11 @@ static void	pipes_init(t_mini *d, int count)
 	i = 0;
 	d->pids = 0;
 	d->pipes = ft_calloc(count, sizeof(int *));
-	if (d->pipes == NULL)
-		exit(1);
+	d->pipes == NULL ? malloc_error() : 0;
 	while (i + 1 < count)
 	{
 		d->pipes[i] = ft_calloc(3, sizeof(int));
+		d->pipes[i] == NULL ? malloc_error() : 0;
 		if (d->pipes[i] == NULL)
 			exit(1);
 		if (pipe(d->pipes[i]) == -1)

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:42:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:33:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ int		**print(t_mini *d)
 
 int		replace(t_mini *d, t_env *tmp)
 {
-	printf("tmp:\t%s\n", tmp->head);
 	tmp->set = d->new.set;
 	free(tmp->list);
 	free(tmp->echo);
 	tmp->list = ft_strdup(d->new.list);
 	tmp->echo = ft_strdup(d->new.echo);
-	tmp == NULL || tmp->echo == NULL ? int_malloc_error() : 0;
+	tmp == NULL || tmp->echo == NULL ? malloc_error() : 0;
 	return (0);
 }
 
@@ -69,7 +68,7 @@ void	new_list(t_mini *d)
 	t_env	*new;
 
 	new = malloc(sizeof(t_env));
-	new == NULL ? void_malloc_error() : 0;
+	new == NULL ? malloc_error() : 0;
 	new->set = 0;
 	if (d->new.set)
 		new->set = 1;

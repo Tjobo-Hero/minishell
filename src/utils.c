@@ -6,11 +6,17 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/15 10:45:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:32:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	malloc_error(void)
+{
+	ft_printf("malloc fail\n");
+	exit(1);
+}
 
 int		int_malloc_error(void)
 {
@@ -40,6 +46,8 @@ void	create_delete_new(t_new *tmp, int i)
 		tmp->echo = malloc(sizeof(char*) * PATH_MAX);
 		tmp->list = malloc(sizeof(char*) * PATH_MAX);
 		tmp->tmp = malloc(sizeof(char*) * PATH_MAX);
+		tmp->head == NULL || tmp->echo == NULL || tmp->list == NULL ||
+		tmp->tmp == NULL ? malloc_error() : 0;
 	}
 	else if (i == 0 || i == 1)
 	{
