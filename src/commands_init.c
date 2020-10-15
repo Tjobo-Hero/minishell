@@ -6,7 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/10/13 14:17:01 by tvan-cit      ########   odam.nl         */
+=======
+/*   Updated: 2020/10/12 11:34:38 by tvan-cit      ########   odam.nl         */
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +43,13 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+<<<<<<< HEAD
 	//PROTECTION
 	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
 	//PROTECTION
+=======
+	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -51,8 +59,11 @@ static void	split_line(t_mini *d, char *out, int *count)
 			//PROTECTION
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
 			d->orig[x] = ft_strdup(d->split_line[x]);
+<<<<<<< HEAD
 			//PROTECTION
 			// printf("ORG_SPLIT_LINE:\t%s\n", d->orig[x]);
+=======
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 			x++;
 		}
 		start = count[i] + 1;
@@ -102,7 +113,10 @@ void		get_commands(t_mini *d, char *line)
 	c_cmd = new_count_commands(line, count, ';');
 	// Protection
 	cmd = new_fill_commands(line, count, c_cmd);
+<<<<<<< HEAD
 	// Protection
+=======
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 	while (cmd && cmd[i])
 	{
 		split_command(d, cmd[i], count);
@@ -111,7 +125,11 @@ void		get_commands(t_mini *d, char *line)
 			pipes(d);
 			ft_free(d->split_line);
 			ft_free(d->orig);
+<<<<<<< HEAD
 			free(count);			// STOND UIT
+=======
+			// free(count);
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 			free(d->arg->count);
 		}
 		i++;

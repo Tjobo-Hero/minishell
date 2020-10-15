@@ -95,7 +95,11 @@ int		**export(t_mini *d)
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
+<<<<<<< HEAD
 			ft_printf("bash: export: `%s': not a valid identifier\n", d->new.head); // HIER STOND EERST 'printf'
+=======
+			printf("bash: export: `%s': not a valid identifier\n", d->new.head);
+>>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);

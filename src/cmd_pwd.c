@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/13 14:19:24 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 09:45:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 int	**pwd(t_mini *d)
 {
-	// char	*cwd;
 	char	*return_ptr;
 
 	d->cwd = create_str(PATH_MAX);
 	return_ptr = getcwd(d->cwd, PATH_MAX);
-	// printf("RETURN_PTR: \t%s\n", return_ptr);
 	if (return_ptr == NULL)
 	{
 		ft_printf("bash: pwd: %s\n", strerror(errno));
