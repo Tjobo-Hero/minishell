@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/08 13:40:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 12:51:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	char	*tmp;
 
 	i = 0;
-	d->new.set = ' ';
+	d->new.set = 0;
 	new->alpha = ' ';
 	tmp = create_str(PATH_MAX);
 	make_string(d, arg, new->tmp);
@@ -96,7 +96,7 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	if (check_first_part(tmp) == 0)
 		return (0);
 	if (tmp[i] == '=')
-		new->set = '=';
+		new->set = 1;
 	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
 	ft_strlcpy(new->head, tmp, i + 1);
 	make_echo(d, new->echo, arg);

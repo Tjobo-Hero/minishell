@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 11:37:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 12:46:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void			init_env(t_mini *d)
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{
-		printf("COMMAND:\t%s\n", environ[d->index]);
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
 		if (d->index == 0)
