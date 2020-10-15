@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/14 15:24:53 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 11:37:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,19 @@ static void		set_env_cmd(t_mini *d)
 
 void			init_env(t_mini *d)
 {
-	extern char **environ; // WAT EXTERN CHAR?
+	extern char **environ;
 	t_env		*new;
 
 	d->index = 0;
 	d->i = 0;
-	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1)); // HIER GING HET FOUT volens fsanitize=address zonder +1
-	// PROTECTION
-	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1)); // HIER GING HET FOUT volens fsanitize=address +1
-	// PROTECTION
+	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1));
+	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1));
+	d->echo == NULL || d->commands == NULL ? void_malloc_error() : 0;
 	init(d->echo, NULL, ECHO);
-	print_echo(d->echo);
 	init(NULL, d->commands, COMMAND);
 	while (environ[d->index] != NULL)
 	{
-		// printf("COMMAND:\t%s\n", environ[d->index]);
+		printf("COMMAND:\t%s\n", environ[d->index]);
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
 		if (d->index == 0)

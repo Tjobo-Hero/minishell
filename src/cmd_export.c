@@ -60,7 +60,9 @@ int		replace(t_mini *d, t_env *tmp)
 	free(tmp->list);
 	free(tmp->echo);
 	tmp->list = ft_strdup(d->new.list);
+	//Protection
 	tmp->echo = ft_strdup(d->new.echo);
+	//Protection
 	return (0);
 }
 
@@ -95,11 +97,7 @@ int		**export(t_mini *d)
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
-<<<<<<< HEAD
-			ft_printf("bash: export: `%s': not a valid identifier\n", d->new.head); // HIER STOND EERST 'printf'
-=======
 			printf("bash: export: `%s': not a valid identifier\n", d->new.head);
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);

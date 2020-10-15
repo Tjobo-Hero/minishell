@@ -6,11 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/10/14 14:32:16 by tvan-cit      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/09 15:16:40 by rbraaksm      ########   odam.nl         */
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
+/*   Updated: 2020/10/15 11:32:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +48,7 @@ int		main(void)
 	char	*line;
 
 	init_env(&d);
-	// print_echo(d.echo);
-	screen_clean();
+	// screen_clean();
 	d.is_child = 0;
 	d.ret = 0;
 	while (1)
@@ -61,18 +56,14 @@ int		main(void)
 		/*  signal(SIGINT, block_ctrl_c); */
 		/* signal(SIGQUIT, block_ctrl_slash);*/
 		start_mini(&d);
-		if (!get_next_line(0, &line))
+		if (get_next_line(0, &line) < 0)
 		{
 			ft_printf("exit\n");
 			exit(0);
 		}
 		d.ret += g_ret;
 		g_ret = 0;
-<<<<<<< HEAD
-		/* if (ft_strncmp(line, "\n", ft_strlen(line)) != 0) */
-=======
 		// if (ft_strncmp(line, "\n", ft_strlen(line)) != 0)
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 			get_commands(&d, line);
 		/* check for space with newline */
 		free(line);

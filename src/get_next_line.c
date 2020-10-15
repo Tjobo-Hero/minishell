@@ -6,99 +6,49 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/05 13:02:24 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 11:31:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_make_line(char **line, char *buf)
+int		make_line(char **line, char c)
 {
-	char		*waiting;
-	int			lenght;
-
-	lenght = 0;
-	waiting = NULL;
-	while (buf[lenght] != '\n' || buf[lenght] == '\0')
-		lenght++;
-	if (buf[lenght] == '\n')
-	{
-		*line = ft_substr(buf, 0, lenght + 1);
-		if (!*line)
-		{
-			free(buf);
-			return (0);
-		}
-		waiting = buf;
-		buf = ft_strdup(&buf[lenght + 2]);
-		free(waiting);
-		if (!buf)
-		{
-			free(buf);
-			return (0);
-		}
-	}
-	return (buf);
-}
-
-char	*ft_making_buf(int const fd, char *bufin, int *ret)
-{
-	char	buf[BUFFER_SIZE + 1];
 	char	*tmp;
+	int		i;
 
-	while (*ret > 0)
-	{
-		*ret = read(fd, buf, BUFFER_SIZE);
-		if (*ret < 0)
-		{
-			free(bufin);
-			return (0);
-		}
-		buf[*ret] = '\0';
-		tmp = bufin;
-		bufin = ft_strjoin((const char*)bufin, buf);
-		free(tmp);
-		if (!bufin)
-			return (0);
-		if (ft_strchr(bufin, '\n'))
-			break ;
-	}
-	return (bufin);
-}
-
-int		ft_last_line(char **line, char *buf)
-{
-	*line = ft_strdup(buf);
-	free(buf);
-	if (!*line)
+	i = 0;
+	tmp = malloc(sizeof(char) * (ft_strlen(*line) + 2));
+	if (tmp == NULL)
 		return (-1);
-	return (0);
+	while ((*line)[i] != '\0')
+	{
+		tmp[i] = (*line)[i];
+		i++;
+	}
+	tmp[i] = c;
+	tmp[i + 1] = '\0';
+	free(*line);
+	*line = tmp;
+	return (1);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*buf;
-	int			ret;
+	char	buf[1];
+	int		res;
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1)
+	*line = malloc(sizeof(char *) * 1);
+	if (*line == NULL)
 		return (-1);
-	ret = 1;
-	if (!buf)
-		buf = ft_strdup("");
-	if (!buf)
-		return (-1);
-	while (ret > 0)
+	*line[0] = '\0';
+	res = 1;
+	while (res > 0)
 	{
-		if ((ft_strchr(buf, '\n')) != NULL)
-		{
-			buf = ft_make_line(line, buf);
-			if (!buf)
-				return (-1);
-			return (1);
-		}
-		buf = ft_making_buf(fd, buf, &ret);
-		if (!buf)
-			return (-1);
+		res = read(fd, buf, 1);
+		if (buf[0] == '\n' || res == -1 || res == 0)
+			return (res);
+		res = make_line(line, buf[0]);
 	}
-	return (ft_last_line(line, buf));
+	return (res);
 }

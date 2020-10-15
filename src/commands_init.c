@@ -6,11 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/10/13 14:17:01 by tvan-cit      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/12 11:34:38 by tvan-cit      ########   odam.nl         */
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
+/*   Updated: 2020/10/15 11:32:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +39,9 @@ static void	split_line(t_mini *d, char *out, int *count)
 	x = 0;
 	start = 0;
 	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-<<<<<<< HEAD
-	//PROTECTION
+	//Protection
 	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-	//PROTECTION
-=======
-	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
+	//Protection
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -59,11 +51,7 @@ static void	split_line(t_mini *d, char *out, int *count)
 			//PROTECTION
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
 			d->orig[x] = ft_strdup(d->split_line[x]);
-<<<<<<< HEAD
-			//PROTECTION
-			// printf("ORG_SPLIT_LINE:\t%s\n", d->orig[x]);
-=======
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
+			//Protection
 			x++;
 		}
 		start = count[i] + 1;
@@ -77,17 +65,20 @@ static int	split_command(t_mini *d, char *line, int *count)
 {
 	char	*out;
 
+	d->arg = (t_arg*)malloc(sizeof(t_arg) * (1));
+	d->arg == NULL ? int_malloc_error() : 0;
 	d->arg->c_i = 0;
 	d->arg->c = -1;
 	d->arg->i = 0;
 	d->arg->set = 0;
 	d->arg->a = 0;
 	out = create_str(PATH_MAX);
+	ft_bzero(out, PATH_MAX + 1);
 	count = count_init(PATH_MAX);
 	d->arg->count = count_init(PATH_MAX);
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
-	ft_bzero(out, PATH_MAX);
+	ft_bzero(out, PATH_MAX + 1);
 	free(out);
 	return (1);
 }
@@ -113,23 +104,22 @@ void		get_commands(t_mini *d, char *line)
 	c_cmd = new_count_commands(line, count, ';');
 	// Protection
 	cmd = new_fill_commands(line, count, c_cmd);
-<<<<<<< HEAD
-	// Protection
-=======
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
-	while (cmd && cmd[i])
+	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
 		if (d->split_line[0])
 		{
+			// int z = 0;
+			// while (d->split_line[z])
+			// {
+			// 	printf("LINE:\t%s\n", d->split_line[z]);
+			// 	z++;
+			// }
 			pipes(d);
 			ft_free(d->split_line);
+				// printf("LINE2:\t%s\n", d->split_line[1]);
 			ft_free(d->orig);
-<<<<<<< HEAD
-			free(count);			// STOND UIT
-=======
 			// free(count);
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
 			free(d->arg->count);
 		}
 		i++;

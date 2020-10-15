@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/12 17:12:19 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 10:45:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		int_malloc_error(void)
 
 char	**char_malloc_error(void)
 {
-	ft_printf("malloc fail env_copy");
+	ft_printf("malloc fail env_copy\n");
 	exit(1);
 	return (NULL);
 }
 
 void	void_malloc_error(void)
 {
-	ft_printf("malloc fail");
+	ft_printf("malloc fail\n");
 	exit(1);
 }
 
@@ -62,9 +62,9 @@ char	*create_str(int size)
 	char	*tmp;
 
 	tmp = malloc(sizeof(char*) * size + 1);
-	if (tmp == NULL) 						// NEW LINE OF CODE DOOR TIM
-		exit(1);							// NEW LINE OF CODE DOOR TIM
-	ft_bzero(tmp, size);	
+	if (tmp == NULL)
+		exit(1);
+	ft_bzero(tmp, size);
 	return (tmp);
 }
 

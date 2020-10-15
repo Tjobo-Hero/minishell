@@ -6,37 +6,51 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/14 14:58:53 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 11:58:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	update_oldpwd(t_env *old, t_env *new)
+{
+	int	i;
+
+	if (old == NULL)
+		return ;
+	free(old->list);
+	i = ft_strlen(new->list);
+	old->list = malloc(sizeof(char*) * (i + 1));
+	old->list == NULL ? int_malloc_error() : 0;
+	ft_strlcpy(old->list, new->list, (i + 1));
+	old->echo = old->list;
+}
+
 int		**update_env(t_mini *d)
 {
-	t_env	*check;
+	t_env	*new;
+	t_env	*old;
 	int		i;
 	char	*return_ptr;
 
-	check = look_up("PWD", d->echo);
-	if (check == NULL)
+	new = look_up("PWD", d->echo);
+	old = look_up("OLDPWD", d->echo);
+	if (new == NULL)
 		return (0);
-	d->cwd = create_str(PATH_MAX); // WEET NIET OF HET NOG PROTECITON NODIG HEEFT AANGEZIEN DIE NU OOK IN DE FUNCTIE ZIT
-	// if (d->cwd == NULL)
-	// 	return (0);
-	return_ptr = getcwd(d->cwd, PATH_MAX);    // BIJ PATH_MAX stond eerst sizeof(d->cwd)
+	update_oldpwd(old, new);
+	d->cwd = create_str(PATH_MAX);
+	return_ptr = getcwd(d->cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
 		ft_printf("bash: pwd: %s\n", strerror(errno));
 		return ((int**)1);
 	}
 	i = ft_strlen(d->cwd);
-	free(check->list);
-	check->list = malloc(sizeof(char*) * (i + 1));
-	//PROTECTION
-	ft_strlcpy(check->list, d->cwd, i + 1);
-	check->echo = check->list; //MOET check->list HIERNA NIET GEFREED WORDEN?
-	// free(check);
+	free(new->list);
+	new->list = malloc(sizeof(char*) * (i + 1));
+	new->list == NULL ? int_malloc_error() : 0;
+	ft_strlcpy(new->list, d->cwd, (i + 1));
+	new->echo = new->list;
 	free(d->cwd);
 	return ((int**)0);
 }

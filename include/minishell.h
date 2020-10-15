@@ -6,16 +6,12 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/14 15:24:45 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/15 11:33:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"

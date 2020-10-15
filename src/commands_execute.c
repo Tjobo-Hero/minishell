@@ -6,11 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/10/14 15:16:42 by tvan-cit      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/11 16:39:11 by rbraaksm      ########   odam.nl         */
->>>>>>> 7877c706e2e3d0ea0493ee2ab28b78b9018d4f18
+/*   Updated: 2020/10/15 09:52:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
