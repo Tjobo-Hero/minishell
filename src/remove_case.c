@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 16:19:38 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 16:21:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	remove_case(t_mini *d)
 	int		i;
 
 	i = 0;
-		tmp = ft_calloc(PATH_MAX, sizeof(char*));
+	tmp = ft_calloc(PATH_MAX, sizeof(char*));
 	while (d->args[i])
 	{
 		ft_bzero(tmp, sizeof(PATH_MAX) + 1);
