@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:42:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 10:28:38 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 int		print_export2(t_mini *d, t_env *tmp, int *i)
 {
-	ft_putstr_fd("declare -x ", d->fd);
-	ft_putstr_fd(tmp->head, d->fd);
-	tmp->set ? write(d->fd, "=\"", 2) : 0;
-	ft_putstr_fd(tmp->list, d->fd);
-	tmp->set ? write(d->fd, "\"", 1) : 0;
-	write(d->fd, "\n", 1);
+	// ft_putstr_fd("declare -x ", d->fd);
+	// ft_putstr_fd(tmp->head, d->fd);
+	// tmp->set ? write(d->fd, "=\"", 2) : 0;
+	// ft_putstr_fd(tmp->list, d->fd);
+	// tmp->set ? write(d->fd, "\"", 1) : 0;
+	// write(d->fd, "\n", 1);
+	printf("declare -x %s", tmp->head);
+	tmp->set ? printf("=\"") : 0;
+	printf("%s", tmp->list);
+	tmp->set ? printf("\"") : 0;
+	printf("\n");
 	*i = 0;
+	(void)d;
 	return (1);
 }
 
@@ -54,13 +60,12 @@ int		**print(t_mini *d)
 
 int		replace(t_mini *d, t_env *tmp)
 {
-	printf("tmp:\t%s\n", tmp->head);
 	tmp->set = d->new.set;
 	free(tmp->list);
 	free(tmp->echo);
 	tmp->list = ft_strdup(d->new.list);
 	tmp->echo = ft_strdup(d->new.echo);
-	tmp == NULL || tmp->echo == NULL ? int_malloc_error() : 0;
+	tmp == NULL || tmp->echo == NULL ? malloc_error() : 0;
 	return (0);
 }
 
@@ -69,7 +74,7 @@ void	new_list(t_mini *d)
 	t_env	*new;
 
 	new = malloc(sizeof(t_env));
-	new == NULL ? void_malloc_error() : 0;
+	new == NULL ? malloc_error() : 0;
 	new->set = 0;
 	if (d->new.set)
 		new->set = 1;

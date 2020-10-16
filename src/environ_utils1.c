@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:42:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 12:00:40 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ char		*set_elem(char *environ, int i, int len, int type)
 	{
 		tmp = malloc(sizeof(char) * i);
 		if (tmp == NULL)
-			exit(1);
+			return (NULL);
 		ft_strlcpy(tmp, environ, i);
 	}
 	else
 	{
 		tmp = malloc(sizeof(char) * (len - i) + 1);
 		if (tmp == NULL)
-			exit(1);
+			return (NULL);
 		ft_strlcpy(tmp, &environ[i], (len - i) + 1);
 	}
 	return (tmp);
@@ -58,8 +58,7 @@ t_env			*new_elem(t_mini *d, char *environ)
 	int		len;
 
 	new = malloc(sizeof(t_env));
-	if (new == NULL)
-		exit(1);
+	new == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	i = 0;
 	new->set = 0;
 	len = ft_strlen(environ);
@@ -72,6 +71,8 @@ t_env			*new_elem(t_mini *d, char *environ)
 	new->head = set_elem(environ, i + 1, len, 1);
 	new->list = set_elem(environ, i + 1, len, 2);
 	new->echo = set_elem(environ, i + 1, len, 2);
+	new->head == NULL || new->list == NULL || new->echo == NULL ?
+	malloc_error_test(d, NULL, NULL, NULL) : 0;
 	new->next = NULL;
 	return (new);
 }

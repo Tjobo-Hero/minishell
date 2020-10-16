@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/14 15:31:47 by tvan-cit      ########   odam.nl         */
+/*   Updated: 2020/10/16 11:54:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_echo(t_env **hash_table)
 			tmp = hash_table[i];
 			while (tmp != NULL)
 			{
-				printf("[%d] %s  {%s} - ", tmp->alpha, tmp->head, tmp->list);
+				printf("[%d] %s  {%s} - ", tmp->alpha, tmp->head, tmp->echo);
 				tmp = tmp->next;
 			}
 			printf("\n");
@@ -81,10 +81,8 @@ t_env	*find_next(t_env **env, t_env *tmp, int *i)
 		tmp = tmp->next;
 	}
 	*i = *i + 1;
-	// printf("I:[%i]\n", *i);
-	if (env[*i] == NULL)    // Hier stond while (env[*i] == NULL) maar ging volens fsanitizer==address fout
+	if (env[*i] == NULL)
 		*i = *i + 1;
-	// printf("I:[%i]\n", *i);
 	while (*i < ECHO)
 	{
 		tmp = env[*i];

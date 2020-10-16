@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/15 16:22:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 12:10:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		get_next_line(int fd, char **line);
 
 void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
-char	**new_fill_commands(char *str, int *count, int w);
+char	**new_fill_commands(t_mini *d, char *str, int *count, int w);
 void	check_arg_and_remove_case(t_mini *d);
 void	ft_free(char **args);
 void	free_environ(char **environ);
@@ -127,11 +127,9 @@ void	check_if_forked(t_mini *d);
 void	new_list(t_mini *d);
 
 /* Utils */
-char	*create_str(int size);
 t_env	*new_elem(t_mini *d, char *environ);
-int		int_malloc_error(void);
-char	**char_malloc_error(void);
-void	void_malloc_error(void);
+void	malloc_error(void);
+void	malloc_error_test(t_mini *d, char **array, char *single, int *count);
 int		hash(char *name, int count);
 void	push_back(t_env **echo, t_env *new);
 t_env	*look_up(char *name, t_env **hash_table);
@@ -141,7 +139,6 @@ void	print_echo(t_env **hash_table);
 
 void	clear_new(t_new *new);
 void	create_delete_new(t_new *tmp, int i);
-void	clear_str(char *str);
 void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int index);
 int		**alpha(t_env **env);

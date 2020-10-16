@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 15:15:01 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 11:52:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 	int			len;
 
 	new = malloc(sizeof(t_cmd));
-	if (new == NULL)
-		exit(1);
+	new == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	len = ft_strlen(command) + 1;
 	new->command = malloc(sizeof(char) * (len + 1));
-	if (new->command == NULL)
-		exit(1);
+	new->command == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	ft_strlcpy(new->command, command, len);
 	new->index = d->index;
 	new->next = NULL;
@@ -103,15 +101,14 @@ void			init_env(t_mini *d)
 	d->i = 0;
 	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1));
 	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1));
-	d->echo == NULL || d->commands == NULL ? void_malloc_error() : 0;
+	d->echo == NULL || d->commands == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	init(d->echo, NULL, ECHO);
 	init(NULL, d->commands, COMMAND);
+	set_env_cmd(d);
 	while (environ[d->index] != NULL)
 	{
 		new = new_elem(d, environ[d->index]);
 		push_back(&d->echo[hash(new->head, ECHO)], new);
-		if (d->index == 0)
-			set_env_cmd(d);
 		d->index++;
 	}
 	alpha(d->echo);

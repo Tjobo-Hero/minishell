@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 13:27:01 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 12:11:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@ int		if_same_loop(char *str, int *x, char c)
 		i++;
 	}
 	return (i);
-}
-
-int		*count_init(int size)
-{
-	int		*tmp;
-
-	tmp = ft_calloc(size, sizeof(int*));
-	tmp == NULL ? int_malloc_error() : 0;
-	return (tmp);
 }
 
 int		new_count_commands(char *str, int *count, char c)
@@ -69,32 +60,32 @@ int		new_count_commands(char *str, int *count, char c)
 	return (x + 1);
 }
 
-char	**new_fill_commands(char *str, int *count, int w)
+char	**new_fill_commands(t_mini *d, char *str, int *count, int w)
 {
 	char	**tmp;
 	int		c;
 	int		i;
-	int		d;
+	int		x;
 
 	i = 0;
 	c = 0;
 	tmp = ft_memalloc(sizeof(char *) * (w + 1));
-	tmp == NULL ? char_malloc_error() : 0;
-	d = count[0];
+	tmp == NULL ? malloc_error_test(d, NULL, str, count) : 0;
+	x = count[0];
 	while (str[c] == ' ')
 		c++;
 	while (i < w)
 	{
-		tmp[i] = ft_memalloc(sizeof(char *) * (d + 1));
-		tmp[i] == NULL ? char_malloc_error() : 0;
-		ft_bzero(tmp[i], (d + 1));
-		ft_strlcpy(tmp[i], &str[c], d + 1);
+		tmp[i] = ft_memalloc(sizeof(char *) * (x + 1));
+		tmp[i] == NULL ? malloc_error_test(d, tmp, str, count) : 0;
+		ft_bzero(tmp[i], (x + 1));
+		ft_strlcpy(tmp[i], &str[c], x + 1);
 		while (c != count[i])
 			c++;
 		while ((str[c] == ' ' || str[c] == ';') && str[c] != '\0')
 			c++;
 		i++;
-		d = count[i] - c;
+		x = count[i] - c;
 	}
 	i = 0;
 	return (tmp);

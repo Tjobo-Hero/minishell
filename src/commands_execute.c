@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 09:52:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 12:11:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*make_str(t_env *tmp, int *i, int *c, int *x)
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
-	str == NULL ? char_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
+	str == NULL ? malloc_error() : 0;
 	*i = 0;
 	*c = *c + 1;
 	*x = *x + 1;
@@ -35,7 +35,7 @@ void	make_environ(t_mini *d)
 	c = 0;
 	x = 0;
 	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
-	d->environ == NULL ? void_malloc_error() : 0; // IS DIT EEN WERKZAME PROTECTION?
+	d->environ == NULL ? malloc_error() : 0;
 	while (i < ECHO)
 	{
 		if (d->echo[i])
@@ -77,9 +77,12 @@ static char	*update_path(char *cmd, char *path)
 	char	*tmp2;
 
 	tmp = ft_strtrim(path, ":");
+	tmp == NULL ? malloc_error() : 0;
 	tmp2 = ft_strjoin(tmp, "/");
+	tmp2 == NULL ? malloc_error() : 0;
 	free(tmp);
 	tmp = ft_strjoin(tmp2, cmd);
+	tmp == NULL ? malloc_error() : 0;
 	free(tmp2);
 	return (tmp);
 }
@@ -96,9 +99,11 @@ static void	get_path(t_mini *d, char **abspath)
 	path = look_up("PATH", d->echo);
 	if (path == NULL)
 		return ;
-	count = count_init(PATH_MAX);
+	count = ft_calloc(PATH_MAX, sizeof(int*));
+	count == NULL ? malloc_error() : 0;
 	i = new_count_commands(path->list, count, ':');
-	new = new_fill_commands(path->list, count, i);
+	new = new_fill_commands(d, path->list, count, i);
+	new == NULL ? malloc_error() : 0;
 	i = 0;
 	while (new[i])
 	{
@@ -142,7 +147,7 @@ void	check_if_forked(t_mini *d)
 		execute(d, d->args);
 	else
 	{
-		if (fork() == 0) // WAT ALS (FORK < 0) ? 
+		if (fork() == 0) // WAT ALS (FORK < 0) ?
 			execute(d, d->args);
 		else
 			d->pids++;

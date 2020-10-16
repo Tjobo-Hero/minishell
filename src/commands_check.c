@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 09:52:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:21:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	change_args_if(t_mini *d, char *str)
 	{
 		tmp = d->args[0];
 		d->args[0] = ft_strdup(str);
+		d->args[0] == NULL ? malloc_error() : 0;
 		free(tmp);
 	}
 	free(str);
@@ -35,8 +36,7 @@ static void	to_lower(t_mini *d, char *str)
 
 	i = 0;
 	tmp = ft_strdup(str);
-	if (tmp == NULL)
-		return (void_malloc_error());
+	tmp == NULL ? malloc_error() : 0;
 	while (str[i] != '\0')
 	{
 		if (ft_tolower(tmp[i]) > 0)

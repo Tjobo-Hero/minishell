@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 16:10:24 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 12:18:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,25 @@ static void	split_line(t_mini *d, char *out, int *count)
 	int		x;
 	int		start;
 	int		len;
+	int		z;
 
 	i = 0;
 	x = 0;
 	start = 0;
-	d->split_line = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-	d->orig = (char**)malloc(sizeof(char*) * (total_tmp(out, count) + 1));
-	d->split_line == NULL || d->orig == NULL ? void_malloc_error() : 0;
+	z = total_tmp(out, count);
+	d->split_line = (char**)malloc(sizeof(char*) * (z + 1));
+	d->orig = (char**)malloc(sizeof(char*) * (z + 1));
+	d->split_line == NULL || d->orig == NULL ? malloc_error_test(d, NULL, out, count) : 0;
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
 		if (out[start] != '|')
 		{
 			d->split_line[x] = malloc(sizeof(char*) * len + 1);
-			//PROTECTION
+			d->split_line[x] == NULL ? malloc_error_test(d, NULL, out, count) : 0;
 			ft_strlcpy(d->split_line[x], &out[start], len + 1);
 			d->orig[x] = ft_strdup(d->split_line[x]);
-			//Protection
+			d->orig[x] == NULL ? malloc_error_test(d, NULL, out, count) : 0;
 			x++;
 		}
 		start = count[i] + 1;
@@ -65,19 +67,19 @@ static int	split_command(t_mini *d, char *line, int *count)
 	char	*out;
 
 	d->arg = (t_arg*)malloc(sizeof(t_arg) * (1));
-	d->arg == NULL ? int_malloc_error() : 0;
+	d->arg == NULL ? malloc_error_test(d, NULL, NULL, count) : 0;
 	d->arg->c_i = 0;
 	d->arg->c = -1;
 	d->arg->i = 0;
 	d->arg->set = 0;
 	d->arg->a = 0;
 	out = ft_calloc(PATH_MAX, sizeof(char*));
-	out == NULL ? int_malloc_error() : 0;
+	out == NULL ?  malloc_error_test(d, NULL, NULL, count) : 0;
 	ft_bzero(count, PATH_MAX + 1);
-	d->arg->count = count_init(PATH_MAX);
+	d->arg->count = ft_calloc(PATH_MAX, sizeof(int*));
+	d->arg->count == NULL ?  malloc_error_test(d, NULL, out, count) : 0;
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
-	// ft_bzero(out, PATH_MAX);
 	free(out);
 	return (1);
 }
@@ -97,10 +99,11 @@ void		get_commands(t_mini *d, char *line)
 		ft_putstr_fd("NOT CORRECT\n", d->fd);
 		return ;
 	}
-	count = count_init(PATH_MAX);
+	count = ft_calloc(PATH_MAX, sizeof(int*));
+	count == NULL ? malloc_error_test(d, NULL, line, NULL) : 0;
 	c_cmd = new_count_commands(line, count, ';');
-	cmd = new_fill_commands(line, count, c_cmd);
-	cmd == NULL ? void_malloc_error() : 0;
+	cmd = new_fill_commands(d, line, count, c_cmd);
+	free(line);
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
@@ -110,10 +113,10 @@ void		get_commands(t_mini *d, char *line)
 			ft_free(d->split_line);
 			ft_free(d->orig);
 		}
-		free(count);
 		free(d->arg->count);
 		free(d->arg);
 		i++;
 	}
+	free(count);
 	ft_free(cmd);
 }
