@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:38:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 16:38:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,15 @@ void		get_commands(t_mini *d, char *line)
 	count == NULL ? error_malloc(d, NULL, line, NULL) : 0;
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(d, line, count, c_cmd);
+	// int z = 0;
+	// while (cmd[z])
+	// {
+	// 	printf("CMD:\t%s\n", cmd[z]);
+	// 	z++;
+	// }
 	free(line);
 	free(count);
+	// return ;
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);

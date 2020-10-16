@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:39:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 16:41:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct		s_arg
 
 typedef struct	s_mini
 {
-	// char	*line;
 	char	**split_line;
 	char	**environ;
 	char	*cwd;
@@ -165,4 +164,5 @@ void	remove_case(t_mini *d);
 char	*set_elem(char *environ, int i, int len, int type);
 int		ft_write(t_mini *d, int fd, char *str);
 void	struct_null(t_mini *d);
+
 #endif
