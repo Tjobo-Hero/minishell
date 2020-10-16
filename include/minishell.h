@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 16:41:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 18:24:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int		get_next_line(int fd, char **line);
 void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
 char	**new_fill_commands(t_mini *d, char *str, int *count, int w);
+char	**new_fill_commands2(t_mini *d, char *str, int *count);
 void	check_arg_and_remove_case(t_mini *d);
 void	ft_free(char **args);
 void	free_environ(char **environ);
