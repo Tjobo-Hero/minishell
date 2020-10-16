@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 12:11:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 13:46:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*make_str(t_env *tmp, int *i, int *c, int *x)
 	char	*str;
 
 	str = ft_strdup((const char*)tmp->list);
-	str == NULL ? malloc_error() : 0;
+	if (str == NULL)
+		return (NULL);
 	*i = 0;
 	*c = *c + 1;
 	*x = *x + 1;
@@ -35,7 +36,7 @@ void	make_environ(t_mini *d)
 	c = 0;
 	x = 0;
 	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
-	d->environ == NULL ? malloc_error() : 0;
+	d->environ == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	while (i < ECHO)
 	{
 		if (d->echo[i])
@@ -45,7 +46,10 @@ void	make_environ(t_mini *d)
 				tmp = tmp->next;
 		}
 		if (tmp != NULL && tmp->index == c)
+		{
 			d->environ[x] = make_str(tmp, &i, &c, &x);
+			d->environ[x] == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+		}
 		else
 			i++;
 	}
@@ -55,34 +59,39 @@ void	make_environ(t_mini *d)
 void		close_ifnot_and_dup(t_mini *d)
 {
 	int i;
+	int	check;
 
 	i = 0;
 	while (d->pipes[i])
 	{
 		if (d->pipes[i][0] > 2 && d->pipes[i][0] != d->pipe.fd_in)
-			close(d->pipes[i][0]);
+			check = close(d->pipes[i][0]);
 		if (d->pipes[i][1] > 2 && d->pipes[i][1] != d->pipe.fd_out)
-			close(d->pipes[i][1]);
+			check = close(d->pipes[i][1]);
+		if (check == -1)
+			malloc_error_test(d, NULL, NULL, NULL);
 		i++;
 	}
-	if (d->pipe.fd_in > 0 && dup2(d->pipe.fd_in, 0) < 0)
-		exit(1);
-	if (d->pipe.fd_out > 0 && dup2(d->pipe.fd_out, 1) < 0)
-		exit(1);
+	check = dup2(d->pipe.fd_in, 0);
+	if (d->pipe.fd_in > 0 && check == -1)
+		malloc_error_test(d, NULL, NULL, NULL);
+	check = dup2(d->pipe.fd_out, 1);
+	if (d->pipe.fd_out > 0 && check == -1)
+		malloc_error_test(d, NULL, NULL, NULL);
 }
 
-static char	*update_path(char *cmd, char *path)
+static char	*update_path(t_mini *d, char *cmd, char *path)
 {
 	char	*tmp;
 	char	*tmp2;
 
 	tmp = ft_strtrim(path, ":");
-	tmp == NULL ? malloc_error() : 0;
+	tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	tmp2 = ft_strjoin(tmp, "/");
-	tmp2 == NULL ? malloc_error() : 0;
+	tmp2 == NULL ? malloc_error_test(d, NULL, tmp, NULL) : 0;
 	free(tmp);
 	tmp = ft_strjoin(tmp2, cmd);
-	tmp == NULL ? malloc_error() : 0;
+	tmp == NULL ? malloc_error_test(d, NULL, tmp2, NULL) : 0;
 	free(tmp2);
 	return (tmp);
 }
@@ -100,14 +109,13 @@ static void	get_path(t_mini *d, char **abspath)
 	if (path == NULL)
 		return ;
 	count = ft_calloc(PATH_MAX, sizeof(int*));
-	count == NULL ? malloc_error() : 0;
+	count == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	i = new_count_commands(path->list, count, ':');
 	new = new_fill_commands(d, path->list, count, i);
-	new == NULL ? malloc_error() : 0;
 	i = 0;
 	while (new[i])
 	{
-		tmp = update_path(d->args[0], new[i]);
+		tmp = update_path(d, d->args[0], new[i]);
 		if (stat(tmp, &statstruct) != -1)
 		{
 			*abspath = tmp;
@@ -117,10 +125,9 @@ static void	get_path(t_mini *d, char **abspath)
 		i++;
 	}
 	ft_free(new);
-	(void)abspath;
 }
 
-static void	execute(t_mini *d, char **cmd)
+static void	execute(t_mini *d)
 {
 	struct stat	statstruct;
 	char		*abspath;
@@ -138,17 +145,16 @@ static void	execute(t_mini *d, char **cmd)
 	d->is_child = 0;
 	ft_free(d->environ);
 	exit(127);
-	(void)cmd;
 }
 
 void	check_if_forked(t_mini *d)
 {
 	if (d->forked)
-		execute(d, d->args);
+		execute(d);
 	else
 	{
 		if (fork() == 0) // WAT ALS (FORK < 0) ?
-			execute(d, d->args);
+			execute(d);
 		else
 			d->pids++;
 	}

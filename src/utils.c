@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 12:17:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:19:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	free_command(t_cmd **commands)
 
 void	malloc_error_test(t_mini *d, char **array, char *single, int *count)
 {
+	// errno printen
 	ft_printf("malloc fail\n");
 	if (d->echo)
 		free_echo(d->echo);
@@ -85,6 +86,20 @@ void	malloc_error_test(t_mini *d, char **array, char *single, int *count)
 		ft_free(d->orig);
 	if (d->split_line)
 		ft_free(d->split_line);
+	if (d->pipes)
+		free_int_array(d->pipes);
+	if (d->args)
+		ft_free(d->args);
+	if (d->environ)
+		ft_free(d->environ);
+	if (d->new.head)
+		free(d->new.head);
+	if (d->new.echo)
+		free(d->new.echo);
+	if (d->new.list)
+		free(d->new.list);
+	if (d->new.tmp)
+		free(d->new.tmp);
 	exit(1);
 }
 
@@ -94,7 +109,7 @@ void	malloc_error(void)
 	exit(1);
 }
 
-void	create_delete_new(t_new *tmp, int i)
+void	create_delete_new(t_mini *d, t_new *tmp, int i)
 {
 	if (i == 0)
 	{
@@ -103,7 +118,7 @@ void	create_delete_new(t_new *tmp, int i)
 		tmp->list = ft_calloc(PATH_MAX, sizeof(char*));
 		tmp->tmp = ft_calloc(PATH_MAX, sizeof(char*));
 		tmp->head == NULL || tmp->echo == NULL || tmp->list == NULL ||
-		tmp->tmp == NULL ? malloc_error() : 0;
+		tmp->tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	}
 	else if (i == 1)
 	{
@@ -121,22 +136,11 @@ void	create_delete_new(t_new *tmp, int i)
 	}
 }
 
-char	*create_str(int size)
-{
-	char	*tmp;
-
-	tmp = malloc(sizeof(char*) * size + 1);
-	if (tmp == NULL)
-		exit(1);
-	ft_bzero(tmp, size);
-	return (tmp);
-}
-
-int	ft_write(int fd, char *str)
+int	ft_write(t_mini *d, int fd, char *str)
 {
 	int	ret;
 	ret = write(fd, str, ft_strlen(str));
 	if (ret == -1)
-		exit(1);
+		malloc_error_test(d, NULL, NULL, NULL);
 	return (ret);
 }

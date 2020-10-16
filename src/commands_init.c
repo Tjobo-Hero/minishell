@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 12:18:26 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 13:27:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,13 @@ static int	split_command(t_mini *d, char *line, int *count)
 	d->arg->a = 0;
 	out = ft_calloc(PATH_MAX, sizeof(char*));
 	out == NULL ?  malloc_error_test(d, NULL, NULL, count) : 0;
-	ft_bzero(count, PATH_MAX + 1);
+	count = ft_calloc(PATH_MAX, sizeof(int*));
 	d->arg->count = ft_calloc(PATH_MAX, sizeof(int*));
-	d->arg->count == NULL ?  malloc_error_test(d, NULL, out, count) : 0;
+	d->arg->count == NULL || count == NULL ? malloc_error_test(d, NULL, out, count) : 0;
 	upgrade_line(d->arg, line, out, count);
 	split_line(d, out, count);
 	free(out);
+	free(count);
 	return (1);
 }
 
@@ -104,6 +105,7 @@ void		get_commands(t_mini *d, char *line)
 	c_cmd = new_count_commands(line, count, ';');
 	cmd = new_fill_commands(d, line, count, c_cmd);
 	free(line);
+	free(count);
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
@@ -117,6 +119,5 @@ void		get_commands(t_mini *d, char *line)
 		free(d->arg);
 		i++;
 	}
-	free(count);
 	ft_free(cmd);
 }

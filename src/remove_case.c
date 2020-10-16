@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 09:30:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 13:28:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ void	remove_case(t_mini *d)
 
 	i = 0;
 	tmp = ft_calloc(PATH_MAX, sizeof(char*));
-	tmp == NULL ? malloc_error() : 0;
+	tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	while (d->args[i])
 	{
 		ft_bzero(tmp, sizeof(PATH_MAX) + 1);
 		make_line(d->arg, d->args[i], tmp);
 		free(d->args[i]);
 		d->args[i] = ft_strdup(tmp);
-		d->args[i] == NULL ? malloc_error() : 0;
+		d->args[i] == NULL ? malloc_error_test(d, NULL, tmp, NULL) : 0;
 		i++;
 	}
 	free(tmp);

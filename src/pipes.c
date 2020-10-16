@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 10:31:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:21:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 void	close_pipes(t_mini *d, int n)
 {
+	int	check;
+
 	if (d->pipes)
 	{
 		if (d->pipes[n] && d->pipes[n][1] > 1)
 		{
-			close(d->pipes[n][1]);
+			check = close(d->pipes[n][1]);
 			d->pipes[n][1] = -1;
 		}
 		if (n > 0 && d->pipes[n - 1] && d->pipes[n - 1][0] > 1)
 		{
-			close(d->pipes[n - 1][0]);
+			check = close(d->pipes[n - 1][0]);
 			d->pipes[n - 1][0] = -1;
 		}
 	}
+	if (check == -1)
+		malloc_error_test(d, NULL, NULL, NULL);
 }
 
 static void	pipes_start(t_mini *d, int c, int n, int x)
@@ -43,7 +47,7 @@ static void	pipes_start(t_mini *d, int c, int n, int x)
 		d->pipe.ispipe[0] = 1;
 	}
 	redirect(d, x);
-	d->args = new_arg(d->split_line, c, n);
+	d->args = new_arg(d, d->split_line, c, n);
 	command(d);
 	ft_free(d->args);
 	close_pipes(d, x);
@@ -56,15 +60,13 @@ static void	pipes_init(t_mini *d, int count)
 	i = 0;
 	d->pids = 0;
 	d->pipes = ft_calloc(count, sizeof(int *));
-	d->pipes == NULL ? malloc_error() : 0;
+	d->pipes == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 	while (i + 1 < count)
 	{
 		d->pipes[i] = ft_calloc(3, sizeof(int));
-		d->pipes[i] == NULL ? malloc_error() : 0;
-		if (d->pipes[i] == NULL)
-			exit(1);
+		d->pipes[i] == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
 		if (pipe(d->pipes[i]) == -1)
-			exit(1);
+			malloc_error_test(d, NULL, NULL, NULL);
 		i++;
 	}
 }

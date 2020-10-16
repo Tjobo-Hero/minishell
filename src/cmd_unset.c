@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/30 21:32:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:16:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		**unset(t_mini *d)
 	int		a;
 
 	a = 1;
-	create_delete_new(&d->new, 0);
+	create_delete_new(d, &d->new, 0);
 	while (d->orig[a])
 	{
 		check_arg(d, &d->new, d->orig[a]);
@@ -59,9 +59,9 @@ int		**unset(t_mini *d)
 				d->index--;
 			}
 		}
-		create_delete_new(&d->new, 1);
+		create_delete_new(d, &d->new, 1);
 		a++;
 	}
-	create_delete_new(&d->new, 2);
+	create_delete_new(d, &d->new, 2);
 	return (0);
 }

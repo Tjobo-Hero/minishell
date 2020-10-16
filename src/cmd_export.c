@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 10:28:38 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:16:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		**export(t_mini *d)
 	a = 1;
 	if (!d->args[a])
 		return (print(d));
-	create_delete_new(&d->new, 0);
+	create_delete_new(d, &d->new, 0);
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
@@ -110,9 +110,9 @@ int		**export(t_mini *d)
 			else if (tmp == NULL)
 				new_list(d);
 		}
-		create_delete_new(&d->new, 1);
+		create_delete_new(d, &d->new, 1);
 		a++;
 	}
-	create_delete_new(&d->new, 2);
+	create_delete_new(d, &d->new, 2);
 	return ((int**)0);
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 12:10:18 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:16:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	delete_lst(char *name, t_env **hash_table);
 void	print_echo(t_env **hash_table);
 
 void	clear_new(t_new *new);
-void	create_delete_new(t_new *tmp, int i);
+void	create_delete_new(t_mini *d, t_new *tmp, int i);
 void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int index);
 int		**alpha(t_env **env);
@@ -160,9 +160,9 @@ void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
 void	pipes(t_mini *d);
 void	redirect(t_mini *d, int n);
-char	**new_arg(char **args, int c, int n);
+char	**new_arg(t_mini *d, char **args, int c, int n);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
 char	*set_elem(char *environ, int i, int len, int type);
-int		ft_write(int fd, char *str);
+int		ft_write(t_mini *d, int fd, char *str);
 #endif
