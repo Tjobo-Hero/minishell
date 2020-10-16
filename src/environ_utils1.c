@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 12:00:40 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_env			*new_elem(t_mini *d, char *environ)
 	int		len;
 
 	new = malloc(sizeof(t_env));
-	new == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	i = 0;
 	new->set = 0;
 	len = ft_strlen(environ);
@@ -72,7 +72,7 @@ t_env			*new_elem(t_mini *d, char *environ)
 	new->list = set_elem(environ, i + 1, len, 2);
 	new->echo = set_elem(environ, i + 1, len, 2);
 	new->head == NULL || new->list == NULL || new->echo == NULL ?
-	malloc_error_test(d, NULL, NULL, NULL) : 0;
+	error_malloc(d, NULL, NULL, NULL) : 0;
 	new->next = NULL;
 	return (new);
 }

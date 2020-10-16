@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 13:52:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:38:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ int		main(void)
 	t_mini	d;
 	char	*line;
 
+	struct_null(&d);
 	init_env(&d);
 	// screen_clean();
-	d.environ = NULL;
-	d.is_child = 0;
-	d.ret = 0;
 	while (1)
 	{
 		/*  signal(SIGINT, block_ctrl_c); */

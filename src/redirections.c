@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/16 13:19:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:33:14 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	redirect_output(t_mini *d, char **args, t_pipe *redirs, int *i)
 {
 	int	check;
 
+	check = 0;
 	redirs->output = args[*i + 1];
 	if (redirs->fd_out > 1)
 		check = close(redirs->fd_out);
@@ -25,7 +26,7 @@ void	redirect_output(t_mini *d, char **args, t_pipe *redirs, int *i)
 		redirs->fd_out = open(redirs->output,
 		O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (redirs->fd_out == -1 || check == -1)
-		malloc_error_test(d, NULL, NULL, NULL);
+		error_malloc(d, NULL, NULL, NULL);
 }
 
 void	redirect(t_mini *d, int n)

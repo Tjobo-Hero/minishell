@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 13:55:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	update_oldpwd(t_mini *d, t_env *old, t_env *new)
 	free(old->list);
 	i = ft_strlen(new->list);
 	old->list = malloc(sizeof(char*) * (i + 1));
-	old->list == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	old->list == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	ft_strlcpy(old->list, new->list, (i + 1));
 	old->echo = old->list;
 }
@@ -39,7 +39,7 @@ int		**update_env(t_mini *d)
 		return (0);
 	update_oldpwd(d, old, new);
 	d->cwd = ft_calloc(PATH_MAX, sizeof(char*));
-	d->cwd == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	d->cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	return_ptr = getcwd(d->cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
@@ -49,7 +49,7 @@ int		**update_env(t_mini *d)
 	i = ft_strlen(d->cwd);
 	free(new->list);
 	new->list = malloc(sizeof(char*) * (i + 1));
-	new->list == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	new->list == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	ft_strlcpy(new->list, d->cwd, (i + 1));
 	new->echo = new->list;
 	free(d->cwd);

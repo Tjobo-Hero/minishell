@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 11:52:02 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:36:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 	int			len;
 
 	new = malloc(sizeof(t_cmd));
-	new == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	len = ft_strlen(command) + 1;
 	new->command = malloc(sizeof(char) * (len + 1));
-	new->command == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	new->command == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	ft_strlcpy(new->command, command, len);
 	new->index = d->index;
 	new->next = NULL;
@@ -74,7 +74,6 @@ static void		set_env_cmd(t_mini *d)
 	char	*command;
 	int		index;
 
-	d->i = 1;
 	while (d->index < 7)
 	{
 		d->index == 0 ? command = "pwd" : 0;
@@ -88,7 +87,6 @@ static void		set_env_cmd(t_mini *d)
 		cmd_push_back(d, &d->commands[index], command);
 		d->index++;
 	}
-	d->i = 0;
 	d->index = 0;
 }
 
@@ -97,11 +95,14 @@ void			init_env(t_mini *d)
 	extern char **environ;
 	t_env		*new;
 
-	d->index = 0;
-	d->i = 0;
 	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1));
+	d->echo == NULL ? exit(1) : 0;
 	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1));
-	d->echo == NULL || d->commands == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	if (d->commands == NULL)
+	{
+		free(echo);
+		exit(1);
+	}
 	init(d->echo, NULL, ECHO);
 	init(NULL, d->commands, COMMAND);
 	set_env_cmd(d);

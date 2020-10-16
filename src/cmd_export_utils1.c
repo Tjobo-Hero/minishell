@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:14:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	d->new.set = 0;
 	new->alpha = ' ';
 	tmp = ft_calloc(PATH_MAX, sizeof(char*));
-	tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	make_string(d, arg, new->tmp);
 	while (new->tmp[i] != '=' && new->tmp[i] != '\0')
 		i++;

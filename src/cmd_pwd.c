@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:19:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	**pwd(t_mini *d)
 	char	*return_ptr;
 
 	d->cwd = ft_calloc(PATH_MAX, sizeof(char*));
-	d->cwd == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	d->cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	return_ptr = getcwd(d->cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{

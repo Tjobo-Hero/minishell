@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:16:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:39:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct		s_arg
 
 typedef struct	s_mini
 {
-	char	*line;
+	// char	*line;
 	char	**split_line;
 	char	**environ;
 	char	*cwd;
@@ -128,8 +128,7 @@ void	new_list(t_mini *d);
 
 /* Utils */
 t_env	*new_elem(t_mini *d, char *environ);
-void	malloc_error(void);
-void	malloc_error_test(t_mini *d, char **array, char *single, int *count);
+void	error_malloc(t_mini *d, char **array, char *single, int *count);
 int		hash(char *name, int count);
 void	push_back(t_env **echo, t_env *new);
 t_env	*look_up(char *name, t_env **hash_table);
@@ -165,4 +164,5 @@ void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
 char	*set_elem(char *environ, int i, int len, int type);
 int		ft_write(t_mini *d, int fd, char *str);
+void	struct_null(t_mini *d);
 #endif

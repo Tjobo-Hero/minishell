@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:19:01 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:38:49 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,8 @@ void	free_command(t_cmd **commands)
 	free(commands);
 }
 
-void	malloc_error_test(t_mini *d, char **array, char *single, int *count)
+void	error_malloc2(t_mini *d)
 {
-	// errno printen
-	ft_printf("malloc fail\n");
-	if (d->echo)
-		free_echo(d->echo);
-	if (d->commands)
-		free_command(d->commands);
-	if (array)
-		ft_free(array);
-	if (single)
-		free(single);
-	if (count)
-		free(count);
 	if (d->arg->count)
 		free(d->arg->count);
 	if (d->arg)
@@ -100,12 +88,23 @@ void	malloc_error_test(t_mini *d, char **array, char *single, int *count)
 		free(d->new.list);
 	if (d->new.tmp)
 		free(d->new.tmp);
-	exit(1);
 }
 
-void	malloc_error(void)
+void	error_malloc(t_mini *d, char **array, char *single, int *count)
 {
-	ft_printf("malloc fail\n");
+	ft_putstr_fd(strerror(errno), 1);
+	ft_write(d, 1, "\n");
+	if (d->echo)
+		free_echo(d->echo);
+	if (d->commands)
+		free_command(d->commands);
+	if (array)
+		ft_free(array);
+	if (single)
+		free(single);
+	if (count)
+		free(count);
+	error_malloc2(d);
 	exit(1);
 }
 
@@ -118,7 +117,7 @@ void	create_delete_new(t_mini *d, t_new *tmp, int i)
 		tmp->list = ft_calloc(PATH_MAX, sizeof(char*));
 		tmp->tmp = ft_calloc(PATH_MAX, sizeof(char*));
 		tmp->head == NULL || tmp->echo == NULL || tmp->list == NULL ||
-		tmp->tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+		tmp->tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	}
 	else if (i == 1)
 	{
@@ -141,6 +140,25 @@ int	ft_write(t_mini *d, int fd, char *str)
 	int	ret;
 	ret = write(fd, str, ft_strlen(str));
 	if (ret == -1)
-		malloc_error_test(d, NULL, NULL, NULL);
+		error_malloc(d, NULL, NULL, NULL);
 	return (ret);
+}
+
+void	struct_null(t_mini *d)
+{
+	d->index = 0;
+	d->i = 0;
+	d->environ = NULL;
+	d->args = NULL;
+	d->split_line = NULL;
+	d->orig = NULL;
+	d->args = NULL;
+	d->arg = NULL;
+	d->pipes = NULL;
+	d->new.head = NULL;
+	d->new.list = NULL;
+	d->new.echo = NULL;
+	d->new.tmp = NULL;
+	d->is_child = 0;
+	d->ret = 0;
 }

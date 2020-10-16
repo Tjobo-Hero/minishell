@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 13:46:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:05:58 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	make_environ(t_mini *d)
 	c = 0;
 	x = 0;
 	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
-	d->environ == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	d->environ == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	while (i < ECHO)
 	{
 		if (d->echo[i])
@@ -48,7 +48,7 @@ void	make_environ(t_mini *d)
 		if (tmp != NULL && tmp->index == c)
 		{
 			d->environ[x] = make_str(tmp, &i, &c, &x);
-			d->environ[x] == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+			d->environ[x] == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 		}
 		else
 			i++;
@@ -62,6 +62,7 @@ void		close_ifnot_and_dup(t_mini *d)
 	int	check;
 
 	i = 0;
+	check = 0;
 	while (d->pipes[i])
 	{
 		if (d->pipes[i][0] > 2 && d->pipes[i][0] != d->pipe.fd_in)
@@ -69,15 +70,17 @@ void		close_ifnot_and_dup(t_mini *d)
 		if (d->pipes[i][1] > 2 && d->pipes[i][1] != d->pipe.fd_out)
 			check = close(d->pipes[i][1]);
 		if (check == -1)
-			malloc_error_test(d, NULL, NULL, NULL);
+			error_malloc(d, NULL, NULL, NULL);
 		i++;
 	}
-	check = dup2(d->pipe.fd_in, 0);
-	if (d->pipe.fd_in > 0 && check == -1)
-		malloc_error_test(d, NULL, NULL, NULL);
-	check = dup2(d->pipe.fd_out, 1);
-	if (d->pipe.fd_out > 0 && check == -1)
-		malloc_error_test(d, NULL, NULL, NULL);
+	// check = dup2(d->pipe.fd_in, 0);
+	if (d->pipe.fd_in > 0 && dup2(d->pipe.fd_in, 0) < 0)
+		exit(1);
+		// error_malloc(d, NULL, NULL, NULL);
+	// check = dup2(d->pipe.fd_out, 1);
+	if (d->pipe.fd_out > 0 && dup2(d->pipe.fd_out, 1) < 0)
+		exit(1);
+		// error_malloc(d, NULL, NULL, NULL);
 }
 
 static char	*update_path(t_mini *d, char *cmd, char *path)
@@ -86,12 +89,12 @@ static char	*update_path(t_mini *d, char *cmd, char *path)
 	char	*tmp2;
 
 	tmp = ft_strtrim(path, ":");
-	tmp == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	tmp2 = ft_strjoin(tmp, "/");
-	tmp2 == NULL ? malloc_error_test(d, NULL, tmp, NULL) : 0;
+	tmp2 == NULL ? error_malloc(d, NULL, tmp, NULL) : 0;
 	free(tmp);
 	tmp = ft_strjoin(tmp2, cmd);
-	tmp == NULL ? malloc_error_test(d, NULL, tmp2, NULL) : 0;
+	tmp == NULL ? error_malloc(d, NULL, tmp2, NULL) : 0;
 	free(tmp2);
 	return (tmp);
 }
@@ -109,7 +112,7 @@ static void	get_path(t_mini *d, char **abspath)
 	if (path == NULL)
 		return ;
 	count = ft_calloc(PATH_MAX, sizeof(int*));
-	count == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	count == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	i = new_count_commands(path->list, count, ':');
 	new = new_fill_commands(d, path->list, count, i);
 	i = 0;

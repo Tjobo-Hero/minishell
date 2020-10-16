@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/18 12:02:35 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 13:20:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	**new_arg(t_mini *d, char **args, int c, int n)
 		ft_strncmp(args[c], ">", 2) && ft_strncmp(args[c], ">>", 3)))
 		c++;
 	new = malloc(sizeof(char **) * ((c - i) + 1));
-	new == NULL ? malloc_error_test(d, NULL, NULL, NULL) : 0;
+	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	while (i < c)
 	{
 		len = ft_strlen(args[i]);
 		new[x] = malloc(sizeof(char*) * (len + 1));
-		new[x] == NULL ? malloc_error_test(d, new, NULL, NULL) : 0;
+		new[x] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
 		ft_bzero(new[x], len + 1);
 		ft_strlcpy(new[x], args[i], len + 1);
 		x++;
