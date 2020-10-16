@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 16:39:04 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 21:04:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ static void	get_path(t_mini *d, char **abspath)
 		return ;
 	count = ft_calloc(PATH_MAX, sizeof(int*));
 	count == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	i = new_count_commands(path->list, count, ':');
-	new = new_fill_commands(d, path->list, count, i);
+	// i = new_count_commands(path->list, count, ':');
+	// new = new_fill_commands(d, path->list, count, i);
+	new = new_fill_commands2(d, path->list, count, ':');
 	i = 0;
 	while (new[i])
 	{

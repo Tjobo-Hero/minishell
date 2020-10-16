@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 19:34:30 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 21:16:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static int	split_command(t_mini *d, char *line, int *count)
 void		get_commands(t_mini *d, char *line)
 {
 	char	**cmd;
-	// int		c_cmd;
 	int		i;
 	int		*count;
 	int		x;
@@ -102,17 +101,17 @@ void		get_commands(t_mini *d, char *line)
 	}
 	count = ft_calloc(PATH_MAX, sizeof(int*));
 	count == NULL ? error_malloc(d, NULL, line, NULL) : 0;
-	// c_cmd = new_count_commands(line, count, ';');
-	cmd = new_fill_commands2(d, line, count);
-	int z = 0;
-	while (cmd[z])
-	{
-		printf("CMD:\t%s\n", cmd[z]);
-		z++;
-	}
-	// free(line);
-	// free(count);
-	return ;
+	cmd = new_fill_commands2(d, line, count, ';');
+	// printf("\n\n");
+	// int z = 0;
+	// while (cmd[z])
+	// {
+	// 	printf("CMD:\t%s\n", cmd[z]);
+	// 	z++;
+	// }
+	// printf("\n\n");
+	free(line);
+	free(count);
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);

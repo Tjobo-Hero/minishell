@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/16 21:39:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ static int	write_double(t_mini *d, char *arg, int i)
 			i += dollar_sign(d, &arg[i]);
 		else
 		{
-			i += write(d->fd, &arg[i], 1);
+			if (!write(d->fd, &arg[i], 1))
+				error_malloc(d, NULL, NULL, NULL);
+			i++;
 			set = 0;
 		}
 		if (arg[i] == '\"' && set == 0)
@@ -68,8 +70,11 @@ static int	write_single(t_mini *d, char *arg, int i)
 {
 	i++;
 	while (arg[i] != '\'')
-		i += write(d->fd, &arg[i], 1);
-	// PROTECTION
+	{
+		if (!write(d->fd, &arg[i], 1))
+			error_malloc(d, NULL, NULL, NULL);
+		i++;
+	}
 	i++;
 	return (i);
 }
@@ -83,7 +88,7 @@ void	write_arg(t_mini *d, int a)
 	set = 0;
 	while (d->orig[a][i] != '\0')
 	{
-		if (d->orig[a][i] == '\\')
+		if (d->orig[a][i] == '\\' && set == 0)
 		{
 			set = 1;
 			i++;
@@ -107,8 +112,11 @@ int		**echo(t_mini *d)
 	int	a;
 
 	a = 1;
-	if (!d->args[a])
+	if (!d->args[1])
+	{
+		ft_putchar_fd('\n', d->fd);
 		return (0);
+	}
 	if (ft_strncmp(d->args[a], "-n", 2) == 0)
 		a++;
 	while (d->args[a])
@@ -118,7 +126,7 @@ int		**echo(t_mini *d)
 		if (d->args[a])
 			ft_putchar_fd(' ', d->fd);
 	}
-	if (!d->args[1] || (d->args[1] && ft_strncmp(d->args[1], "-n", 3) != 0))
+	if ((d->args[1] && ft_strncmp(d->args[1], "-n", 3) != 0))
 		ft_putchar_fd('\n', d->fd);
 	return (0);
 }
