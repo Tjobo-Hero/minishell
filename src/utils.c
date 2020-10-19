@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:38:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 10:53:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	create_delete_new(t_mini *d, t_new *tmp, int i)
 int	ft_write(t_mini *d, int fd, char *str)
 {
 	int	ret;
+	
 	ret = write(fd, str, ft_strlen(str));
 	if (ret == -1)
 		error_malloc(d, NULL, NULL, NULL);
