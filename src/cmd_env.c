@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:01:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:41:42 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		**env(t_mini *d)
 		if (tmp != NULL && tmp->index == c && tmp->set)
 		{
 			ft_putstr_fd(tmp->head, d->fd);
-			ft_write(d, d->fd, "=");
+			ft_write(d, "=");
 			ft_putstr_fd(tmp->echo, d->fd);
-			ft_write(d, d->fd, "\n");
+			ft_write(d, "\n");
 			i = 0;
 			c++;
 		}

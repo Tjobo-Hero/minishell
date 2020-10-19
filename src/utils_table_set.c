@@ -6,29 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:02:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int				hash(char *name, int count)
-{
-	int				length;
-	unsigned int	value;
-	int				i;
-
-	value = 0;
-	i = 0;
-	length = ft_strlen(name);
-	while (i < length)
-	{
-		value += name[i];
-		value = (value * name[i]) % count;
-		i++;
-	}
-	return (value);
-}
 
 char		*set_elem(char *environ, int i, int len, int type)
 {
@@ -51,7 +33,7 @@ char		*set_elem(char *environ, int i, int len, int type)
 	return (tmp);
 }
 
-t_env			*new_elem(t_mini *d, char *environ)
+t_env		*new_elem(t_mini *d, char *environ)
 {
 	t_env	*new;
 	int		i;
@@ -77,7 +59,7 @@ t_env			*new_elem(t_mini *d, char *environ)
 	return (new);
 }
 
-void			push_back(t_env **echo, t_env *new)
+void		push_back(t_env **echo, t_env *new)
 {
 	t_env	*tmp;
 

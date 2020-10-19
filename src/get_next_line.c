@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 10:23:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:35:48 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,11 @@ static int	check_line(char *line)
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\\' && set == 0)
-		{
-			set = 1;
-			i++;
-		}
+			set = set_set(&i, 1);
 		else if ((line[i] == '\'' || line[i] == '\"') && set == 0)
 			i = check_quotes(line, i);
 		else
-		{
-			set = 0;
-			i++;
-		}
+			set = set_set(&i, 0);
 		if (i == -2)
 		{
 			ft_putstr_fd("> ", 1);
@@ -66,7 +60,7 @@ static int	make_line(char **line, char c)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	char	buf[1];
 	int		res;

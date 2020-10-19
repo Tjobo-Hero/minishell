@@ -1,137 +1,209 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands_init.c                                    :+:    :+:            */
+/*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 12:20:24 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/19 12:02:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	total_tmp(char *out, int *count)
+void	new_set(char *str, char c, int *i)
 {
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (count[i] != 0)
-	{
-		if (out[count[i] + 1] != '|')
-			len++;
-		i++;
-	}
-	return (len);
+	(*i)++;
+	while (str[*i] != c && str[*i] != '\0')
+		(*i)++;
 }
 
-static void	split_line(t_mini *d, char *out, int *count)
+int		if_same_loop(char *str, int *x, char c)
 {
-	int		i;
-	int		x;
-	int		start;
-	int		len;
-	int		z;
+	int	i;
 
 	i = 0;
-	x = 0;
-	start = 0;
-	z = total_tmp(out, count);
-	d->split_line = (char**)malloc(sizeof(char*) * (z + 1));
-	d->orig = (char**)malloc(sizeof(char*) * (z + 1));
-	d->split_line == NULL || d->orig == NULL ? error_malloc(d, NULL, out, count) : 0;
-	// int y = 0;
-	// while (count[y] != 0)
-	// {
-	// 	printf("COUNT:\t%d\n", count[y]);
-	// 	y++;
-	// }
-	while (count[i] != 0)
+	while (str[*x] == c)
 	{
-		len = count[i] - start;
-		if (out[start] != '|')
+		(*x)++;
+		i++;
+	}
+	return (i);
+}
+
+int		new_count_commands(char *str, int *count, char c)
+{
+	int	i;
+	int x;
+
+	x = 0;
+	i = 0;
+	while (str[i] == c)
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c && str[i - 1] != '\\')
 		{
-			d->split_line[x] = malloc(sizeof(char*) * len + 1);
-			d->split_line[x] == NULL ? error_malloc(d, NULL, out, count) : 0;
-			ft_strlcpy(d->split_line[x], &out[start], len + 1);
-			d->orig[x] = ft_strdup(d->split_line[x]);
-			d->orig[x] == NULL ? error_malloc(d, NULL, out, count) : 0;
+			count[x] = i;
+			while (str[i] == ' ' || str[i] == ';')
+				i++;
+			if (str[i] == '\0')
+				return (x + 1);
 			x++;
 		}
-		start = count[i] + 1;
+		if (i > 0 && str[i - 1] != '\\' && (str[i] == '\'' || str[i] == '\"'))
+			new_set(str, str[i], &i);
 		i++;
 	}
-	d->split_line[x] = NULL;
-	d->orig[x] = NULL;
+	count[x] = i;
+	return (x + 1);
 }
 
-static int	split_command(t_mini *d, char *line, int *count)
+char	**new_fill_commands(t_mini *d, char *str, int *count, int w)
 {
-	char	*out;
+	char	**tmp;
+	int		c;
+	int		i;
+	int		x;
 
-	d->arg = (t_arg*)malloc(sizeof(t_arg) * (1));
-	d->arg == NULL ? error_malloc(d, NULL, NULL, count) : 0;
-	d->arg->c_i = 0;
-	d->arg->c = -1;
-	d->arg->i = 0;
-	d->arg->set = 0;
-	d->arg->a = 0;
-	out = ft_calloc(PATH_MAX, sizeof(char*));
-	out == NULL ?  error_malloc(d, NULL, NULL, count) : 0;
-	count = ft_calloc(PATH_MAX, sizeof(int*));
-	d->arg->count = ft_calloc(PATH_MAX, sizeof(int*));
-	d->arg->count == NULL || count == NULL ? error_malloc(d, NULL, out, count) : 0;
-	upgrade_line(d->arg, line, out, count);
-	split_line(d, out, count);
-	free(out);
-	free(count);
+	i = 0;
+	c = 0;
+	tmp = ft_memalloc(sizeof(char *) * (w + 1));
+	tmp == NULL ? error_malloc(d, NULL, str, count) : 0;
+	x = count[0];
+	while (str[c] == ' ')
+		c++;
+	while (i < w)
+	{
+		tmp[i] = ft_memalloc(sizeof(char *) * (x + 1));
+		tmp[i] == NULL ? error_malloc(d, tmp, str, count) : 0;
+		ft_bzero(tmp[i], (x + 1));
+		ft_strlcpy(tmp[i], &str[c], x + 1);
+		while (c != count[i])
+			c++;
+		while ((str[c] == ' ' || str[c] == ';') && str[c] != '\0')
+			c++;
+		i++;
+		x = count[i] - c;
+	}
+	i = 0;
+	return (tmp);
+}
+
+static char	**tmp_dup(t_mini *d, char **array, char *line, int *count)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	while (array && array[i])
+		i++;
+	tmp = (char**)malloc(sizeof(char*) * (i + 2));
+	tmp == NULL ? error_malloc(d, array, line, count) : 0;
+	i = 0;
+	while (array && array[i])
+	{
+		tmp[i] = ft_strdup(array[i]);
+		if (tmp[i] == NULL)
+		{
+			ft_free(array);
+			error_malloc(d, array, line, count);
+		}
+		free(array[i]);
+		i++;
+	}
+	tmp[i] = NULL;
+	tmp[i + 1] = NULL;
+	free(array);
+	return (tmp);
+}
+
+static int	word(char *line, int *count, int i, char **array)
+{
+	int		c;
+	int		x;
+	int		len;
+
+	c = 0;
+	x = 0;
+	while (count[c] != 0)
+		c++;
+	count[c] = i - 1;
+	while (array[x])
+		x++;
+	len = (c == 0 ? count[c] : count[c] - count[c - 1] - 3);
+	array[x] = ft_calloc(len + 1, sizeof(char*));
+	if (array[x] == NULL)
+		return (0);
+	c = (c == 0 ? 0 : count[c - 1] + 1);
+	while (line[c] == ' ' || line[c] == ';')
+		c++;
+	ft_strlcpy(array[x], &line[c], len + 2);
 	return (1);
 }
 
-void		get_commands(t_mini *d, char *line)
+static void	check_quote(char *line, int *i)
 {
-	char	**cmd;
-	int		i;
-	int		*count;
-	int		x;
+	int		set;
 
-	i = 0;
-	x = syntax_check(line);
-	if (x == -1 || x == -2)
+	(*i)++;
+	if (line[*i - 1] == '\'')
 	{
-		ft_putstr_fd("NOT CORRECT\n", d->fd);
+		while (line[*i] != '\'' && line[*i] != '\0')
+			(*i)++;
+		if (line[*i] == '\'')
+			(*i)++;
 		return ;
 	}
-	count = ft_calloc(PATH_MAX, sizeof(int*));
-	count == NULL ? error_malloc(d, NULL, line, NULL) : 0;
-	cmd = new_fill_commands2(d, line, count, ';');
-	free(line);
-	free(count);
-	while (cmd[i])
+	set = 0;
+	while (line[*i] != '\0')
 	{
-		split_command(d, cmd[i], count);
-		if (d->split_line[0])
-		{
-			// break ;
-			// printf("\n\n");
-			// int z = 0;
-			// while (d->split_line[z])
-			// {
-			// 	printf("d->split_line:\t%s\n", d->split_line[z]);
-			// 	z++;
-			// }
-			// printf("--------------------\n\n");
-			// printf("\n\n");
-			pipes(d);
-			ft_free(d->split_line);
-			ft_free(d->orig);
-		}
-		free(d->arg->count);
-		free(d->arg);
-		i++;
+		if (line[*i] == '\\' && set == 0)
+			set = set_set(&(*i), 1);
+		else
+			set = set_set(&(*i), 0);
+		if (line[*i] == '\"' && set == 0)
+			break ;
 	}
-	ft_free(cmd);
+	if (line[*i] == '\"')
+		(*i)++;
+}
+
+static void	check_line(char *line, int *i, int *set)
+{
+	if (line[*i] == '\\' && set == 0)
+		(*set) = set_set(&(*i), 1);
+	else if ((line[*i] == '\'' || line[*i] == '\"') && set == 0)
+		check_quote(line, &(*i));
+	else
+		(*set) = set_set(&(*i), 0);
+}
+
+char	**line_split(t_mini *d, char *str, int *count, char c)
+{
+	char	**tmp;
+	int		set;
+	int		i;
+
+	i = 0;
+	set = 0;
+	tmp = NULL;
+	while (str[i] == ';')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c && set == 0)
+		{
+			tmp = tmp_dup(d, tmp, str, count);
+			if (!word(str, count, i, tmp))
+				error_malloc(d, tmp, str, count);
+		}
+		check_line(str, &i, &set);
+	}
+	tmp = tmp_dup(d, tmp, str, count);
+	if (!word(str, count, i, tmp))
+		error_malloc(d, tmp, str, count);
+	return (tmp);
 }

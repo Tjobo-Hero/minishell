@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 11:12:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 17:57:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_double(char *arg, int i)
 	return (i);
 }
 
-int		check_quotes(char *arg, int i)
+int			check_quotes(char *arg, int i)
 {
 	if (arg[i] == '\"')
 		return (check_double(arg, i));
@@ -75,7 +75,7 @@ static int	check_redirections(char *arg, int i)
 	return (i);
 }
 
-static int	set_set(int *i, int check)
+int			set_set(int *i, int check)
 {
 	(*i)++;
 	return (check == 0 ? 0 : 1);
@@ -90,20 +90,21 @@ int			syntax_check(char *arg)
 	i = 0;
 	while (arg[i] == ' ')
 		i++;
-	if (arg[i] == '|')
-		return (ft_printf("bash: syntax error near unexpected token `|'\n"));
+	if (arg[i] == '|' || arg[i] == ';')
+	{
+		ft_printf("bash: syntax error near unexpected token `%c'\n", arg[i]);
+		return (0);
+	}
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '\\' && set == 0)
 			set = set_set(&i, 1);
-		else if ((arg[i] == '\'' || arg[i] == '\"') && set == 0)
-			i = check_quotes(arg, i);
 		else if ((arg[i] == '>' || arg[i] == '<') && set == 0)
 			i = check_redirections(arg, i);
 		else
 			set = set_set(&i, 0);
-		if (i == -1 || i == -2 || (set == 1 && arg[i] == '\n'))
-			return (i < 0 ? i : -1);
+		if (i == -1)
+			return (0);
 	}
-	return ((set == 0) ? 0 : -2);
+	return (1);
 }

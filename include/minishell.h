@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 09:48:04 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 17:58:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,11 @@ typedef struct	s_mini
 }				t_mini;
 
 int		main(void);
-int		get_next_line(int fd, char **line);
 
 void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
 char	**new_fill_commands(t_mini *d, char *str, int *count, int w);
-char	**new_fill_commands2(t_mini *d, char *str, int *count, char c);
+char	**line_split(t_mini *d, char *str, int *count, char c);
 void	check_arg_and_remove_case(t_mini *d);
 void	ft_free(char **args);
 void	free_environ(char **environ);
@@ -126,23 +125,30 @@ int		**exit_own(t_mini *d);
 void	check_if_forked(t_mini *d);
 void	new_list(t_mini *d);
 
-/* Utils */
-t_env	*new_elem(t_mini *d, char *environ);
-void	error_malloc(t_mini *d, char **array, char *single, int *count);
+/* TABLE UTILS */
 int		hash(char *name, int count);
 void	push_back(t_env **echo, t_env *new);
 t_env	*look_up(char *name, t_env **hash_table);
 void	delete_lst(char *name, t_env **hash_table);
+t_env	*new_elem(t_mini *d, char *environ);
+void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
+void	alpha(t_env **env);
+char	*set_elem(char *environ, int i, int len, int type);
 
-void	print_echo(t_env **hash_table);
+/* GNL */
+int		get_next_line(int fd, char **line);
+int		set_set(int *i, int check);
+
+/* COMMANDS */
+void	commands(t_mini *d, char *line);
+int		syntax_check(char *arg);
+
+/* Utils */
+void	error_malloc(t_mini *d, char **array, char *single, int *count);
 
 void	clear_new(t_new *new);
 void	create_delete_new(t_mini *d, t_new *tmp, int i);
-void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
 void	set_env(t_env *user, char *environ, int index);
-int		**alpha(t_env **env);
-t_env	*find_free(t_env **env);
-void	init(t_env **tmp, t_cmd **command, int x);
 void	init_commands(t_mini *d);
 
 int		check_arg(t_mini *d, t_new *new, char *arg);
@@ -151,9 +157,6 @@ int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
-int		syntax_check(char *arg);
-
-void	get_commands(t_mini *d, char *line);
 int		*count_init(int size);
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
@@ -162,8 +165,7 @@ void	redirect(t_mini *d, int n);
 char	**new_arg(t_mini *d, char **args, int c, int n);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
-char	*set_elem(char *environ, int i, int len, int type);
-int		ft_write(t_mini *d, int fd, char *str);
+int		ft_write(t_mini *d, char *str);
 void	struct_null(t_mini *d);
 
 int		check_quotes(char *arg, int i);

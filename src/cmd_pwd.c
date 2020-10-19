@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:41:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	**pwd(t_mini *d)
 		ft_printf("bash: pwd: %s\n", strerror(errno));
 		return ((int**)1);
 	}
-	ft_write(d, d->fd, d->cwd);
-	ft_write(d, d->fd, "\n");
+	ft_write(d, d->cwd);
+	ft_write(d, "\n");
 	free(d->cwd);
 	return (0);
 }

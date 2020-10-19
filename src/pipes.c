@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:33:01 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:26:25 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,8 @@ void	pipes(t_mini *d)
 	}
 	i = 0;
 	soul_goodman(d, &i);
+	ft_free(d->split_line);
+	ft_free(d->orig);
+	free(d->arg->count);
+	free(d->arg);
 }

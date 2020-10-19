@@ -1,42 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   environ_init.c                                     :+:    :+:            */
+/*   environ.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:36:33 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:14:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void			init(t_env **tmp, t_cmd **command, int x)
-{
-	int	i;
-
-	i = 0;
-	if (tmp != NULL)
-	{
-		while (i < x)
-		{
-			tmp[i] = NULL;
-			i++;
-		}
-		tmp[i] = NULL;
-		return ;
-	}
-	else
-	{
-		while (i < x)
-		{
-			command[i] = NULL;
-			i++;
-		}
-		command[i] = NULL;
-	}
-}
 
 static t_cmd	*new_elem_cmd(t_mini *d, char *command)
 {
@@ -95,16 +69,14 @@ void			init_env(t_mini *d)
 	extern char **environ;
 	t_env		*new;
 
-	d->echo = (t_env**)malloc(sizeof(t_env*) * (ECHO + 1));
+	d->echo = (t_env**)ft_calloc((ECHO + 1), sizeof(t_env*));
+	d->commands = (t_cmd**)ft_calloc((COMMAND + 1), sizeof(t_cmd*));
 	d->echo == NULL ? exit(1) : 0;
-	d->commands = (t_cmd**)malloc(sizeof(t_cmd*) * (COMMAND + 1));
 	if (d->commands == NULL)
 	{
 		free(echo);
 		exit(1);
 	}
-	init(d->echo, NULL, ECHO);
-	init(NULL, d->commands, COMMAND);
 	set_env_cmd(d);
 	while (environ[d->index] != NULL)
 	{

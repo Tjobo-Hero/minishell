@@ -6,11 +6,31 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 10:53:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:44:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	struct_null(t_mini *d)
+{
+	d->index = 0;
+	d->i = 0;
+	d->environ = NULL;
+	d->args = NULL;
+	d->split_line = NULL;
+	d->orig = NULL;
+	d->args = NULL;
+	d->arg = NULL;
+	d->pipes = NULL;
+	d->new.head = NULL;
+	d->new.list = NULL;
+	d->new.echo = NULL;
+	d->new.tmp = NULL;
+	d->is_child = 0;
+	d->ret = 0;
+	d->fd = 1;
+}
 
 void	free_echo(t_env **echo)
 {
@@ -93,7 +113,7 @@ void	error_malloc2(t_mini *d)
 void	error_malloc(t_mini *d, char **array, char *single, int *count)
 {
 	ft_putstr_fd(strerror(errno), 1);
-	ft_write(d, 1, "\n");
+	ft_write(d, "\n");
 	if (d->echo)
 		free_echo(d->echo);
 	if (d->commands)
@@ -135,31 +155,12 @@ void	create_delete_new(t_mini *d, t_new *tmp, int i)
 	}
 }
 
-int	ft_write(t_mini *d, int fd, char *str)
+int	ft_write(t_mini *d, char *str)
 {
 	int	ret;
-	
-	ret = write(fd, str, ft_strlen(str));
+
+	ret = write(d->fd, str, ft_strlen(str));
 	if (ret == -1)
 		error_malloc(d, NULL, NULL, NULL);
 	return (ret);
-}
-
-void	struct_null(t_mini *d)
-{
-	d->index = 0;
-	d->i = 0;
-	d->environ = NULL;
-	d->args = NULL;
-	d->split_line = NULL;
-	d->orig = NULL;
-	d->args = NULL;
-	d->arg = NULL;
-	d->pipes = NULL;
-	d->new.head = NULL;
-	d->new.list = NULL;
-	d->new.echo = NULL;
-	d->new.tmp = NULL;
-	d->is_child = 0;
-	d->ret = 0;
 }

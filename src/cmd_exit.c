@@ -6,7 +6,7 @@
 /*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/12 15:22:40 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:13:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:54:49 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int			**exit_own(t_mini *d)
 	}
 	if (d->args[1] && d->args[2])
 	{
-		ft_putstr_fd("bash: exit: too many arguments\n", 1);
-		exit(0);
+		ft_putstr_fd("exit\nbash: exit: too many arguments\n", 1);
+		return (0);
 	}
 	exit_number = ft_atoi(d->args[1]);
 	exit(exit_number);
