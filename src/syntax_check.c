@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 09:47:51 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 11:12:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			syntax_check(char *arg)
 		return (ft_printf("bash: syntax error near unexpected token `|'\n"));
 	while (arg[i] != '\0')
 	{
-		if (arg[i] == '\\')
+		if (arg[i] == '\\' && set == 0)
 			set = set_set(&i, 1);
 		else if ((arg[i] == '\'' || arg[i] == '\"') && set == 0)
 			i = check_quotes(arg, i);

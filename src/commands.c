@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/18 18:55:52 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 12:02:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ char	**new_fill_commands2(t_mini *d, char *str, int *count, char c)
 	{
 		if (str[i] == c && set == 0)
 			tmp = word(d, str, count, i, tmp);
-		if (str[i] == '\\')
+		if (str[i] == '\\' && set == 0)
 		{
 			set = 1;
 			i++;

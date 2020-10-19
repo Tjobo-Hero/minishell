@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 16:35:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 12:20:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char	fill_char(t_arg *arg, char c, int *count)
 {
 	if (c == ' ' && arg->set == 0)
 	{
+		// printf("tesst\n");	
 		count[arg->c_i] = arg->c + 1;
 		arg->c_i++;
 	}
@@ -84,29 +85,44 @@ static void	spaces(t_arg *arg, char *in)
 
 void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 {
+	// printf("--------------------\nIN:\t%s\n", in);
 	while (in[arg->i] == ' ')
 		arg->i++;
 	while (in[arg->i] != '\0')
 	{
-		if (in[arg->i] == '\\')
+		if (in[arg->i] == '\\' && arg->set == 0)
 		{
 			out[arg->c] = fill_char(arg, in[arg->i], count);
 			arg->set = 1;
 			out[arg->c] = fill_char(arg, in[arg->i], count);
+			arg->set = 0;
 		}
 		if (in[arg->i] == '\"' || in[arg->i] == '\'')
 			fill_char_quote(arg, in, out, count);
 		else if (in[arg->i] == '<' || in[arg->i] == '>' || in[arg->i] == '|')
 			fill_redirection(arg, in, out, count);
 		else if (in[arg->i] == '\n')
+		{
 			arg->i++;
+			// arg->set = 0;
+		}
 		else
+		{
 			out[arg->c] = fill_char(arg, in[arg->i], count);
+			// arg->set = 0;
+		}
 		if (in[arg->i] == ' ')
+		{
 			spaces(arg, in);
-		arg->set = 0;
+			// arg->set = 0;
+		}
 	}
 	if (in[arg->i - 1] != ' ')
+	{
 		count[arg->c_i] = arg->c + 1;
+	}
 	arg->count[arg->a] = arg->c_i + 1;
+	// printf("CHAR:\t%d\n", in[arg->i - 1]);
+	// printf("CHAR:\t%c\n", in[arg->i - 2]);
+	// printf("OUT:\t%s\n", out);
 }

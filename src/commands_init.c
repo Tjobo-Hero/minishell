@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/18 18:50:44 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 12:20:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ static void	split_line(t_mini *d, char *out, int *count)
 	d->split_line = (char**)malloc(sizeof(char*) * (z + 1));
 	d->orig = (char**)malloc(sizeof(char*) * (z + 1));
 	d->split_line == NULL || d->orig == NULL ? error_malloc(d, NULL, out, count) : 0;
+	// int y = 0;
+	// while (count[y] != 0)
+	// {
+	// 	printf("COUNT:\t%d\n", count[y]);
+	// 	y++;
+	// }
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -102,14 +108,6 @@ void		get_commands(t_mini *d, char *line)
 	count = ft_calloc(PATH_MAX, sizeof(int*));
 	count == NULL ? error_malloc(d, NULL, line, NULL) : 0;
 	cmd = new_fill_commands2(d, line, count, ';');
-	// printf("\n\n");
-	// int z = 0;
-	// while (cmd[z])
-	// {
-	// 	printf("CMD:\t%s\n", cmd[z]);
-	// 	z++;
-	// }
-	// printf("\n\n");
 	free(line);
 	free(count);
 	while (cmd[i])
@@ -117,6 +115,16 @@ void		get_commands(t_mini *d, char *line)
 		split_command(d, cmd[i], count);
 		if (d->split_line[0])
 		{
+			// break ;
+			// printf("\n\n");
+			// int z = 0;
+			// while (d->split_line[z])
+			// {
+			// 	printf("d->split_line:\t%s\n", d->split_line[z]);
+			// 	z++;
+			// }
+			// printf("--------------------\n\n");
+			// printf("\n\n");
 			pipes(d);
 			ft_free(d->split_line);
 			ft_free(d->orig);
