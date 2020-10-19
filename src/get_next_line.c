@@ -6,13 +6,43 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 11:31:06 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 10:23:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		make_line(char **line, char c)
+static int	check_line(char *line)
+{
+	int		i;
+	int		set;
+
+	i = 0;
+	set = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '\\' && set == 0)
+		{
+			set = 1;
+			i++;
+		}
+		else if ((line[i] == '\'' || line[i] == '\"') && set == 0)
+			i = check_quotes(line, i);
+		else
+		{
+			set = 0;
+			i++;
+		}
+		if (i == -2)
+		{
+			ft_putstr_fd("> ", 1);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+static int	make_line(char **line, char c)
 {
 	char	*tmp;
 	int		i;
@@ -20,7 +50,10 @@ int		make_line(char **line, char c)
 	i = 0;
 	tmp = malloc(sizeof(char) * (ft_strlen(*line) + 2));
 	if (tmp == NULL)
+	{
+		free(*line);
 		return (-1);
+	}
 	while ((*line)[i] != '\0')
 	{
 		tmp[i] = (*line)[i];
@@ -42,13 +75,18 @@ int		get_next_line(int fd, char **line)
 	if (*line == NULL)
 		return (-1);
 	*line[0] = '\0';
-	res = 1;
-	while (res > 0)
+	while (1)
 	{
 		res = read(fd, buf, 1);
-		if (buf[0] == '\n' || res == -1 || res == 0)
+		if (res == -1 || (res == 0 && (*line)[0] == 0))
 			return (res);
-		res = make_line(line, buf[0]);
+		if (res != 0)
+			res = make_line(line, buf[0]);
+		if (res == -1)
+			return (res);
+		if (buf[0] == '\n')
+			if (check_line(*line) == 1)
+				return (1);
 	}
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/09 10:57:18 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 09:47:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_double(char *arg, int i)
 	return (i);
 }
 
-static int	check_quotes(char *arg, int i)
+int		check_quotes(char *arg, int i)
 {
 	if (arg[i] == '\"')
 		return (check_double(arg, i));
