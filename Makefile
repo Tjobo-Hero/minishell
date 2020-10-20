@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/10/19 14:14:52 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/20 10:52:47 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,16 +67,16 @@ SRC_FILES		=	minishell \
 					cmd_export_utils1 \
 					cmd_export_utils2 \
 					cmd_export_utils3 \
-					commands_line \
+					upgrade_line \
 					pipes \
 					redirections \
-					new_arg \
 					commands_init \
 					remove_case \
 					syntax_check \
 					utils_table \
 					utils_table_alpha \
 					utils_table_set \
+					return_values \
 
 INCLUDE_DIR 	:= $(INCLUDE_DIR:%=-I%)
 SRC_FILES 		:= $(SRC_FILES:%=%.o)

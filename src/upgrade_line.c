@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 12:55:16 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 09:49:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	fill_char(t_arg *arg, char c, int *count)
 {
 	if (c == ' ' && arg->set == 0)
 	{
-		// printf("tesst\n");	
 		count[arg->c_i] = arg->c + 1;
 		arg->c_i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:44:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 10:24:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	struct_null(t_mini *d)
 	d->i = 0;
 	d->environ = NULL;
 	d->args = NULL;
-	d->split_line = NULL;
 	d->orig = NULL;
 	d->args = NULL;
 	d->arg = NULL;
@@ -92,8 +91,6 @@ void	error_malloc2(t_mini *d)
 		free(d->arg);
 	if (d->orig)
 		ft_free(d->orig);
-	if (d->split_line)
-		ft_free(d->split_line);
 	if (d->pipes)
 		free_int_array(d->pipes);
 	if (d->args)

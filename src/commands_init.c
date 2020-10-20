@@ -100,7 +100,7 @@ static char	**tmp_dup(t_mini *d, char **array, char *line, int *count)
 	i = 0;
 	while (array && array[i])
 		i++;
-	tmp = (char**)malloc(sizeof(char*) * (i + 2));
+	tmp = (char**)ft_calloc((i + 2), sizeof(char*));
 	tmp == NULL ? error_malloc(d, array, line, count) : 0;
 	i = 0;
 	while (array && array[i])

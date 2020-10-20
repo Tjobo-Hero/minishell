@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 22:03:04 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 10:53:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct		s_arg
 
 typedef struct	s_mini
 {
-	char	**split_line;
 	char	**environ;
 	char	*cwd;
 	char	**args;
@@ -159,8 +158,8 @@ int		*count_init(int size);
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
 void	pipes(t_mini *d);
-void	redirect(t_mini *d, int n);
-char	**new_arg(t_mini *d, char **args, int c, int n);
+char	**redirect(t_mini *d, int x, int c, int n);
+void	return_values(t_mini *d);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d);
 int		ft_write(t_mini *d, char *str);

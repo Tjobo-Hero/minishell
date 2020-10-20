@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:26:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 10:51:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_pipes(t_mini *d, int n)
+static void	close_pipes(t_mini *d, int n)
 {
 	if (d->pipes)
 	{
@@ -29,7 +29,7 @@ void	close_pipes(t_mini *d, int n)
 	}
 }
 
-static void	pipes_start(t_mini *d, int c, int n, int x)
+static void	set_fd(t_mini *d, int c, int n, int x)
 {
 	ft_bzero(&d->pipe, sizeof(t_pipe));
 	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
@@ -42,8 +42,7 @@ static void	pipes_start(t_mini *d, int c, int n, int x)
 		d->pipe.fd_in = d->pipes[x - 1][0];
 		d->pipe.ispipe[0] = 1;
 	}
-	redirect(d, x);
-	d->args = new_arg(d, d->split_line, c, n);
+	d->args = redirect(d, x, c, n);
 	command(d);
 	ft_free(d->args);
 	close_pipes(d, x);
@@ -67,44 +66,7 @@ static void	pipes_init(t_mini *d, int count)
 	}
 }
 
-void	return_values(int i, t_mini *p)
-{
-	if (WIFEXITED(i))
-		p->ret = WEXITSTATUS(i);
-	if (WIFSIGNALED(i))
-	{
-		p->ret = WTERMSIG(i);
-		if (p->ret == 2)
-		{
-			p->ret = 130;
-			p->is_child = 1;
-		}
-		if (p->ret == 3)
-		{
-			p->ret = 131;
-			p->is_child = 2;
-		}
-	}
-}
-
-void	soul_goodman(t_mini *d, int *i)
-{
-	int soul;
-	int child;
-
-	child = 0;
-	soul = 0;
-	while (soul < d->pids)
-	{
-		waitpid(-1, &child, 0);
-		return_values(child, d);
-		soul++;
-	}
-	(*i)++;
-	free_int_array(d->pipes);
-}
-
-void	pipes(t_mini *d)
+void		pipes(t_mini *d)
 {
 	int		i;
 	int		x;
@@ -118,13 +80,11 @@ void	pipes(t_mini *d)
 	i = 0;
 	while (d->arg->count[i] != 0)
 	{
-		pipes_start(d, x, d->arg->count[i], i);
+		set_fd(d, x, d->arg->count[i], i);
 		x = d->arg->count[i];
 		i++;
 	}
-	i = 0;
-	soul_goodman(d, &i);
-	ft_free(d->split_line);
+	return_values(d);
 	ft_free(d->orig);
 	free(d->arg->count);
 	free(d->arg);

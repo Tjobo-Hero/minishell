@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/15 14:22:27 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 10:55:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ void	ft_free(char **args)
 		x++;
 	}
 	free(args);
-}
-
-void	free_environ(char **environ)
-{
-	int		i;
-
-	i = 0;
-	while (environ[i] != NULL)
-		i++;
-	while (i > 0)
-	{
-		free(environ[i - 1]);
-		i--;
-	}
-	free(environ);
 }
 
 void	free_int_array(int **arr)
@@ -57,7 +42,7 @@ void	free_int_array(int **arr)
 	arr = NULL;
 }
 
-void free_exit_program(t_mini *d, int error_code)
+void	free_exit_program(t_mini *d, int error_code)
 {
 	int i;
 

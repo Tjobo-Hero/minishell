@@ -6,11 +6,39 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/16 15:33:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 10:31:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**new_arg(t_mini *d, int c, int n)
+{
+	char	**new;
+	int		len;
+	int		i;
+	int		x;
+
+	x = 0;
+	i = c;
+	while (d->orig[c] && c < n && (ft_strncmp(d->orig[c], "<", 2) &&
+		ft_strncmp(d->orig[c], ">", 2) && ft_strncmp(d->orig[c], ">>", 3)))
+		c++;
+	new = malloc(sizeof(char **) * ((c - i) + 1));
+	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	while (i < c)
+	{
+		len = ft_strlen(d->orig[i]);
+		new[x] = malloc(sizeof(char*) * (len + 1));
+		new[x] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
+		ft_bzero(new[x], len + 1);
+		ft_strlcpy(new[x], d->orig[i], len + 1);
+		x++;
+		i++;
+	}
+	new[x] = NULL;
+	return (new);
+}
 
 void	redirect_output(t_mini *d, char **args, t_pipe *redirs, int *i)
 {
@@ -29,25 +57,26 @@ void	redirect_output(t_mini *d, char **args, t_pipe *redirs, int *i)
 		error_malloc(d, NULL, NULL, NULL);
 }
 
-void	redirect(t_mini *d, int n)
+char	**redirect(t_mini *d, int x, int c, int n)
 {
 	int		i;
-	int		x;
+	int		s;
 
-	x = d->arg->count[n];
-	i = d->arg->count[n - 1];
-	while (d->split_line[i] && i < x)
+	s = d->arg->count[x];
+	i = d->arg->count[x - 1];
+	while (d->orig[i] && i < s)
 	{
-		if (ft_strncmp(d->split_line[i], "<", 2) == 0 && d->split_line[i + 1])
+		if (ft_strncmp(d->orig[i], "<", 2) == 0 && d->orig[i + 1])
 		{
-			d->pipe.input = d->split_line[i + 1];
+			d->pipe.input = d->orig[i + 1];
 			if (d->pipe.fd_in > 0)
 				close(d->pipe.fd_in);
 			d->pipe.fd_in = open(d->pipe.input, O_RDONLY);
 		}
-		if ((ft_strncmp(d->split_line[i], ">", 2) == 0 ||
-			ft_strncmp(d->split_line[i], ">>", 3) == 0) && d->split_line[i + 1])
-			redirect_output(d, d->split_line, &d->pipe, &i);
+		if ((ft_strncmp(d->orig[i], ">", 2) == 0 ||
+			ft_strncmp(d->orig[i], ">>", 3) == 0) && d->orig[i + 1])
+			redirect_output(d, d->orig, &d->pipe, &i);
 		i++;
 	}
+	return (new_arg(d, c, n));
 }
