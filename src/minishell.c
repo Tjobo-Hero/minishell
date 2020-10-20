@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:43:04 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:39:38 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 22:15:56 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int		main(void)
 
 	struct_null(&d);
 	init_env(&d);
-	// screen_clean();
+	screen_clean();
 	while (1)
 	{
-		// signal(SIGINT, block_ctrl_c);
-		// signal(SIGQUIT, block_ctrl_slash);
+		signal(SIGINT, block_ctrl_c);
+		signal(SIGQUIT, block_ctrl_slash);
 		start_mini(&d);
-		if (get_next_line(0, &line) < 0)
+		if (!get_next_line(0, &line))
 		{
-			ft_printf("exit\n");
+			ft_putstr_fd("exit\n", 1);
 			exit(0);
 		}
 		d.ret += g_ret;

@@ -6,23 +6,27 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:07:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 09:15:41 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*make_str(t_env *tmp, int *i, int *c, int *x)
+char	*make_str(t_env *tmp, int *i, int *c)
 {
-	char	*str;
+	char	*tmp1;
+	char	*tmp2;
 
-	str = ft_strdup((const char*)tmp->list);
-	if (str == NULL)
+	tmp1 = ft_strjoin(tmp->head, "=");
+	if (tmp1 == NULL)
 		return (NULL);
-	*i = 0;
-	*c = *c + 1;
-	*x = *x + 1;
-	return (str);
+	tmp2 = ft_strjoin(tmp1, tmp->list);
+	free(tmp1);
+	if (tmp2 == NULL)
+		return (NULL);
+	(*i) = 0;
+	(*c)++;
+	return (tmp2);
 }
 
 void	make_environ(t_mini *d)
@@ -35,7 +39,7 @@ void	make_environ(t_mini *d)
 	i = 0;
 	c = 0;
 	x = 0;
-	d->environ = ft_memalloc(sizeof(char *) * (d->index + 1));
+	d->environ = ft_calloc((d->index + 1), (sizeof(char *)));
 	d->environ == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	while (i < ECHO)
 	{
@@ -47,8 +51,9 @@ void	make_environ(t_mini *d)
 		}
 		if (tmp != NULL && tmp->index == c)
 		{
-			d->environ[x] = make_str(tmp, &i, &c, &x);
+			d->environ[x] = make_str(tmp, &i, &c);
 			d->environ[x] == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+			x++;
 		}
 		else
 			i++;

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:21:24 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 21:50:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,8 @@ static int	**run_commands(t_mini *d, int forked)
 
 void		command(t_mini *d)
 {
-	// int	check;
 	if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
 	{
-		// check = fork();
-		// if (check == -1)
-		// 	error_malloc(d, NULL, NULL, NULL);
 		if (fork() == 0)
 		{
 			run_commands(d, 1);

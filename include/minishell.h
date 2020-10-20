@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 17:58:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 22:03:04 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 
 # include "../libft/libft.h"
 # include "../printf/printf.h"
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
+# include <fcntl.h>
 # include <errno.h>
-# include <string.h>
-# include <stdio.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <string.h>
 # include <sys/stat.h>
-# include <stdarg.h>
-# include <sys/cdefs.h>
+
+# include <stdio.h>
 
 # define ECHO 10
 # define COMMAND 7

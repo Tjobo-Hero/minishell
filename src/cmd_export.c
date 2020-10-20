@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:30:13 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/19 22:02:19 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		**export(t_mini *d)
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
-			printf("bash: export: `%s': not a valid identifier\n", d->new.head);
+			ft_printf("bash: export: `%s': not a valid identifier\n", d->new.head);
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);
