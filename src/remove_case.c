@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:19:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	make_line(t_arg *arg, char *in, char *out)
 	arg->set = 0;
 	while (in[arg->i] != '\0')
 	{
-		if (in[arg->i] == '\\')
+		if (in[arg->i] == '\\' && arg->set == 0)
 		{
 			arg->set = 1;
 			arg->i++;
@@ -81,7 +81,7 @@ static void	make_line(t_arg *arg, char *in, char *out)
 	}
 }
 
-void	remove_case(t_mini *d)
+void		remove_case(t_mini *d)
 {
 	char	*tmp;
 	int		i;
@@ -99,5 +99,4 @@ void	remove_case(t_mini *d)
 		i++;
 	}
 	free(tmp);
-	d->args[i] = NULL;
 }

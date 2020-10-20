@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:41:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:11:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		**env(t_mini *d)
+int		**cmd_env(t_mini *d)
 {
 	t_env	*tmp;
 	int		i;

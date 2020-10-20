@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 22:02:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:12:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	new_list(t_mini *d)
 	d->index++;
 }
 
-int		**export(t_mini *d)
+int		**cmd_export(t_mini *d)
 {
 	t_env	*tmp;
 	int		a;

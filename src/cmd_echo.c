@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 10:04:38 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:11:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	write_arg(t_mini *d, int a)
 	}
 }
 
-int		**echo(t_mini *d)
+int		**cmd_echo(t_mini *d)
 {
 	int	a;
 

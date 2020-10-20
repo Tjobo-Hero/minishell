@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:16:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:12:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_alpha_index(t_env **echo, int index, int alpha)
 	}
 }
 
-int		**unset(t_mini *d)
+int		**cmd_unset(t_mini *d)
 {
 	t_env	*tmp;
 	int		a;

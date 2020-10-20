@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:14:09 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:13:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			init_env(t_mini *d)
 	d->echo == NULL ? exit(1) : 0;
 	if (d->commands == NULL)
 	{
-		free(echo);
+		free(d->echo);
 		exit(1);
 	}
 	set_env_cmd(d);

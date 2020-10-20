@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:17:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_args_if(t_mini *d, char *str)
+static void	change_args_if(t_mini *d, char *str)
 {
 	char	*tmp;
 

@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   cmd_exit.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tvan-cit <tvan-cit@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/12 15:22:40 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:54:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:12:09 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			**exit_own(t_mini *d)
+int			**cmd_exit(t_mini *d)
 {
 	int	exit_number;
 	int	index;

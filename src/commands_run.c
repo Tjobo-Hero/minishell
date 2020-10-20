@@ -6,33 +6,27 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 21:50:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:11:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fd(int fd)
-{
-	if (fd > 1)
-		close(fd);
-}
-
-int		**(*start_command(int i))(t_mini *d)
+static int	**(*start_command(int i))(t_mini *d)
 {
 	int	**(*command[7])(t_mini *d);
 
-	command[0] = &pwd;
-	command[1] = &cd;
-	command[2] = &export;
-	command[3] = &unset;
-	command[4] = &exit_own;
-	command[5] = &env;
-	command[6] = &echo;
+	command[0] = &cmd_pwd;
+	command[1] = &cmd_cd;
+	command[2] = &cmd_export;
+	command[3] = &cmd_unset;
+	command[4] = &cmd_exit;
+	command[5] = &cmd_env;
+	command[6] = &cmd_echo;
 	return (command[i]);
 }
 
-t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
+static t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 {
 	t_cmd	*tmp;
 	int		i;
@@ -80,6 +74,4 @@ void		command(t_mini *d)
 	}
 	else
 		run_commands(d, 0);
-	close_fd(d->pipe.fd_in);
-	close_fd(d->pipe.fd_out);
 }

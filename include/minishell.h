@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/20 10:53:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 13:37:37 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct		s_arg
 typedef struct	s_mini
 {
 	char	**environ;
-	char	*cwd;
 	char	**args;
 	char	**orig;
 	int		**pipes;
@@ -112,13 +111,13 @@ void	free_environ(char **environ);
 
 /* commands */
 void	command(t_mini *d);
-int		**pwd(t_mini *d);
-int		**cd(t_mini *d);
-int		**export(t_mini *d);
-int		**env(t_mini *d);
-int		**unset(t_mini *d);
-int		**echo(t_mini *d);
-int		**exit_own(t_mini *d);
+int		**cmd_pwd(t_mini *d);
+int		**cmd_cd(t_mini *d);
+int		**cmd_export(t_mini *d);
+int		**cmd_env(t_mini *d);
+int		**cmd_unset(t_mini *d);
+int		**cmd_echo(t_mini *d);
+int		**cmd_exit(t_mini *d);
 void	check_if_forked(t_mini *d);
 void	new_list(t_mini *d);
 
@@ -154,7 +153,6 @@ int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
 void	make_echo(t_mini *d, char *echo, char *arg);
 
-int		*count_init(int size);
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
 void	pipes(t_mini *d);

@@ -6,26 +6,27 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 15:06:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:41:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:38:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	**pwd(t_mini *d)
+int			**cmd_pwd(t_mini *d)
 {
 	char	*return_ptr;
+	char	*cwd;
 
-	d->cwd = ft_calloc(PATH_MAX, sizeof(char*));
-	d->cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	return_ptr = getcwd(d->cwd, PATH_MAX);
+	cwd = ft_calloc(PATH_MAX, sizeof(char*));
+	cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	return_ptr = getcwd(cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
 		ft_printf("bash: pwd: %s\n", strerror(errno));
 		return ((int**)1);
 	}
-	ft_write(d, d->cwd);
+	ft_write(d, cwd);
 	ft_write(d, "\n");
-	free(d->cwd);
+	free(cwd);
 	return (0);
 }

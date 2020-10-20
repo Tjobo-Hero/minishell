@@ -6,16 +6,19 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/20 14:34:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_oldpwd(t_mini *d, t_env *old, t_env *new)
+void	update_oldpwd(t_mini *d, t_env *new)
 {
+	t_env	*old;
+
 	int	i;
 
+	old = look_up("OLDPWD", d->echo);
 	if (old == NULL)
 		return ;
 	free(old->list);
@@ -29,41 +32,30 @@ void	update_oldpwd(t_mini *d, t_env *old, t_env *new)
 int		**update_env(t_mini *d)
 {
 	t_env	*new;
-	t_env	*old;
 	int		i;
 	char	*return_ptr;
+	char	*cwd;
 
 	new = look_up("PWD", d->echo);
-	old = look_up("OLDPWD", d->echo);
 	if (new == NULL)
 		return (0);
-	update_oldpwd(d, old, new);
-	d->cwd = ft_calloc(PATH_MAX, sizeof(char*));
-	d->cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	return_ptr = getcwd(d->cwd, PATH_MAX);
+	update_oldpwd(d, new);
+	cwd = ft_calloc(PATH_MAX, sizeof(char*));
+	cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	return_ptr = getcwd(cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
 		ft_printf("bash: pwd: %s\n", strerror(errno));
 		return ((int**)1);
 	}
-	i = ft_strlen(d->cwd);
+	i = ft_strlen(cwd);
 	free(new->list);
 	new->list = malloc(sizeof(char*) * (i + 1));
 	new->list == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	ft_strlcpy(new->list, d->cwd, (i + 1));
+	ft_strlcpy(new->list, cwd, (i + 1));
 	new->echo = new->list;
-	free(d->cwd);
+	free(cwd);
 	return ((int**)0);
-}
-
-char	*get_user(t_mini *d)
-{
-	t_env	*tmp;
-
-	tmp = look_up("HOME", d->echo);
-	if (tmp == NULL)
-		return (NULL);
-	return (tmp->list);
 }
 
 int		**error_return(t_mini *d)
@@ -78,17 +70,20 @@ int		**error_return(t_mini *d)
 	return ((int**)0);
 }
 
-int		**cd(t_mini *d)
+int		**cmd_cd(t_mini *d)
 {
-	if (d->args[1] == NULL)
+	t_env	*tmp;
+	char	*user;
+
+	tmp = look_up("HOME", d->echo);
+	if (tmp == NULL)
+		user = NULL;
+	else
+		user = tmp->list;
+	if (d->args[1] == NULL ||
+		(ft_strncmp(d->args[1], "~", ft_strlen(d->args[1])) == 0))
 	{
-		if (chdir(get_user(d)))
-			return (error_return(d));
-		return (update_env(d));
-	}
-	if (ft_strncmp(d->args[1], "~", ft_strlen(d->args[1])) == 0)
-	{
-		if (chdir(get_user(d)))
+		if (chdir(user))
 			return (error_return(d));
 		return (update_env(d));
 	}
