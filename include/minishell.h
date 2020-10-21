@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/21 10:09:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 12:04:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct		s_arg
 
 typedef struct	s_mini
 {
-	char	*line;
 	char	**environ;
 	char	**args;
 	char	**orig;
@@ -138,7 +137,7 @@ int		set_set(int *i, int check);
 
 /* COMMANDS */
 void	commands(t_mini *d, char *line);
-int		syntax_check(char *arg);
+int		syntax_check(t_mini *d, char *arg);
 
 /* Utils */
 void	error_malloc(t_mini *d, char **array, char *single, int *count);
@@ -160,7 +159,7 @@ void	pipes(t_mini *d);
 char	**redirect(t_mini *d, int x, int c, int n);
 void	return_values(t_mini *d);
 void	free_int_array(int **arr);
-void	remove_case(t_mini *d);
+void	remove_case(t_mini *d, char *str);
 int		ft_write(t_mini *d, char *str);
 void	struct_null(t_mini *d);
 

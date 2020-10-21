@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/21 10:06:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 12:00:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,35 @@ static char	**new_arg(t_mini *d, int c, int n)
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	i = 0;
 	x = 0;
+	// int z = 0;
+	// while (d->orig[z])
+	// {
+	// 	printf("ORIG:\t%s\n", d->orig[z]);
+	// 	z++;
+	// }
+	// printf("\n\n");
 	create_new(d, new);
+	// z = 0;
+	// while (new[z])
+	// {
+	// 	printf("NEW:\t%s\n", new[z]);
+	// 	z++;
+	// }
+	// printf("\n\n");
 	copy_new(d, new);
 	return (new);
 }
 
-static void	redirect_output(t_mini *d, char **args, t_pipe *redirs, int *i)
+static void	redirect_output(t_mini *d, t_pipe *redirs, int i)
 {
 	int	check;
 
 	check = 0;
-	redirs->output = args[*i + 1];
+	remove_case(d, d->orig[i + 1]);
+	redirs->output = d->orig[i + 1];
 	if (redirs->fd_out > 1)
 		check = close(redirs->fd_out);
-	if (ft_strncmp(args[*i], ">", 2) == 0)
+	if (ft_strncmp(d->orig[i], ">", 2) == 0)
 		redirs->fd_out = open(redirs->output, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	else
 		redirs->fd_out = open(redirs->output,
@@ -117,7 +132,7 @@ char		**redirect(t_mini *d, int x, int c, int n)
 		}
 		if ((ft_strncmp(d->orig[i], ">", 2) == 0 ||
 			ft_strncmp(d->orig[i], ">>", 3) == 0) && d->orig[i + 1])
-			redirect_output(d, d->orig, &d->pipe, &i);
+			redirect_output(d, &d->pipe, i);
 		i++;
 	}
 	return (new_arg(d, c, n));

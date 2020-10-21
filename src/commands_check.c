@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:17:06 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 11:01:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ static void	to_lower(t_mini *d, char *str)
 
 void	check_arg_and_remove_case(t_mini *d)
 {
-	remove_case(d);
+	remove_case(d, NULL);
 	to_lower(d, d->args[0]);
 }

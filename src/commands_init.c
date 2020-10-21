@@ -173,9 +173,9 @@ static void	check_quote(char *line, int *i)
 
 static void	check_line(char *line, int *i, int *set)
 {
-	if (line[*i] == '\\' && set == 0)
+	if (line[*i] == '\\' && (*set) == 0)
 		(*set) = set_set(&(*i), 1);
-	else if ((line[*i] == '\'' || line[*i] == '\"') && set == 0)
+	else if ((line[*i] == '\'' || line[*i] == '\"') && (*set) == 0)
 		check_quote(line, &(*i));
 	else
 		(*set) = set_set(&(*i), 0);
