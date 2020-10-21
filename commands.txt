@@ -78,6 +78,7 @@ unset a ; env ; unset test ; unset test1 ; env
 echo $PWD
 echo $HOME
 echo "$PWD"
+echo '$PWD'
 echo "$HOME"
 
 +++ CD +++
@@ -90,6 +91,8 @@ pwd
 cd notworking
 cd .
 
+cd .. ; pwd;/bin/ls;cd .. ;      pwd    ;/bin/ls;     cd notworking;     cd .
+
 +++ PWD +++
 pwd
 pwd .
@@ -100,10 +103,11 @@ cd ../Desktop
 
 +++ ENVIRONMENT PATH +++
 ls -la
-wc
-awk
+echo > ilovewords.txt count me ; wc ilovewords.txt
+awk '{ print }' /etc/passwd
 unset $PATH
 export PATH="test:working:multiplepath:directory1:directory2"
+
 +++ SIMPLE QUOTES +++
 echo 'how are you'
 echo '$PWD'
@@ -118,6 +122,7 @@ echo > "hardesttest.txt"
 echo adding stuff >> working.txt
 echo more stuff >> working.txt
 echo > working.txt
+
 +++ PIPES +++
 export | grep -e $HOME
 export | grep -e $PWD

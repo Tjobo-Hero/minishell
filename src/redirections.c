@@ -6,31 +6,31 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/21 12:26:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:48:05 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	copy_new(t_mini *d, char **new)
-{
-	int		i;
+// static void	copy_new(t_mini *d, char **new)
+// {
+// 	int		i;
 
-	i = 0;
-	ft_free(d->orig);
-	while (new[i])
-		i++;
-	d->orig = (char**)malloc(sizeof(char*) * (i + 1));
-	d->orig == NULL ? error_malloc(d, new, NULL, NULL) : 0;
-	i = 0;
-	while (new[i])
-	{
-		d->orig[i] = ft_strdup(new[i]);
-		d->orig[i] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
-		i++;
-	}
-	d->orig[i] = NULL;
-}
+// 	i = 0;
+// 	ft_free(d->orig);
+// 	while (new[i])
+// 		i++;
+// 	d->orig = (char**)malloc(sizeof(char*) * (i + 1));
+// 	d->orig == NULL ? error_malloc(d, new, NULL, NULL) : 0;
+// 	i = 0;
+// 	while (new[i])
+// 	{
+// 		d->orig[i] = ft_strdup(new[i]);
+// 		d->orig[i] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
+// 		i++;
+// 	}
+// 	d->orig[i] = NULL;
+// }
 
 static void	create_new(t_mini *d, char **new)
 {
@@ -63,7 +63,6 @@ static char	**new_arg(t_mini *d, int c, int n)
 {
 	char	**new;
 	int		i;
-	int		x;
 
 	i = 0;
 	while (d->orig[c] && c < n)
@@ -75,24 +74,8 @@ static char	**new_arg(t_mini *d, int c, int n)
 	}
 	new = malloc(sizeof(char **) * ((n - (i * 2)) + 1));
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	i = 0;
-	x = 0;
-	// int z = 0;
-	// while (d->orig[z])
-	// {
-	// 	printf("ORIG:\t%s\n", d->orig[z]);
-	// 	z++;
-	// }
-	// printf("\n\n");
 	create_new(d, new);
-	// z = 0;
-	// while (new[z])
-	// {
-	// 	printf("NEW:\t%s\n", new[z]);
-	// 	z++;
-	// }
-	// printf("\n\n");
-	copy_new(d, new);
+	// copy_new(d, new);
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 13:39:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:41:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		**cmd_unset(t_mini *d)
 	int		a;
 
 	a = 1;
+	/* UNSET DOLLAR */
 	create_delete_new(d, &d->new, 0);
 	while (d->orig[a])
 	{

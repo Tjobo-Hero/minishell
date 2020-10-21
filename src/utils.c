@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/20 10:24:21 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:35:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	struct_null(t_mini *d)
 {
+	d->update = 0;
 	d->index = 0;
 	d->i = 0;
+	d->split_line = NULL;
 	d->environ = NULL;
 	d->args = NULL;
 	d->orig = NULL;

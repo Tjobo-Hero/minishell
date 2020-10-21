@@ -120,27 +120,32 @@ static char	**tmp_dup(t_mini *d, char **array, char *line, int *count)
 	return (tmp);
 }
 
-static int	word(char *line, int *count, int i, char **array)
+static int	word(char *line, int *count, int end, char **array)
 {
 	int		c;
 	int		x;
-	int		len;
+	int		start;
 
 	c = 0;
 	x = 0;
 	while (count[c] != 0)
 		c++;
-	count[c] = i - 1;
+	count[c] = end;
 	while (array[x])
 		x++;
-	len = (c == 0 ? count[c] : count[c] - count[c - 1] - 3);
-	array[x] = ft_calloc(len + 1, sizeof(char*));
+	start = (c == 0 ? 0 : count[c - 1]);
+	while (line[start] == ' ' || line[start] == ';')
+		start++;
+	if (start != 0)
+	{
+		count[c + 1] = end;
+		count[c] = start;
+	}
+	array[x] = ft_calloc((c == 0 ? count[c] : (end - start)), sizeof(char*));
 	if (array[x] == NULL)
 		return (0);
-	c = (c == 0 ? 0 : count[c - 1] + 1);
-	while (line[c] == ' ' || line[c] == ';')
-		c++;
-	ft_strlcpy(array[x], &line[c], len + 2);
+	ft_strlcpy(array[x], &line[start], ((c == 0 ? count[c] :
+	(end - start)) + 1));
 	return (1);
 }
 
