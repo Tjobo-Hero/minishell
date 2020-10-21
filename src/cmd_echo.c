@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:11:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 09:56:24 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int		**cmd_echo(t_mini *d)
 	int	a;
 
 	a = 1;
-	printf("FD->%d\n", d->fd);
 	if (!d->args[1])
 	{
 		ft_putchar_fd('\n', d->fd);

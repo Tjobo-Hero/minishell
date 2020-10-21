@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/20 13:37:37 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 10:09:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct		s_arg
 
 typedef struct	s_mini
 {
+	char	*line;
 	char	**environ;
 	char	**args;
 	char	**orig;
