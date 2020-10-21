@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands_line.c                                    :+:    :+:            */
+/*   upgrade_line.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 09:49:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:12:17 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 		if (in[arg->i] == ' ')
 			spaces(arg, in);
 	}
-	if (in[arg->i - 1] != ' ')
+	if (in[arg->i - 2] != ' ' && in[arg->i - 1] != ' ')
 		count[arg->c_i] = arg->c + 1;
 	arg->count[arg->a] = arg->c_i + 1;
 }

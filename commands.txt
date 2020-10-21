@@ -1,0 +1,125 @@
+“./hello”
+
++++ SIMPLE COMMAND +++
+/bin/ls
+/bin/pwd
+ls -la
+pwd
+/bin/chmod
+
++++ ARGUMENTS +++
+/bin/ls -la
+
++++ ECHO +++
+Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
+
+echo 00\\\'pp ; echo 00\\\\\'pp ; echo 00\\\\'pp'
+“./hello”.
+./hello
+hello
+
++++ EXIT +++
+exit 123 123 123
+exit a b b c c c
+exit a
+exit 1234
+
++++ RETURN VALUE OF A PROCESS +++
+echo $?
+/bin/ls
+echo $?
+/bin/ls doesnotexist
+echo $?
+
++++ SEMICOLONS +++
+echo hi ; export ; env ; echo working ; echo $PWD
+
++++ SIGNALS +++
+ctrl-C
+ctrl \
+ctrl-D
+asdf ctrl-C
+asdf ctrl-D
+cat ctrl-C
+asdf ctrl-\
+cat ctrl-D
+
++++ DOUBLE +++
+echo \"test\"
+echo"
+hoi
+"
+echo
+
++++ ENV +++
+env
+
++++ EXPORT +++
+export
+export a
+env
+export a=
+env
+export a=hijdoehet
+env
+export test=working
+env
+export test1
+env
+export test1=
+env
+
+env ; echo ; export a=hijdoehet ; echo ; env ; echo ; export test=working;echo ;env ; echo ; export test1; export; echo ; env ; echo ; export test1= ; echo ; env
+
++++ UNSET +++
+unset a ; env ; unset test ; unset test1 ; env
+
++++ ENVIRONMENT +++
+echo $PWD
+echo $HOME
+echo "$PWD"
+echo "$HOME"
+
++++ CD +++
+cd ..
+pwd
+/bin/ls
+cd ..
+pwd
+/bin/ls
+cd notworking
+cd .
+
++++ PWD +++
+pwd
+pwd .
+pwd ..
+
++++ RELATIVE PATH +++
+cd ../Desktop
+
++++ ENVIRONMENT PATH +++
+ls -la
+wc
+awk
+unset $PATH
+export PATH="test:working:multiplepath:directory1:directory2"
++++ SIMPLE QUOTES +++
+echo 'how are you'
+echo '$PWD'
+
++++ REDIRECTION +++
+echo > doethet   
+echo hoi >> doethet "of niet"
+echo clear > "doethet"
+echo test > working.txt
+echo > newfile.txt hardertest
+echo > "hardesttest.txt"
+echo adding stuff >> working.txt
+echo more stuff >> working.txt
+echo > working.txt
++++ PIPES +++
+export | grep -e $HOME
+export | grep -e $PWD
+cat working.txt | grep stuff | echo tim
+ls filedoesnotexist | grep notme | echo "TEST"

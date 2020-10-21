@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 12:03:13 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 14:21:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	split_line(t_mini *d, char *out, int *count)
 
 static void	set_null(t_mini *d, char **out, int **count)
 {
-	// d->arg = (t_arg*)malloc(sizeof(t_arg) * (1));
-	// d->arg == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	d->arg = (t_arg*)malloc(sizeof(t_arg) * (1));
+	d->arg == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	d->arg->c_i = 0;
 	d->arg->c = -1;
 	d->arg->i = 0;
@@ -79,6 +79,12 @@ static int	split_command(t_mini *d, char *line, int *count)
 
 	set_null(d, &out, &count);
 	upgrade_line(d->arg, line, out, count);
+	// int z = 0;
+	// while (count[z] != 0)
+	// {
+	// 	printf("COUNT:\t%d\n", count[z]);
+	// 	z++;
+	// }
 	split_line(d, out, count);
 	free(out);
 	free(count);
@@ -92,7 +98,7 @@ void		commands(t_mini *d, char *line)
 	int		*count;
 
 	i = 0;
-	if (!syntax_check(d, line))
+	if (!syntax_check(line))
 	{
 		free(line);
 		return ;
@@ -105,13 +111,13 @@ void		commands(t_mini *d, char *line)
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
-		// int z = 0;
-		// while (d->orig[z])
-		// {
-		// 	printf("CMD:\t%s\n", d->orig[z]);
-		// 	z++;
-		// }
-		// printf("\n\n");
+		int z = 0;
+		while (d->orig[z])
+		{
+			printf("CMD:\t[%s]\n", d->orig[z]);
+			z++;
+		}
+		printf("\n\n");
 		if (d->orig[0])
 			pipes(d);
 		i++;

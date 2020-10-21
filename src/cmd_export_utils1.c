@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:33:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:25:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,30 @@ void	set_alpha(t_env **echo, int cmp)
 	}
 }
 
-int		check_first_part(char *arg)
+int		check_first_part(char *arg, int set)
 {
 	int		i;
+	int		check;
 
 	i = 0;
-	while (arg[i] != '=' && arg[i] != '\0')
+	check = 0;
+	while (arg[i] != '\0')
 	{
-		if (arg[i] > 64 && arg[i] < 91)
+		if ((arg[i] > 64 && arg[i] < 91) || (arg[i] > 94 && arg[i] < 123))
+		{
+			check = 1;
 			i++;
-		else if (arg[i] > 94 && arg[i] < 123)
+		}
+		else if (arg[i] >= '0' && arg[i] <= '9')
+		{
+			if (check == 0)
+				return (0);
 			i++;
+		}
 		else
 			return (0);
+		if (arg[i] == '=' && set == 1)
+			break ;
 	}
 	return (1);
 }
@@ -94,10 +105,13 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	while (new->tmp[i] != '=' && new->tmp[i] != '\0')
 		i++;
 	ft_strlcpy(tmp, new->tmp, ft_strlen(new->tmp) + 1);
-	if (check_first_part(tmp) == 0)
-		return (0);
 	if (tmp[i] == '=')
 		new->set = 1;
+	if (check_first_part(tmp, new->set) == 0)
+	{
+		ft_strlcpy(new->head, tmp, i + 1);
+		return (0);
+	}
 	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
 	ft_strlcpy(new->head, tmp, i + 1);
 	make_echo(d, new->echo, arg);
