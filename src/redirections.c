@@ -6,94 +6,80 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/21 18:48:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 21:42:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static void	copy_new(t_mini *d, char **new)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	ft_free(d->orig);
-// 	while (new[i])
-// 		i++;
-// 	d->orig = (char**)malloc(sizeof(char*) * (i + 1));
-// 	d->orig == NULL ? error_malloc(d, new, NULL, NULL) : 0;
-// 	i = 0;
-// 	while (new[i])
-// 	{
-// 		d->orig[i] = ft_strdup(new[i]);
-// 		d->orig[i] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
-// 		i++;
-// 	}
-// 	d->orig[i] = NULL;
-// }
-
-static void	create_new(t_mini *d, char **new)
+static void	create_array(t_mini *d, char **new, int start, int end)
 {
 	int		i;
 	int		x;
 	int		len;
 
-	i = 0;
+	i = start;
 	x = 0;
-	while (d->orig[i])
+	while (d->orig[start] && start < end)
 	{
-		if (!ft_strncmp(d->orig[i], "<", 2) || !ft_strncmp(d->orig[i], ">", 2)
-			|| !ft_strncmp(d->orig[i], ">>", 3))
-			i += 2;
+		if (!ft_strncmp(d->orig[start], "<", 2) ||
+			!ft_strncmp(d->orig[start], ">", 2)
+			|| !ft_strncmp(d->orig[start], ">>", 3))
+			start += 2;
 		else
 		{
-			len = ft_strlen(d->orig[i]);
+			len = ft_strlen(d->orig[start]);
 			new[x] = malloc(sizeof(char*) * (len + 1));
 			new[x] == NULL ? error_malloc(d, new, NULL, NULL) : 0;
 			ft_bzero(new[x], len + 1);
-			ft_strlcpy(new[x], d->orig[i], len + 1);
+			ft_strlcpy(new[x], d->orig[start], len + 1);
 			x++;
-			i++;
+			start++;
 		}
 	}
 	new[x] = NULL;
 }
 
-static char	**new_arg(t_mini *d, int c, int n)
+static char	**new_arg(t_mini *d, int start, int end)
 {
 	char	**new;
 	int		i;
+	int		startc;
 
 	i = 0;
-	while (d->orig[c] && c < n)
+	startc = start;
+	while (d->orig[start] && start < end)
 	{
-		if (!ft_strncmp(d->orig[c], "<", 2) || !ft_strncmp(d->orig[c], ">", 2)
-			|| !ft_strncmp(d->orig[c], ">>", 3))
+		if (!ft_strncmp(d->orig[start], "<", 2) ||
+			!ft_strncmp(d->orig[start], ">", 2)
+			|| !ft_strncmp(d->orig[start], ">>", 3))
 			i++;
-		c++;
+		start++;
 	}
-	new = malloc(sizeof(char **) * ((n - (i * 2)) + 1));
+	new = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	create_new(d, new);
-	// copy_new(d, new);
+	d->cmd_echo = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
+	d->cmd_echo == NULL ? error_malloc(d, new, NULL, NULL) : 0;
+	create_array(d, new, startc, end);
+	create_array(d, d->cmd_echo, startc, end);
 	return (new);
 }
 
-static void	redirect_output(t_mini *d, t_pipe *redirs, int i)
+static void	redirect_output(t_mini *d, t_pipe *pipe, int i)
 {
 	int	check;
 
 	check = 0;
 	remove_case(d, d->orig[i + 1]);
-	redirs->output = d->orig[i + 1];
-	if (redirs->fd_out > 1)
-		check = close(redirs->fd_out);
+	pipe->output = d->orig[i + 1];
+	if (pipe->fd_out > 1)
+		check = close(pipe->fd_out);
 	if (ft_strncmp(d->orig[i], ">", 2) == 0)
-		redirs->fd_out = open(redirs->output, O_CREAT | O_TRUNC | O_RDWR, 0644);
+		pipe->fd_out = open(pipe->output, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	else
-		redirs->fd_out = open(redirs->output,
+		pipe->fd_out = open(pipe->output,
 		O_CREAT | O_APPEND | O_RDWR, 0644);
-	if (redirs->fd_out == -1 || check == -1)
+	if (pipe->fd_out == -1 || check == -1)
 		error_malloc(d, NULL, NULL, NULL);
 }
 
@@ -103,7 +89,7 @@ char		**redirect(t_mini *d, int x, int c, int n)
 	int		s;
 
 	s = d->arg->count[x];
-	i = d->arg->count[x - 1];
+	i = 0;
 	while (d->orig[i] && i < s)
 	{
 		if (ft_strncmp(d->orig[i], "<", 2) == 0 && d->orig[i + 1])

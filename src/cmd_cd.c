@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 17:33:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 21:54:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,28 @@ void	update_oldpwd(t_mini *d, t_env *new)
 int		**update_env(t_mini *d)
 {
 	t_env	*new;
-	int		i;
 	char	*return_ptr;
-	char	*cwd;
 
 	new = look_up("PWD", d->echo);
 	if (new == NULL)
 		return (0);
 	update_oldpwd(d, new);
-	cwd = ft_calloc(PATH_MAX, sizeof(char*));
-	cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	return_ptr = getcwd(cwd, PATH_MAX);
+	d->cwd = ft_calloc(PATH_MAX, sizeof(char*));
+	d->cwd == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	return_ptr = getcwd(d->cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
 		ft_printf("bash: pwd: %s\n", strerror(errno));
 		return ((int**)1);
 	}
-	i = ft_strlen(cwd);
 	free(new->list);
 	free(new->echo);
-	new->list = malloc(sizeof(char*) * (i + 1));
-	new->list == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	ft_strlcpy(new->list, cwd, (i + 1));
+	new->list = malloc(sizeof(char*) * (ft_strlen(d->cwd) + 1));
+	new->list == NULL ? error_malloc(d, NULL, d->cwd, NULL) : 0;
+	ft_strlcpy(new->list, d->cwd, (ft_strlen(d->cwd) + 1));
+	free(d->cwd);
 	new->echo = ft_strdup(new->list);
-	free(cwd);
+	new->echo == NULL ? error_malloc(d, NULL, d->cwd, NULL) : 0;
 	return ((int**)0);
 }
 

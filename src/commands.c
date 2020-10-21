@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:28:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 21:44:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	split_line(t_mini *d, char *out, int *count)
 	start = 0;
 	d->orig = (char**)malloc(sizeof(char*) * (total_words(out, count) + 1));
 	d->orig == NULL ? error_malloc(d, NULL, out, count) : 0;
-	d->split_line = (char**)malloc(sizeof(char*) * (total_words(out, count) + 1));
-	d->split_line == NULL ? error_malloc(d, NULL, out, count) : 0;
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
@@ -50,15 +48,12 @@ static void	split_line(t_mini *d, char *out, int *count)
 			d->orig[x] = malloc(sizeof(char*) * len + 1);
 			d->orig[x] == NULL ? error_malloc(d, NULL, out, count) : 0;
 			ft_strlcpy(d->orig[x], &out[start], len + 1);
-			d->split_line[x] = ft_strdup(d->orig[x]);
-			d->split_line[x] == NULL ? error_malloc(d, NULL, out, count) : 0;
 			x++;
 		}
 		start = count[i] + 1;
 		i++;
 	}
 	d->orig[x] = NULL;
-	d->split_line[x] = NULL;
 }
 
 static void	set_null(t_mini *d, char **out, int **count)
@@ -84,12 +79,6 @@ static int	split_command(t_mini *d, char *line, int *count)
 
 	set_null(d, &out, &count);
 	upgrade_line(d->arg, line, out, count);
-	// int z = 0;
-	// while (count[z] != 0)
-	// {
-	// 	printf("COUNT:\t%d\n", count[z]);
-	// 	z++;
-	// }
 	split_line(d, out, count);
 	free(out);
 	free(count);
@@ -116,13 +105,6 @@ void		commands(t_mini *d, char *line)
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
-		// int z = 0;
-		// while (d->orig[z])
-		// {
-		// 	printf("CMD:\t[%s]\n", d->orig[z]);
-		// 	z++;
-		// }
-		// printf("\n\n");
 		if (d->orig[0])
 			pipes(d);
 		i++;

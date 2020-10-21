@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 09:56:24 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/21 21:42:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,22 @@ void	write_arg(t_mini *d, int a)
 
 	i = 0;
 	set = 0;
-	while (d->orig[a][i] != '\0')
+	while (d->cmd_echo[a][i] != '\0')
 	{
-		if (d->orig[a][i] == '\\' && set == 0)
+		if (d->cmd_echo[a][i] == '\\' && set == 0)
 		{
 			set = 1;
 			i++;
 		}
-		else if (d->orig[a][i] == '\'' && set == 0)
-			i = write_single(d, d->orig[a], i);
-		else if (d->orig[a][i] == '\"' && set == 0)
-			i = write_double(d, d->orig[a], i);
-		else if (d->orig[a][i] == '$' && set == 0)
-			i += dollar_sign(d, &d->orig[a][i]);
+		else if (d->cmd_echo[a][i] == '\'' && set == 0)
+			i = write_single(d, d->cmd_echo[a], i);
+		else if (d->cmd_echo[a][i] == '\"' && set == 0)
+			i = write_double(d, d->cmd_echo[a], i);
+		else if (d->cmd_echo[a][i] == '$' && set == 0)
+			i += dollar_sign(d, &d->cmd_echo[a][i]);
 		else
 		{
-			i += write(d->fd, &d->orig[a][i], 1);
+			i += write(d->fd, &d->cmd_echo[a][i], 1);
 			set = 0;
 		}
 	}
@@ -113,21 +113,21 @@ int		**cmd_echo(t_mini *d)
 	int	a;
 
 	a = 1;
-	if (!d->args[1])
+	if (!d->cmd_echo[1])
 	{
 		ft_putchar_fd('\n', d->fd);
 		return (0);
 	}
-	if (ft_strncmp(d->args[a], "-n", 2) == 0)
+	if (ft_strncmp(d->cmd_echo[a], "-n", 2) == 0)
 		a++;
-	while (d->args[a])
+	while (d->cmd_echo[a])
 	{
 		write_arg(d, a);
 		a++;
-		if (d->args[a])
+		if (d->cmd_echo[a])
 			ft_putchar_fd(' ', d->fd);
 	}
-	if ((d->args[1] && ft_strncmp(d->args[1], "-n", 3) != 0))
+	if ((d->cmd_echo[1] && ft_strncmp(d->cmd_echo[1], "-n", 3) != 0))
 		ft_putchar_fd('\n', d->fd);
 	return (0);
 }
