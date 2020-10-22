@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 10:48:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 10:51:16 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 		if (in[arg->i] == ' ')
 			spaces(arg, in);
 	}
-	if (in[arg->i - 1] != ' ' && in[arg->i - 1] != ' ')
+	if (in[arg->i - 1] != ' ')
 		count[arg->c_i] = arg->c + 1;
 	arg->count[arg->a] = arg->c_i + 1;
 }

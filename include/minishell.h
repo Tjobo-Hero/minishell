@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:49:10 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 10:59:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		set_set(int *i, int check);
 
 /* COMMANDS */
 void	commands(t_mini *d, char *line);
-int		syntax_check(char *arg);
+int		syntax_check(t_mini *d, char *arg);
 
 /* Utils */
 void	error_malloc(t_mini *d, char **array, char *single, int *count);

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 14:21:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:29:41 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,48 +47,52 @@ int			check_quotes(char *arg, int i)
 	return (i);
 }
 
-static int	check_redirections(char *arg, int i)
+static int	error(t_mini *d, char c, int check)
 {
 	char	*error;
-	char	c;
 
 	error = "bash: syntax error near unexpected token `";
+	ft_write(d, error);
+	if (check == 2)
+		ft_write(d, "newline");
+	else if (!write(1, &c, 1))
+		return (-1);
+	if (check == 1)
+		if (!write(1, &c, 1))
+			return (-1);
+	ft_write(d, "\'\n");
+	return (-1);
+}
+
+static int	check_redirections(t_mini *d, char *arg, int i)
+{
+	char	c;
+
 	c = arg[i];
-	if ((arg[i + 1] == '>' || arg[i + 1] == '<') && arg[i + 1] != c)
-	{
-		ft_printf("%s%c'\n", error, arg[i + 1]);
-		return (-1);
-	}
+	if ((arg[i + 1] == '>' || arg[i + 1] == '<' ||
+		arg[i + 1] == ';') && arg[i + 1] != c)
+		return (error(d, arg[i + 1], 0));
 	if (c == ';' && arg[i + 1] == ';')
-	{
-		ft_printf("%s%c%c'\n", error, arg[i + 1], arg[i + 1]);
-		return (-1);
-	}
+		return (error(d, arg[i], 1));
 	i++;
 	if (arg[i] == c)
 		i++;
 	while (arg[i] == ' ')
 		i++;
-	if (ft_isalnum(arg[i]) == 0 && (arg[i] == '\"' && ft_isalnum(arg[i + 1]) == 0))
+	if (ft_isalnum(arg[i]) == 0 && (arg[i] == '\"' &&
+		ft_isalnum(arg[i + 1]) == 0))
 	{
 		if (arg[i] == '/' || arg[i] == '.' || arg[i] == '~')
 			return (i);
 		if (arg[i] == '\n')
-			ft_printf("%snewline'\n", error);
+			return (error(d, arg[i], 2));
 		else
-			ft_printf("%s%c'\n", error, arg[i]);
-		return (-1);
+			return (error(d, arg[i], 0));
 	}
 	return (i);
 }
 
-int			set_set(int *i, int check)
-{
-	(*i)++;
-	return (check == 0 ? 0 : 1);
-}
-
-int			syntax_check(char *arg)
+int			syntax_check(t_mini *d, char *arg)
 {
 	int		set;
 	int		i;
@@ -98,22 +102,19 @@ int			syntax_check(char *arg)
 	while (arg[i] == ' ')
 		i++;
 	if (arg[i] == '|' || arg[i] == ';')
-	{
-		ft_printf("bash: syntax error near unexpected token `%c'\n", arg[i]);
-		return (0);
-	}
+		return (error(d, arg[i], 0));
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '\\' && set == 0)
 			set = set_set(&i, 1);
 		else if ((arg[i] == '>' || arg[i] == '<' || arg[i] == ';') && set == 0)
-			i = check_redirections(arg, i);
+			i = check_redirections(d, arg, i);
 		else if ((arg[i] == '\'' || arg[i] == '\"') && set == 0)
 			i = check_quotes(arg, i);
 		else
 			set = set_set(&i, 0);
 		if (i == -1)
-			return (0);
+			return (-1);
 	}
 	return (1);
 }
