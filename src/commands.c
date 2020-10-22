@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:44:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 10:49:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ void		commands(t_mini *d, char *line)
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);
+		// int z = 0;
+		// while (d->orig[z])
+		// {
+		// 	printf("ORIG:\t%s\n", d->orig[z]);
+		// 	z++;
+		// }
 		if (d->orig[0])
 			pipes(d);
 		i++;

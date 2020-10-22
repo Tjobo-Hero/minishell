@@ -122,9 +122,14 @@ echo > "hardesttest.txt"
 echo adding stuff >> working.txt
 echo more stuff >> working.txt
 echo > working.txt
+echo dit > test1 gaat > test2 goed > test3
+echo dit > test1 gaat > test2 goed > test3 > test4
+cat < test4
+< test4 cat
 
 +++ PIPES +++
 export | grep -e $HOME
 export | grep -e $PWD
 cat working.txt | grep stuff | echo tim
 ls filedoesnotexist | grep notme | echo "TEST"
+cat | cat -e

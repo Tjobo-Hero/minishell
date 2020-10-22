@@ -134,7 +134,7 @@ static int	word(char *line, int *count, int end, char **array)
 	while (array[x])
 		x++;
 	start = (c == 0 ? 0 : count[c - 1]);
-	while (line[start] == ' ' || line[start] == ';')
+	while ((line[start] == ' ' || line[start] == ';') && c != 0)
 		start++;
 	if (start != 0)
 	{
