@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   table_utils.c                                      :+:    :+:            */
+/*   utils_table.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 14:00:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:06:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:42:45 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			hash(char *name, int count)
+int		hash(char *name, int count)
 {
 	int				length;
 	unsigned int	value;

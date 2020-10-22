@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:42:51 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 12:00:56 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		dollar_sign(t_mini *d, char *arg)
+static int	dollar_sign(t_mini *d, char *arg)
 {
 	char	*look;
 	int		i;
@@ -80,7 +80,7 @@ static int	write_single(t_mini *d, char *arg, int i)
 	return (i);
 }
 
-void	write_arg(t_mini *d, int a)
+static void	write_arg(t_mini *d, int a)
 {
 	int	i;
 	int	set;
@@ -108,7 +108,7 @@ void	write_arg(t_mini *d, int a)
 	}
 }
 
-int		**cmd_echo(t_mini *d)
+int			**cmd_echo(t_mini *d)
 {
 	int	a;
 

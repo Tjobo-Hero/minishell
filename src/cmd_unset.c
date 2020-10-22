@@ -6,23 +6,24 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 14:55:19 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 17:41:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:59:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_alpha_index(t_env **echo, int index, int alpha)
+static void	set_alpha_index(t_mini *d, char *del, int index, int alpha)
 {
 	t_env	*tmp;
 	int		i;
 
 	i = 0;
+	delete_lst(del, d->echo);
 	while (i < ECHO)
 	{
-		if (echo[i])
+		if (d->echo[i])
 		{
-			tmp = echo[i];
+			tmp = d->echo[i];
 			while (tmp)
 			{
 				if (tmp->index > index)
@@ -34,31 +35,28 @@ void	set_alpha_index(t_env **echo, int index, int alpha)
 		}
 		i++;
 	}
+	d->index--;
 }
 
-int		**cmd_unset(t_mini *d)
+int			**cmd_unset(t_mini *d)
 {
 	t_env	*tmp;
 	int		a;
 
 	a = 1;
-	/* UNSET DOLLAR */
 	create_delete_new(d, &d->new, 0);
-	while (d->orig[a])
+	while (d->orig[a] != '\0')
 	{
 		if ((check_arg(d, &d->new, d->orig[a]) == 0 &&
 		ft_isalpha_str(d->new.tmp) == 0 && !ft_strchr(d->new.tmp, '_'))
 		|| d->new.tmp[0] == '\0')
-			ft_printf("bash: unset: `%s': not a valid identifier\n", d->new.tmp);
+			ft_printf("bash: unset: `%s': not a valid identifier\n",
+			d->new.tmp);
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);
 			if (tmp)
-			{
-				delete_lst(d->new.tmp, d->echo);
-				set_alpha_index(d->echo, tmp->index, tmp->alpha);
-				d->index--;
-			}
+				set_alpha_index(d, d->new.tmp, tmp->index, tmp->alpha);
 		}
 		create_delete_new(d, &d->new, 1);
 		a++;

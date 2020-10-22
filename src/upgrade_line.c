@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 10:51:16 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:32:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 		arg->i--;
 	}
 	while (in[arg->i] == c)
-	{
 		out[arg->c] = fill_char(arg, in[arg->i], count);
-	}
 	if (in[arg->i] != ' ')
 	{
 		out[arg->c] = fill_char(arg, ' ', count);

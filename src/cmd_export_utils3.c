@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 13:51:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/09/07 16:19:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 12:04:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ void	make_echo(t_mini *d, char *echo, char *arg)
 	d->i = 0;
 	while (arg[d->i] != '=' && arg[d->i] != '\0')
 		d->i++;
-	d->i++;
-	d->i = ft_strchr(arg, '=') == 0 ? 0 : d->i;
+	d->i = ft_strchr(arg, '=') == 0 ? 0 : d->i + 1;
 	while (arg[d->i] != '\0')
 	{
 		if (arg[d->i] != '\\' && arg[d->i - 1] != '\\')

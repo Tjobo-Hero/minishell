@@ -6,13 +6,21 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:11:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:34:56 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		**cmd_env(t_mini *d)
+static void	print_env(t_mini *d, t_env *tmp)
+{
+	ft_putstr_fd(tmp->head, d->fd);
+	ft_write(d, "=");
+	ft_putstr_fd(tmp->echo, d->fd);
+	ft_write(d, "\n");
+}
+
+int			**cmd_env(t_mini *d)
 {
 	t_env	*tmp;
 	int		i;
@@ -31,10 +39,7 @@ int		**cmd_env(t_mini *d)
 		}
 		if (tmp != NULL && tmp->index == c && tmp->set)
 		{
-			ft_putstr_fd(tmp->head, d->fd);
-			ft_write(d, "=");
-			ft_putstr_fd(tmp->echo, d->fd);
-			ft_write(d, "\n");
+			print_env(d, tmp);
 			i = 0;
 			c++;
 		}

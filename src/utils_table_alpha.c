@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   environ_utils.c                                    :+:    :+:            */
+/*   utils_table_alpha.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:24:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:01:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 11:42:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*find_next(t_env **env, t_env *tmp, int *i)
+static t_env	*find_next(t_env **env, t_env *tmp, int *i)
 {
 	tmp = tmp->next;
 	while (tmp)
@@ -38,7 +38,7 @@ t_env	*find_next(t_env **env, t_env *tmp, int *i)
 	return (NULL);
 }
 
-t_env	*find_free(t_env **env)
+static t_env	*find_free(t_env **env)
 {
 	t_env	*tmp;
 	int		i;
@@ -58,7 +58,7 @@ t_env	*find_free(t_env **env)
 	return (tmp);
 }
 
-static void	alpha_loop(t_env **env, t_env **next, t_env **cur, int *l)
+static void		alpha_loop(t_env **env, t_env **next, t_env **cur, int *l)
 {
 	int		i;
 
@@ -76,7 +76,7 @@ static void	alpha_loop(t_env **env, t_env **next, t_env **cur, int *l)
 	}
 }
 
-void	alpha(t_env **env)
+void			alpha(t_env **env)
 {
 	t_env	*cur;
 	t_env	*nex;

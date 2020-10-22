@@ -1,5 +1,3 @@
-“./hello”
-
 +++ SIMPLE COMMAND +++
 /bin/ls
 /bin/pwd
@@ -12,11 +10,7 @@ pwd
 
 +++ ECHO +++
 Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
-
-echo 00\\\'pp ; echo 00\\\\\'pp ; echo 00\\\\'pp'
-“./hello”.
-./hello
-hello
+echo 00\\\'pp ; echo 00\\\\\'pp ; echo 00\\\\'pp' ; echo “./hello”. ; echo ./hello ; echo ello
 
 +++ EXIT +++
 exit 123 123 123
@@ -32,7 +26,7 @@ echo $?
 echo $?
 
 +++ SEMICOLONS +++
-echo hi ; export ; env ; echo working ; echo $PWD
+echo hi ; echo ; echo ; echo ; export ; env ; echo ; echo ; echo ; echo working ; echo $PWD
 
 +++ SIGNALS +++
 ctrl-C
@@ -50,36 +44,32 @@ echo"
 hoi
 "
 echo
+echo\
 
 +++ ENV +++
 env
 
 +++ EXPORT +++
+export ; export a="\\" ; export b='\\' ; export c="\b"
 export
-export a
-env
-export a=
 env
 export a=hijdoehet
-env
+export
 export test=working
-env
+export
 export test1
-env
+export
 export test1=
-env
-
+export
+export 1test
+emnv
 env ; echo ; export a=hijdoehet ; echo ; env ; echo ; export test=working;echo ;env ; echo ; export test1; export; echo ; env ; echo ; export test1= ; echo ; env
 
 +++ UNSET +++
 unset a ; env ; unset test ; unset test1 ; env
 
 +++ ENVIRONMENT +++
-echo $PWD
-echo $HOME
-echo "$PWD"
-echo '$PWD'
-echo "$HOME"
+echo $PWD ; echo $HOME ; echo "$PWD" ; echo '$PWD' ; echo "$HOME"
 
 +++ CD +++
 cd ..
@@ -90,7 +80,6 @@ pwd
 /bin/ls
 cd notworking
 cd .
-
 cd .. ; pwd;/bin/ls;cd .. ;      pwd    ;/bin/ls;     cd notworking;     cd .
 
 +++ PWD +++
@@ -105,19 +94,16 @@ cd ../Desktop
 ls -la
 echo > ilovewords.txt count me ; wc ilovewords.txt
 awk '{ print }' /etc/passwd
-unset $PATH
+unset PATH
 export PATH="test:working:multiplepath:directory1:directory2"
+export
 
 +++ SIMPLE QUOTES +++
 echo 'how are you'
 echo '$PWD'
 
 +++ REDIRECTION +++
-echo > doethet   
-echo hoi >> doethet "of niet"
-echo clear > "doethet"
-echo test > working.txt
-echo > newfile.txt hardertest
+echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
 echo > "hardesttest.txt"
 echo adding stuff >> working.txt
 echo more stuff >> working.txt
