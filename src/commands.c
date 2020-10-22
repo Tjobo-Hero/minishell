@@ -84,8 +84,6 @@ static int	split_command(t_mini *d, char *line, int *count)
 	free(out);
 	free(count);
 	update_array(d);
-	printf("ORIG:\t%s\n", d->orig[0]);
-
 	return (1);
 }
 

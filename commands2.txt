@@ -5,13 +5,15 @@ echo
 echo hallo daar
 "echo" hallo daar
 echo "hallo daar"				
-"echo' hallo daar                   --> Error multiple line command (wacht op error functie sophie)
-echo hallo daar | echo hoi maran
+"echo' hallo daar                  
+LEAKS -------------------->>>>> echo hallo daar | echo hoi maran
 echo hallo daar ; echo hoi maran
 echo hallo >file1 >file2
 echo hallo >file1 >file2 maran
 echo hallo >file1 >file2 >>file3 maran siemons
 echo hallo <file1 >file2
+# Segfault als file1 bestaat #
+SEGFAULT------------------>>>>> < file
 echo $USER""
 echo $USER"
 echo $USER_
@@ -35,7 +37,8 @@ cd ../Documents/Git_maran
 ***************************
 export
 export ZZZ
-export ZZZ=
+# Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #
+LEAKS--------->>>>>> export ZZZ=
 export ZZZ=new_value
 export ZZZ======new
 export ZZZ=new YYY=new2 XXX===new3
@@ -52,7 +55,7 @@ export 123$USER---
 ***************************
 ** 		Expansion		 **
 ***************************
-echo $
+WERKT NIET---------------->>>>>>> echo $
 echo $USER              --> moet nog een foutmelding voor komen
 echo $USER'				--> not complete
 echo $USER_				--> underscore is alphanummeriek
@@ -60,24 +63,25 @@ echo 123$USER----
 echo 123$USER----$
 echo abc$USERdef
 echo abc$USER123
-echo abc$POEPdef
 echo $USER "$USER" '$USER'
-export TEST_$USER=hallo$LOGNAME
+WERKT NIET ------------>>>>>>>>>>>>  export TEST_$USER=hallo$LOGNAME
 ----------Niet bestaande $---------
 echo $POEP
 echo $POEP $MEERPOEP
 echo hallo $POEP
 hallo
-echo $POEP hallo
+# Spatie teveel voor hallo #
+WERKT BIJNA---------->>>>echo $POEP hallo
 hallo
 ***************************
 ** 		Flauw 			**
 ***************************
-1. export TEST=/Users/maran/Desktop/minishell
-2. cd $IETSONBESTAANDS				---> moet naar home Git_maran
-3  cd $IETSONBESTAANDS	.. 			--->ignores eerste en gaat naar niveau hoger
-4. cd $POEP $MEERPOEP ..
-Dus als er een $ voorstaat en hij bestaat niet, dan wordt deze gedelete.
+export TEST=/Users/maran/Desktop/minishell
+#geeft een foutmelding maar moet gewoon blijven runnen #
+WERKT NIET------------>>>>>  cd $IETSONBESTAANDS				
+WERKT NIET------------>>>>>  cd $IETSONBESTAANDS	.. 	
+WERKT NIET------------>>>>>  cd $POEP $MEERPOEP ..
+
 ***************************
 ** 		Remco			**
 ***************************
@@ -99,9 +103,9 @@ unset 3						--> 1
 ***************************
 ** 		breek de boel		**
 ***************************
- echo | poep
- echo | cd .. | pwd
- echo
+echo | poep
+WERKT NIET------------>>>>>  echo | cd .. | pwd
+echo
 =======
 ***************************
 ** 		Maak helemaal kapot	**
@@ -138,7 +142,7 @@ Multiple line error
 echo hallo 'ma\'ran'' siemons							
 hallo ma\ran siemons						Hij ziet de \ niet als escape, print gewoon \
 echo 'ma\'									Hij ziet de \ niet als escape, print gewoon \
-ma\
+WERKT NIET------------>>>>> ma\
 echo 'hallo$USER'							
 hallo$USER
 echo 'hallo\$USER'
@@ -170,7 +174,7 @@ echo "hallo\"\poep"
 hallo"\poep
 echo hallo""
 hallo
-echo "hoi$USERmaran"					--> !
+echo "hoi$USERmaran"				
 hoi
 echo "$USER"
 maran
@@ -179,23 +183,25 @@ echo "'\$USER'"
 ------------------------
 echo "\$USER"							
 $USER
-echo "123\"456"
+#print nog een \n erachter #
+WERKT NIET------------->>>>>> echo "123\"456"
 123"456
-echo "\poep"
+WERKT NIET------------->>>>>> echo "\poep"
 \poep
-------------------------
+
 echo "123\'456"
 123\'456
-echo "hallo$"                                                   check
-hallo$
+WERKT NIET------------->>>>>> echo "hallo$"  
+#Verkeerde error code #                                 
+WERKT BIJNA------------->>>>>> hallo$
 ***************************
 ** 		Escape character**
 ***************************
 echo \"
 "
-echo \$?                                                        check
+echo \$?                                                   
 $?
-echo 123\poep                                                    check
+echo 123\poep                                                   
 123poep
 ***************************
 ** 		Combined		**					MEER COMBINED TESTEN, LANGERE ZINNEN
@@ -218,7 +224,7 @@ echo 123"hallo$"456
 ** 	TESTS VAN BORIS      **
 ***************************
 export kip=ei=koe===melk											Check
-echo $1234														    check								[Sop]
+WERKT NIET ---------------------->>>>>> echo $1234														    check								[Sop]
 echo $_1234															Check
 export 1hello_world													Check	[Wel naar foutmelding kijken] 	[Sop] deze is check
 echo "\""															Check
@@ -226,7 +232,7 @@ echo "\"															Check
 exit 1 2 3															Check
 exit hello															Check
 exit 1 hello														Check
-export LS="ls -la";$LS												X Foutmelding is weer terug		-> bash: ls -la: command not found
+WERKT NIET ---------------------->>>>>>  export LS="ls -la";$LS												X Foutmelding is weer terug		-> bash: ls -la: command not found
 echo > file1 hello >file2 world! > file3 | cat -e					Check
 ls >> file3 | cat < file3											Check
 ;																	X niet de juiste foutmelding			[Sop]
@@ -258,7 +264,7 @@ Vanuit THE_minishell
 ***************************
 export YYY=echo														Check
 $YYY hallo
-echo DOET HET NIET >> test1 | cat test1								Check
+ WERKT NIET --------------->>> echo DOET HET NIET > test1 | cat test1								Check
 echo DOET HET NIET >> test1 | cat test1										Check
 echo POEP >>test6 | cat < test6 |grep P1OEP							Check
 cat test6 | grep POEP												Check

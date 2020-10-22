@@ -45,7 +45,7 @@ int			**cmd_unset(t_mini *d)
 
 	a = 1;
 	create_delete_new(d, &d->new, 0);
-	while (d->orig[a] != '\0')
+	while (d->orig[a])
 	{
 		if ((check_arg(d, &d->new, d->orig[a]) == 0 &&
 		ft_isalpha_str(d->new.tmp) == 0 && !ft_strchr(d->new.tmp, '_'))
