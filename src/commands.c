@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 11:22:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 15:09:19 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ static int	total_words(char *out, int *count)
 	return (len);
 }
 
-static void	split_line(t_mini *d, char *out, int *count)
+static char	**split_line(t_mini *d, char *out, int *count)
 {
+	char	**tmp;
 	int		i;
 	int		x;
 	int		start;
@@ -38,22 +39,22 @@ static void	split_line(t_mini *d, char *out, int *count)
 	i = 0;
 	x = 0;
 	start = 0;
-	d->orig = (char**)malloc(sizeof(char*) * (total_words(out, count) + 1));
-	d->orig == NULL ? error_malloc(d, NULL, out, count) : 0;
+	tmp = (char**)ft_calloc((total_words(out, count) + 1), sizeof(char*));
+	tmp == NULL ? error_malloc(d, NULL, out, count) : 0;
 	while (count[i] != 0)
 	{
 		len = count[i] - start;
 		if (out[start] != '|')
 		{
-			d->orig[x] = malloc(sizeof(char*) * len + 1);
-			d->orig[x] == NULL ? error_malloc(d, NULL, out, count) : 0;
-			ft_strlcpy(d->orig[x], &out[start], len + 1);
+			tmp[x] = malloc(sizeof(char*) * len + 1);
+			tmp[x] == NULL ? error_malloc(d, tmp, out, count) : 0;
+			ft_strlcpy(tmp[x], &out[start], len + 1);
 			x++;
 		}
 		start = count[i] + 1;
 		i++;
 	}
-	d->orig[x] = NULL;
+	return (tmp);
 }
 
 static void	set_null(t_mini *d, char **out, int **count)
@@ -79,9 +80,12 @@ static int	split_command(t_mini *d, char *line, int *count)
 
 	set_null(d, &out, &count);
 	upgrade_line(d->arg, line, out, count);
-	split_line(d, out, count);
+	d->orig = split_line(d, out, count);
 	free(out);
 	free(count);
+	update_array(d);
+	printf("ORIG:\t%s\n", d->orig[0]);
+
 	return (1);
 }
 
@@ -101,7 +105,6 @@ void		commands(t_mini *d, char *line)
 	count == NULL ? error_malloc(d, NULL, line, NULL) : 0;
 	cmd = line_split(d, line, count, ';');
 	free(line);
-	free(count);
 	while (cmd[i])
 	{
 		split_command(d, cmd[i], count);

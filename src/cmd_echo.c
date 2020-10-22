@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 12:00:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 14:08:38 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	dollar_sign(t_mini *d, char *arg)
 	t_env	*tmp;
 
 	i = 1;
-	while (arg[i] != '\0' && ft_isalnum(arg[i]))
+	while (arg[i] != '\0' && (ft_isalnum(arg[i]) || arg[i] == '_'))
 		i++;
 	look = malloc(sizeof(char*) * (i + 1));
 	look == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
@@ -44,7 +44,7 @@ static int	write_double(t_mini *d, char *arg, int i)
 
 	set = 0;
 	i++;
-	while (arg[i] != '\0')
+	while (arg[i] != '\0' && arg[i] != '\"')
 	{
 		if (arg[i] == '\\' && set == 0)
 		{
@@ -129,5 +129,6 @@ int			**cmd_echo(t_mini *d)
 	}
 	if ((d->cmd_echo[1] && ft_strncmp(d->cmd_echo[1], "-n", 3) != 0))
 		ft_putchar_fd('\n', d->fd);
+	ft_free(d->cmd_echo);
 	return (0);
 }

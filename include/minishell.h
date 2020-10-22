@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/22 12:05:41 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 15:06:25 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int		syntax_check(t_mini *d, char *arg);
 
 /* Utils */
 void	error_malloc(t_mini *d, char **array, char *single, int *count);
+char	*find_dollar(t_mini *d, char *find);
 
 void	clear_new(t_new *new);
 void	create_delete_new(t_mini *d, t_new *tmp, int i);
@@ -166,4 +167,6 @@ int		ft_write(t_mini *d, char *str);
 void	struct_null(t_mini *d);
 
 int		check_quotes(char *arg, int i);
+void	execute(t_mini *d);
+void	update_array(t_mini *d);
 #endif

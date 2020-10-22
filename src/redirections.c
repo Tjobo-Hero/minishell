@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/22 10:49:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 13:58:25 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@ static char	**new_arg(t_mini *d, int start, int end)
 	}
 	new = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	d->cmd_echo = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
-	d->cmd_echo == NULL ? error_malloc(d, new, NULL, NULL) : 0;
 	create_array(d, new, startc, end);
-	create_array(d, d->cmd_echo, startc, end);
+	remove_case(d, d->orig[0]);
+	if (ft_strncmp(d->orig[0], "echo", 5) == 0)
+	{
+		d->cmd_echo = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
+		d->cmd_echo == NULL ? error_malloc(d, new, NULL, NULL) : 0;
+		create_array(d, d->cmd_echo, startc, end);
+	}
 	return (new);
 }
 
@@ -98,6 +102,11 @@ char		**redirect(t_mini *d, int x, int c, int n)
 			if (d->pipe.fd_in > 0)
 				close(d->pipe.fd_in);
 			d->pipe.fd_in = open(d->pipe.input, O_RDONLY);
+			if (d->pipe.fd_in == -1)
+			{
+				ft_printf("bash: %s: %s\n", d->orig[i + 1], strerror(errno));
+				return (NULL);
+			}
 		}
 		if ((ft_strncmp(d->orig[i], ">", 2) == 0 ||
 			ft_strncmp(d->orig[i], ">>", 3) == 0) && d->orig[i + 1])

@@ -6,26 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 10:55:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/22 12:13:58 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free(char **args)
-{
-	int	x;
-
-	x = 0;
-	while (args[x])
-	{
-		free(args[x]);
-		x++;
-	}
-	free(args);
-}
-
-void	free_int_array(int **arr)
+void		free_int_array(int **arr)
 {
 	int i;
 
@@ -42,16 +29,98 @@ void	free_int_array(int **arr)
 	arr = NULL;
 }
 
-void	free_exit_program(t_mini *d, int error_code)
+static void	free_echo(t_env **echo)
 {
-	int i;
+	t_env	*tmp;
+	t_env	*prev;
+	int		i;
 
 	i = 0;
-	while (d->echo[i])
+	while (i < ECHO)
 	{
-		free(d->echo[i]);
+		if (echo[i])
+			tmp = echo[i];
+		while (tmp)
+		{
+			if (tmp->echo)
+				free(tmp->echo);
+			if (tmp->list)
+				free(tmp->list);
+			if (tmp->head)
+				free(tmp->head);
+			prev = tmp;
+			tmp = tmp->next;
+			free(prev);
+		}
 		i++;
 	}
-	free(d->echo[i]);
-	exit(error_code);
+	free(echo);
+}
+
+static void	free_command(t_cmd **commands)
+{
+	t_cmd	*tmp;
+	t_cmd	*prev;
+	int		i;
+
+	i = 0;
+	while (i < COMMAND)
+	{
+		if (commands[i])
+			tmp = commands[i];
+		while (tmp)
+		{
+			if (tmp->command)
+				free(tmp->command);
+			prev = tmp;
+			tmp = tmp->next;
+			free(prev);
+		}
+		i++;
+	}
+	free(commands);
+}
+
+static void	error_malloc2(t_mini *d)
+{
+	if (d->arg->count)
+		free(d->arg->count);
+	if (d->arg)
+		free(d->arg);
+	if (d->orig)
+		ft_free(d->orig);
+	if (d->pipes)
+		free_int_array(d->pipes);
+	if (d->args)
+		ft_free(d->args);
+	if (d->cmd_echo)
+		ft_free(d->cmd_echo);
+	if (d->environ)
+		ft_free(d->environ);
+	if (d->new.head)
+		free(d->new.head);
+	if (d->new.echo)
+		free(d->new.echo);
+	if (d->new.list)
+		free(d->new.list);
+	if (d->new.tmp)
+		free(d->new.tmp);
+}
+
+void		error_malloc(t_mini *d, char **array, char *single, int *count)
+{
+	ft_putstr_fd(strerror(errno), 1);
+	ft_write(d, "\n");
+	if (d->echo)
+		free_echo(d->echo);
+	if (d->commands)
+		free_command(d->commands);
+	if (array)
+		ft_free(array);
+	if (single)
+		free(single);
+	if (count)
+		free(count);
+	error_malloc2(d);
+	exit(1);
 }
