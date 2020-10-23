@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/22 13:58:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 16:01:28 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	create_array(t_mini *d, char **new, int start, int end)
 		}
 	}
 	new[x] = NULL;
+	remove_case(d, new, NULL);
 }
 
 static char	**new_arg(t_mini *d, int start, int end)
@@ -58,14 +59,14 @@ static char	**new_arg(t_mini *d, int start, int end)
 	}
 	new = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	remove_case(d, NULL, d->orig[startc]);
 	create_array(d, new, startc, end);
-	remove_case(d, d->orig[0]);
-	if (ft_strncmp(d->orig[0], "echo", 5) == 0)
+	if (new[0] == NULL)
 	{
-		d->cmd_echo = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
-		d->cmd_echo == NULL ? error_malloc(d, new, NULL, NULL) : 0;
-		create_array(d, d->cmd_echo, startc, end);
+		free(new);
+		return (NULL);
 	}
+	to_lower(d, new, new[0]);
 	return (new);
 }
 
@@ -74,7 +75,7 @@ static void	redirect_output(t_mini *d, t_pipe *pipe, int i)
 	int	check;
 
 	check = 0;
-	remove_case(d, d->orig[i + 1]);
+	remove_case(d, NULL, d->orig[i + 1]);
 	pipe->output = d->orig[i + 1];
 	if (pipe->fd_out > 1)
 		check = close(pipe->fd_out);

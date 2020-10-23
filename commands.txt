@@ -49,10 +49,10 @@ echo\
 env
 
 +++ EXPORT +++
-export ; export a="\\" ; export b='\\' ; export c="\b" ; export 															
+export ; export a="\\" ; export b='\\' ; export c="\b" ; export
 env
 export a=hijdoehet ; export
-export test=working ; export 
+export test=working ; export
 export test1
 export
 export test1=
@@ -141,10 +141,11 @@ echo DOET HET NIET > test1 | cat test1					*maakt de file wel aan en schrijft go
 echo $/													*printf '/' wel maar ervoor 'undefined' ipv dollar teken
 echo hallo >x1 >x2 >x3 | echo hoi						*in file x3 moet 'hallo' komen en hoi moet op de stdou komen
 echo $2$*												*moet een newline printen, print nu 'undefined*'
-echo /$"123$USER"										*moet geen dollar teken printen							
+echo /$"123$USER"										*moet geen dollar teken printen
+
 
 # Segfault #
-Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
+fixed		Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
 > newfile
 < working.txt segfault bij een bestaande en niet bestaande file
 echo "123\"456"
@@ -154,7 +155,7 @@ echo "123\"456"
 echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
 unset PATH
 unset a ; env ; unset test ; unset test1 ; env
-export ; export a="\\" ; export b='\\' ; export c="\b" ; export 
+export ; export a="\\" ; export b='\\' ; export c="\b" ; export
 echo hallo daar | echo hoi maran
 
 # Leaks Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #

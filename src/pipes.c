@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 14:02:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 15:57:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	set_fd(t_mini *d, int c, int n, int x)
 		d->pipe.ispipe[0] = 1;
 	}
 	d->args = redirect(d, x, c, n);
-	if (d->args)
+	if (d->args != NULL)
 	{
 		command(d);
 		ft_free(d->args);

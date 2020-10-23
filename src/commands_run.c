@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:37:23 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 15:42:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	**run_commands(t_mini *d, int forked)
 
 	d->fd = (d->pipe.fd_out > 0) ? d->pipe.fd_out : 1;
 	d->forked = forked;
-	check_arg_and_remove_case(d);
 	tmp = look_up_commands(d->args[0], d->commands);
 	if (tmp == NULL)
 		check_if_forked(d);

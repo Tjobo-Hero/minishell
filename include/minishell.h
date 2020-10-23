@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/22 15:06:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:09:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct	s_mini
 	char	**environ;
 	char	**args;
 	char	**orig;
-	char	**cmd_echo;
 	int		**pipes;
 	char	*cwd;
 	int		ret;
@@ -107,7 +106,6 @@ void	init_env(t_mini *d);
 int		new_count_commands(char *str, int *count, char c);
 char	**new_fill_commands(t_mini *d, char *str, int *count, int w);
 char	**line_split(t_mini *d, char *str, int *count, char c);
-void	check_arg_and_remove_case(t_mini *d);
 void	ft_free(char **args);
 void	free_environ(char **environ);
 
@@ -143,7 +141,7 @@ int		syntax_check(t_mini *d, char *arg);
 
 /* Utils */
 void	error_malloc(t_mini *d, char **array, char *single, int *count);
-char	*find_dollar(t_mini *d, char *find);
+// char	*find_dollar(t_mini *d, char *find);
 
 void	clear_new(t_new *new);
 void	create_delete_new(t_mini *d, t_new *tmp, int i);
@@ -162,7 +160,8 @@ void	pipes(t_mini *d);
 char	**redirect(t_mini *d, int x, int c, int n);
 void	return_values(t_mini *d);
 void	free_int_array(int **arr);
-void	remove_case(t_mini *d, char *str);
+void	remove_case(t_mini *d, char **array, char *str);
+void	to_lower(t_mini *d, char **array, char *str);
 int		ft_write(t_mini *d, char *str);
 void	struct_null(t_mini *d);
 

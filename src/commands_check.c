@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:21:00 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 12:01:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:12:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	change_args_if(t_mini *d, char *str)
+static void	change_args_if(t_mini *d, char **array, char *str)
 {
 	char	*tmp;
 
@@ -21,15 +21,15 @@ static void	change_args_if(t_mini *d, char *str)
 		ft_strncmp(str, "env", ft_strlen(str)) == 0 ||
 		ft_strncmp(str, "pwd", ft_strlen(str)) == 0)
 	{
-		tmp = d->args[0];
-		d->args[0] = ft_strdup(str);
-		d->args[0] == NULL ? error_malloc(d, NULL, str, NULL) : 0;
+		tmp = array[0];
+		array[0] = ft_strdup(str);
+		array[0] == NULL ? error_malloc(d, NULL, str, NULL) : 0;
 		free(tmp);
 	}
 	free(str);
 }
 
-static void	to_lower(t_mini *d, char *str)
+void		to_lower(t_mini *d, char **array, char *str)
 {
 	char	*tmp;
 	int		i;
@@ -43,11 +43,5 @@ static void	to_lower(t_mini *d, char *str)
 			tmp[i] += 32;
 		i++;
 	}
-	change_args_if(d, tmp);
-}
-
-void		check_arg_and_remove_case(t_mini *d)
-{
-	remove_case(d, NULL);
-	to_lower(d, d->args[0]);
+	change_args_if(d, array, tmp);
 }

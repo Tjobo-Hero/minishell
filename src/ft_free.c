@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 15:12:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 12:13:58 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:10:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ static void	error_malloc2(t_mini *d)
 		free_int_array(d->pipes);
 	if (d->args)
 		ft_free(d->args);
-	if (d->cmd_echo)
-		ft_free(d->cmd_echo);
 	if (d->environ)
 		ft_free(d->environ);
 	if (d->new.head)

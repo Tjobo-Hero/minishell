@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/22 12:13:12 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:10:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	struct_null(t_mini *d)
 	d->environ = NULL;
 	d->args = NULL;
 	d->orig = NULL;
-	d->cmd_echo = NULL;
 	d->arg = NULL;
 	d->pipes = NULL;
 	d->new.head = NULL;
