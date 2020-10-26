@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/26 16:09:30 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/26 18:50:21 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,59 +73,45 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 	return (str);
 }
 
-void		set_on_off(int *doub, int *single, char c)
+static void	array_loop(t_mini *d, int y)
 {
-	if (c == '\"' && *single == -1)
-		(*doub) *= -1;
-	else if (c == '\'' && *doub == -1)
-		(*single) *= -1;
-}
+	int	single;
+	int	doub;
+	int	x;
+	int	set;
 
-static void	set_null(int *single, int *doub, int *y, int *set)
-{
-	(*single) = -1;
-	(*doub) = -1;
-	(*y) = 0;
-	(*set) = 0;
-}
-
-static void	free_str(t_mini *d, int *y)
-{
-	if (d->orig[*y][0] == '\0')
+	set_array_null(&single, &doub, &x, &set);
+	x = 0;
+	while (d->orig[y][x] != '\0')
 	{
-		free(d->orig[*y]);
-		d->orig[*y] = NULL;
-		free(d->orig[*y + 1]);
+		if (d->orig[y][x] == '\\' && set == 0)
+			set = 1;
+		else if ((d->orig[y][x] == '\"' || d->orig[y][x] == '\'') && !set)
+			set_on_off(&doub, &single, d->orig[y][x]);
+		else if (d->orig[y][x] == '$' && !set && single == -1 &&
+				(ft_isalnum(d->orig[y][x + 1]) || d->orig[y][x + 1] == '?'
+				|| d->orig[y][x + 1] == '_'))
+			d->orig[y] = create_new_str(d, d->orig[y], &x, y);
+		else
+			set = 0;
+		x++;
 	}
-	(*y)++;
 }
 
 void		update_array(t_mini *d)
 {
-	int	single;
-	int	doub;
 	int	y;
-	int	x;
-	int	set;
 
-	set_null(&single, &doub, &y, &set);
+	y = 0;
 	while (d->orig[y])
 	{
-		x = 0;
-		while (d->orig[y][x] != '\0')
+		array_loop(d, y);
+		if (d->orig[y][0] == '\0')
 		{
-			if (d->orig[y][x] == '\\' && set == 0)
-				set = 1;
-			else if ((d->orig[y][x] == '\"' || d->orig[y][x] == '\'') && !set)
-				set_on_off(&doub, &single, d->orig[y][x]);
-			else if (d->orig[y][x] == '$' && !set && single == -1 &&
-					(ft_isalnum(d->orig[y][x + 1]) || d->orig[y][x + 1] == '?'
-					|| d->orig[y][x + 1] == '_'))
-				d->orig[y] = create_new_str(d, d->orig[y], &x, y);
-			else
-				set = 0;
-			x++;
+			free(d->orig[y]);
+			d->orig[y] = NULL;
+			free(d->orig[y + 1]);
 		}
-		free_str(d, &y);
+		y++;
 	}
 }
