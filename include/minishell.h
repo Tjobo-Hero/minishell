@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/23 12:09:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/26 16:09:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,4 +168,5 @@ void	struct_null(t_mini *d);
 int		check_quotes(char *arg, int i);
 void	execute(t_mini *d);
 void	update_array(t_mini *d);
+void	set_on_off(int *doub, int *single, char c);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils2.c                                           :+:    :+:            */
+/*   update_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:42:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/26 16:09:30 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char	*ret_str(t_mini *d, char *str, char *find, int *i)
 	if (str[0] != '$')
 		ft_strlcpy(new, str, (*i));
 	tmp = ft_itoa(d->ret);
+	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	(*i) = ft_strlen(tmp) - 1;
 	ft_strlcpy(&new[ft_strlen(new)], tmp, ft_strlen(tmp) + 1);
 	ft_strlcpy(&new[ft_strlen(new)], &find[1], ft_strlen(&find[1]) + 1);
@@ -47,7 +48,7 @@ static char	*find_dollar(t_mini *d, char *find, int *i)
 
 static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 {
-	char	*tmp;
+	char	tmp[PATH_MAX];
 	char	*find;
 	int		count;
 
@@ -56,12 +57,10 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 	if (d->orig[row][*i] == '?')
 		return (ret_str(d, str, &d->orig[row][*i], i));
 	find = find_dollar(d, &d->orig[row][*i], &count);
-	if (find == NULL)
-		tmp = ft_calloc((count + 1), sizeof(char*));
-	else
-		tmp = ft_calloc((ft_strlen(find) + (count)), sizeof(char*));
-	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	ft_bzero(tmp, PATH_MAX + 1);
 	ft_strlcpy(tmp, str, (*i));
+	if (d->orig[row][*i + count] == '\"')
+		ft_strlcpy(&tmp[*i - 1], &d->orig[row][*i + count], 2);
 	if (find != NULL)
 	{
 		ft_strlcpy(&tmp[*i - 1], find, ft_strlen(find) + 1);
@@ -70,46 +69,63 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 	}
 	(*i) = (count);
 	free(str);
-	return (tmp);
+	str = ft_strdup(tmp);
+	return (str);
 }
 
-static void	check_dollar(t_mini *d, int i, int *y, int *z)
+void		set_on_off(int *doub, int *single, char c)
 {
-	char	**tmp;
+	if (c == '\"' && *single == -1)
+		(*doub) *= -1;
+	else if (c == '\'' && *doub == -1)
+		(*single) *= -1;
+}
 
-	tmp = d->orig;
-	if (tmp[i][*z] == '\\')
-		(*y)++;
-	if (tmp[i][*z] == '$' && (*y % 2 == 0) && (ft_isalnum(tmp[i][*z + 1])
-		|| tmp[i][*z + 1] == '?' || tmp[i][*z + 1] == '_'))
+static void	set_null(int *single, int *doub, int *y, int *set)
+{
+	(*single) = -1;
+	(*doub) = -1;
+	(*y) = 0;
+	(*set) = 0;
+}
+
+static void	free_str(t_mini *d, int *y)
+{
+	if (d->orig[*y][0] == '\0')
 	{
-		tmp[i] = create_new_str(d, tmp[i], z, i);
-		*y = 0;
+		free(d->orig[*y]);
+		d->orig[*y] = NULL;
+		free(d->orig[*y + 1]);
 	}
+	(*y)++;
 }
 
 void		update_array(t_mini *d)
 {
-	int		i;
-	int		y;
-	int		z;
+	int	single;
+	int	doub;
+	int	y;
+	int	x;
+	int	set;
 
-	i = 0;
-	while (d->orig[i])
+	set_null(&single, &doub, &y, &set);
+	while (d->orig[y])
 	{
-		z = 0;
-		y = 0;
-		while (d->orig[i][z] != '\0')
+		x = 0;
+		while (d->orig[y][x] != '\0')
 		{
-			check_dollar(d, i, &y, &z);
-			z++;
+			if (d->orig[y][x] == '\\' && set == 0)
+				set = 1;
+			else if ((d->orig[y][x] == '\"' || d->orig[y][x] == '\'') && !set)
+				set_on_off(&doub, &single, d->orig[y][x]);
+			else if (d->orig[y][x] == '$' && !set && single == -1 &&
+					(ft_isalnum(d->orig[y][x + 1]) || d->orig[y][x + 1] == '?'
+					|| d->orig[y][x + 1] == '_'))
+				d->orig[y] = create_new_str(d, d->orig[y], &x, y);
+			else
+				set = 0;
+			x++;
 		}
-		if (d->orig[i][0] == '\0')
-		{
-			free(d->orig[i]);
-			d->orig[i] = NULL;
-			free(d->orig[i + 1]);
-		}
-		i++;
+		free_str(d, &y);
 	}
 }

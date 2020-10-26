@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/23 16:01:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/26 15:21:10 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	create_array(t_mini *d, char **new, int start, int end)
 		}
 	}
 	new[x] = NULL;
-	remove_case(d, new, NULL);
+	x != 0 ? remove_case(d, &new[1], NULL) : 0;
 }
 
 static char	**new_arg(t_mini *d, int start, int end)

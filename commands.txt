@@ -146,13 +146,13 @@ echo /$"123$USER"										*moet geen dollar teken printen
 
 # Segfault #
 fixed		Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
-> newfile
-< working.txt segfault bij een bestaande en niet bestaande file
-echo "123\"456"
+fixed > newfile
+fixed < working.txt segfault bij een bestaande en niet bestaande file
+fixed echo "123\"456"
 
 
 # Leaks #
-echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
+fixed echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
 unset PATH
 unset a ; env ; unset test ; unset test1 ; env
 export ; export a="\\" ; export b='\\' ; export c="\b" ; export
