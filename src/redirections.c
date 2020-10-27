@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/27 13:02:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 14:34:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,13 @@ static void	redirect_output(t_mini *d, t_pipe *pipe, int i)
 		error_malloc(d, NULL, NULL, NULL);
 }
 
-char		**redirect(t_mini *d, int x, int c, int n)
+char		**redirect(t_mini *d, int start, int end)
 {
 	int		i;
-	int		s;
 
-	s = d->arg->count[x];
-	i = 0;
-	while (d->orig[i] && i < s)
+	i = start;
+	d->fd = 1;
+	while (d->orig[i] && i < end)
 	{
 		if (ft_strncmp(d->orig[i], "<", 2) == 0 && d->orig[i + 1])
 		{
@@ -114,5 +113,5 @@ char		**redirect(t_mini *d, int x, int c, int n)
 			redirect_output(d, &d->pipe, i);
 		i++;
 	}
-	return (new_arg(d, c, n));
+	return (new_arg(d, start, end));
 }

@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/23 12:10:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 14:19:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	struct_null(t_mini *d)
 	d->new.tmp = NULL;
 	d->is_child = 0;
 	d->ret = 0;
-	d->fd = 1;
+	// d->fd = 1;
 }
 
 void	create_delete_new(t_mini *d, t_new *tmp, int i)

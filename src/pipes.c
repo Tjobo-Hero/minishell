@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 14:08:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 14:36:39 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	close_pipes(t_mini *d, int n)
 static void	set_fd(t_mini *d, int start, int end, int x)
 {
 	ft_bzero(&d->pipe, sizeof(t_pipe));
+	printf("[FD:\t%d]\n", d->pipe.fd_out);
 	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
 	{
 		d->pipe.fd_out = d->pipes[x][1];
@@ -48,16 +49,7 @@ static void	set_fd(t_mini *d, int start, int end, int x)
 		d->pipe.fd_in = d->pipes[x - 1][0];
 		d->pipe.ispipe[0] = 1;
 	}
-	printf("START:\t%d\n", start);
-	printf("end:\t%d\n", end);
-	int i = start;
-	int z = end;
-	while (i < z)
-	{
-		printf("ORIG:\t%s\n", d->orig[i]);
-		i++;
-	}
-	d->args = redirect(d, x, start, end);
+	d->args = redirect(d, start, end);
 	if (d->args != NULL)
 	{
 		command(d);

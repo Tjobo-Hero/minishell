@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/27 12:12:15 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 14:34:49 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	make_echo(t_mini *d, char *echo, char *arg);
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
 void	pipes(t_mini *d);
-char	**redirect(t_mini *d, int x, int c, int n);
+char	**redirect(t_mini *d, int c, int n);
 void	return_values(t_mini *d);
 void	free_int_array(int **arr);
 void	remove_case(t_mini *d, char **array, char *str);
