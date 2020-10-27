@@ -112,11 +112,11 @@ void		update_array(t_mini *d)
 	while (d->orig[y])
 	{
 		array_loop(d, y);
-		// printf("ORIG:\t[%s]\n", d->orig[y]);
 		if (d->orig[y][0] == '\0')
 		{
 			i = y;
 			free(d->orig[i]);
+			d->orig[i] = NULL;
 			while (d->orig[i + 1])
 			{
 				d->orig[i] = ft_strdup(d->orig[i + 1]);

@@ -38,7 +38,6 @@ static void	close_pipes(t_mini *d, int n)
 static void	set_fd(t_mini *d, int start, int end, int x)
 {
 	ft_bzero(&d->pipe, sizeof(t_pipe));
-	printf("[FD:\t%d]\n", d->pipe.fd_out);
 	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
 	{
 		d->pipe.fd_out = d->pipes[x][1];
