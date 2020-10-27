@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/26 15:21:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 14:08:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	close_pipes(t_mini *d, int n)
 	}
 }
 
-static void	set_fd(t_mini *d, int c, int n, int x)
+static void	set_fd(t_mini *d, int start, int end, int x)
 {
 	ft_bzero(&d->pipe, sizeof(t_pipe));
 	if (d->pipes && d->pipes[x] && d->pipes[x][1] > 1)
@@ -48,7 +48,16 @@ static void	set_fd(t_mini *d, int c, int n, int x)
 		d->pipe.fd_in = d->pipes[x - 1][0];
 		d->pipe.ispipe[0] = 1;
 	}
-	d->args = redirect(d, x, c, n);
+	printf("START:\t%d\n", start);
+	printf("end:\t%d\n", end);
+	int i = start;
+	int z = end;
+	while (i < z)
+	{
+		printf("ORIG:\t%s\n", d->orig[i]);
+		i++;
+	}
+	d->args = redirect(d, x, start, end);
 	if (d->args != NULL)
 	{
 		command(d);
@@ -80,20 +89,23 @@ static void	pipes_init(t_mini *d, int count)
 void		pipes(t_mini *d)
 {
 	int		i;
-	int		x;
+	int		start;
+	int		end;
 
 	i = 0;
-	x = 0;
 	while (d->arg->count[i] != 0)
 		i++;
 	if (i != 0)
 		pipes_init(d, i);
 	i = 0;
+	start = 0;
+	end = d->arg->count[0];
 	while (d->arg->count[i] != 0)
 	{
-		set_fd(d, x, d->arg->count[i], i);
-		x = d->arg->count[i];
+		set_fd(d, start, end, i);
 		i++;
+		start = end;
+		end = (d->arg->count[i] - d->arg->count[i - 1]) - 1 + start;
 	}
 	return_values(d);
 	ft_free(d->orig);

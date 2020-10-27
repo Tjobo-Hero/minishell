@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 11:17:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:23:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ static void	array_loop(t_mini *d, int y)
 		else if ((d->orig[y][x] == '\"' || d->orig[y][x] == '\'') && !set)
 			set_on_off(&doub, &single, d->orig[y][x]);
 		else if (d->orig[y][x] == '$' && !set && single == -1 &&
-				(ft_isalnum(d->orig[y][x + 1]) || d->orig[y][x + 1] == '?'
-				|| d->orig[y][x + 1] == '_'))
+				(ft_isalnum(d->orig[y][x + 1]) || d->orig[y][x + 1] == '?'))
 			d->orig[y] = create_new_str(d, d->orig[y], &x, y);
+		else if (d->orig[y][x] == '$' && !set && single == -1 && doub == -1 &&
+			(d->orig[y][x + 1] == '\"' || d->orig[y][x + 1] == '\''))
+			d->orig[y] = remove_dollar(d, d->orig[y], &x);
 		else
 			set = 0;
 		x++;
@@ -104,16 +106,26 @@ static void	array_loop(t_mini *d, int y)
 void		update_array(t_mini *d)
 {
 	int	y;
+	int	i;
 
 	y = 0;
 	while (d->orig[y])
 	{
 		array_loop(d, y);
+		// printf("ORIG:\t[%s]\n", d->orig[y]);
 		if (d->orig[y][0] == '\0')
 		{
-			free(d->orig[y]);
-			d->orig[y] = NULL;
-			free(d->orig[y + 1]);
+			i = y;
+			free(d->orig[i]);
+			while (d->orig[i + 1])
+			{
+				d->orig[i] = ft_strdup(d->orig[i + 1]);
+				i++;
+			}
+			if (d->orig[i])
+				free(d->orig[i]);
+			d->orig[i] = NULL;
+			y--;
 		}
 		y++;
 	}

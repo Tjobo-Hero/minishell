@@ -121,17 +121,17 @@ cat working.txt | grep stuff | echo tim
 ######################################
 
 # Verkeerde output #
-ls filedoesnotexist | grep notme | echo "TEST"    		*Voert echo "TEST" niet uit
-cat | cat -e | cat										*Kan command cat niet vinden
-cat working.txt | grep stuff | echo tim					*Voert command echo tim niet uit en geeft vekeerde error voor grep
-echo $POEP hallo										*print een spatie teveel voor 'hallo'
-cd $IETSONBESTAANDS	.. 									*moet een directory terug
-cd $POEP $MEERPOEP ..									*moet een directory terug
-echo | cd .. | pwd										*print pwd niet uit
-echo $1234												*print een newline maar moet '234' printen
+FIXED-> ls filedoesnotexist | grep notme | echo "TEST"    		*Voert echo "TEST" niet uit
+FIXED-> cat | cat -e | cat										*Kan command cat niet vinden
+FIXED-> cat working.txt | grep stuff | echo tim					*Voert command echo tim niet uit en geeft vekeerde error voor grep
+FIXED-> echo | cd .. | pwd										*print pwd niet uit
 echo DOET HET NIET > test1 | cat test1					*maakt de file wel aan en schrijft goed alleen voert 'cat' command niet uit
 echo hallo >x1 >x2 >x3 | echo hoi						*in file x3 moet 'hallo' komen en hoi moet op de stdou komen
-echo /$"123$USER"										*moet geen dollar teken printen
+FIXED->echo $1 234												*print een newline maar moet '234' printen
+FIXED-> echo $POEP hallo										*print een spatie teveel voor 'hallo'
+FIXED-> cd $GEK .. 											*moet een directory terug
+FIXED-> cd $POEP $MEERPOEP ..									*moet een directory terug
+FIXED-> echo /$"123$USER"										*moet geen dollar teken printen
 FIXED-> cd $IETSONBESTAANDS 									*geeft een foutmelding maar moet naar USER
 FIXED-> export TEST_$USER=hallo$LOGNAME							*Geeft een foutmelding maar moet dit in export plaatsen bij de juiste paths
 FIXED-> echo "\poep"											*print de '\' niet
@@ -139,7 +139,7 @@ FIXED-> echo "hallo$"  											*print het dollar teken niet maar ipv daarvan 
 FIXED-> hallo$													*print het dollar teken niet maar ipv daarvan 'undefined' bij de foutmelding
 FIXED-> export LS="ls -la" ; ls									*export niet goed en ziet ls command niet
 FIXED-> echo $/													*printf '/' wel maar ervoor 'undefined' ipv dollar teken
-FIXED-> echo $2$*												*moet een newline printen, print nu 'undefined*'
+FIXED-> echo $2$4												*moet een newline printen, print nu 'undefined*'
 FIXED-> echo $													*Moet een dollar teken printen maar print 'undefined'
 
 
