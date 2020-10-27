@@ -6,11 +6,27 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 18:46:05 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/26 18:48:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:19:30 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char		*remove_dollar(t_mini *d, char *str, int *x)
+{
+	char	*tmp;
+
+	tmp = ft_calloc((ft_strlen(str)), sizeof(char*));
+	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	if (*x != 0)
+		ft_strlcpy(tmp, str, *x + 1);
+	ft_strlcpy(&tmp[*x], &str[*x + 1], ft_strlen(&str[*x]) + 1);
+	free(str);
+	str = ft_strdup(tmp);
+	free(tmp);
+	(*x) = -1;
+	return (str);
+}
 
 void		set_on_off(int *doub, int *single, char c)
 {

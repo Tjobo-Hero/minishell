@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/26 18:48:35 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:12:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,5 @@ void	execute(t_mini *d);
 void	update_array(t_mini *d);
 void	set_array_null(int *single, int *doub, int *y, int *set);
 void	set_on_off(int *doub, int *single, char c);
+char	*remove_dollar(t_mini *d, char *str, int *x);
 #endif
