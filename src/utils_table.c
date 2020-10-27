@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils_table.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 14:00:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 11:42:45 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 10:27:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,8 @@ void	delete_lst(char *name, t_env **hash_table)
 		hash_table[i] = tmp->next;
 	else
 		pre->next = tmp->next;
+	free(tmp->head);
+	free(tmp->list);
+	free(tmp->echo);
+	free(tmp);
 }

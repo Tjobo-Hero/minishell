@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 17:23:46 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/26 18:25:22 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 11:05:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,29 +81,9 @@ static int	split_command(t_mini *d, char *line, int *count)
 	set_null(d, &out, &count);
 	upgrade_line(d->arg, line, out, count);
 	d->orig = split_line(d, out, count);
-	// printf("OUT\t[%s]\n\n", out);
 	free(out);
 	free(count);
 	update_array(d);
-	// int y = 0;
-	// printf("\n---------------------------------------------\n");
-	// printf("D->ORIG\n");
-	// while (d->orig && d->orig[y])
-	// {
-	// 	printf("ORIG:\t[%s]\n", d->orig[y]);
-	// 	y++;
-	// }
-	// printf("---------------------------------------------\n\n");
-	// remove_case(d, d->orig, NULL);
-	// y = 0;
-	// printf("\n---------------------------------------------\n");
-	// printf("D->ORIG2\n");
-	// while (d->orig && d->orig[y])
-	// {
-	// 	printf("ORIG2:\t[%s]\n", d->orig[y]);
-	// 	y++;
-	// }
-	// printf("---------------------------------------------\n\n");
 	return (1);
 }
 
