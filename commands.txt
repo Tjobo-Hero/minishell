@@ -124,41 +124,40 @@ cat working.txt | grep stuff | echo tim
 ls filedoesnotexist | grep notme | echo "TEST"    		*Voert echo "TEST" niet uit
 cat | cat -e | cat										*Kan command cat niet vinden
 cat working.txt | grep stuff | echo tim					*Voert command echo tim niet uit en geeft vekeerde error voor grep
-echo $													*Moet een dollar teken printen maar print 'undefined'
-export TEST_$USER=hallo$LOGNAME							*Geeft een foutmelding maar moet dit in export plaatsen bij de juiste paths
 echo $POEP hallo										*print een spatie teveel voor 'hallo'
-ma\														*werkt niet, moet invoer mogelijkheid zijn, wij geven een error
-cd $IETSONBESTAANDS 									*geeft een foutmelding maar moet naar USER
 cd $IETSONBESTAANDS	.. 									*moet een directory terug
 cd $POEP $MEERPOEP ..									*moet een directory terug
 echo | cd .. | pwd										*print pwd niet uit
-echo "\poep"											*print de '\' niet
-echo "hallo$"  											*print het dollar teken niet maar ipv daarvan 'undefined'
-hallo$													*print het dollar teken niet maar ipv daarvan 'undefined' bij de foutmelding
 echo $1234												*print een newline maar moet '234' printen
-export LS="ls -la";$LS									*export niet goed en ziet ls command niet
 echo DOET HET NIET > test1 | cat test1					*maakt de file wel aan en schrijft goed alleen voert 'cat' command niet uit
-echo $/													*printf '/' wel maar ervoor 'undefined' ipv dollar teken
 echo hallo >x1 >x2 >x3 | echo hoi						*in file x3 moet 'hallo' komen en hoi moet op de stdou komen
-echo $2$*												*moet een newline printen, print nu 'undefined*'
 echo /$"123$USER"										*moet geen dollar teken printen
+FIXED-> cd $IETSONBESTAANDS 									*geeft een foutmelding maar moet naar USER
+FIXED-> export TEST_$USER=hallo$LOGNAME							*Geeft een foutmelding maar moet dit in export plaatsen bij de juiste paths
+FIXED-> echo "\poep"											*print de '\' niet
+FIXED-> echo "hallo$"  											*print het dollar teken niet maar ipv daarvan 'undefined'
+FIXED-> hallo$													*print het dollar teken niet maar ipv daarvan 'undefined' bij de foutmelding
+FIXED-> export LS="ls -la" ; ls									*export niet goed en ziet ls command niet
+FIXED-> echo $/													*printf '/' wel maar ervoor 'undefined' ipv dollar teken
+FIXED-> echo $2$*												*moet een newline printen, print nu 'undefined*'
+FIXED-> echo $													*Moet een dollar teken printen maar print 'undefined'
 
 
 # Segfault #
-fixed		Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
-fixed > newfile
-fixed < working.txt segfault bij een bestaande en niet bestaande file
-fixed echo "123\"456"
+FIXED-> Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
+FIXED-> > newfile
+FIXED-> < working.txt segfault bij een bestaande en niet bestaande file
+FIXED-> echo "123\"456"
 
 
 # Leaks #
-fixed echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
-unset PATH
-unset a ; env ; unset test ; unset test1 ; env
-export ; export a="\\" ; export b='\\' ; export c="\b" ; export
-echo hallo daar | echo hoi maran
+FIXED-> echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
+FIXED-> unset PATH
+FIXED-> unset a ; env ; unset test ; unset test1 ; env
+FIXED-> export ; export a="\\" ; export b='\\' ; export c="\b" ; export
+FIXED-> cho hallo daar | echo hoi maran
 
-# Leaks Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #
+FIXED-> # Leaks Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #
 export
 export ZZZ
 export ZZZ=
