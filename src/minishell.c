@@ -20,7 +20,7 @@ static void	screen_clean(void)
 static void	block_ctrl_c(int sig)
 {
 	g_ret = 1;
-	write(1, "\nminishell> ", 11);
+	ft_putstr_fd("\n\x1b[;01mminishell>\x1b[;37m ", 1);
 	(void)sig;
 }
 
