@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 11:01:39 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/27 11:17:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,10 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 	}
 	free(str);
 	if (d->orig[row][*i + count] != '\0' && find == NULL)
-	{
 		str = ft_strjoin(tmp, &d->orig[row][*i + count]);
-		(*i) -= 3;
-	}
 	else
 		str = ft_strdup(tmp);
-	(*i) = ((*i) < 0 ? 0 : (*i) - 3);
+	(*i) = -1;
 	return (str);
 }
 
@@ -100,8 +97,7 @@ static void	array_loop(t_mini *d, int y)
 			d->orig[y] = create_new_str(d, d->orig[y], &x, y);
 		else
 			set = 0;
-		if (d->orig[y][x] != '$')
-			x++;
+		x++;
 	}
 }
 
