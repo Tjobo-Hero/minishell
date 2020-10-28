@@ -10,6 +10,18 @@ pwd
 
 +++ ECHO +++
 echo 00\\\'pp ; echo 00\\\\\'pp ; echo 00\\\\'pp' ; echo “./hello”. ; echo ./hello ; echo ello
+echo /$"123$USER"
+echo | cd .. | pwd
+echo DOET HET NIET > test1 | cat test1
+echo hallo >x1 >x2 >x3 | echo hoi
+echo $1 234
+echo $POEP hallo
+echo "hallo$"
+echo "\poep"
+echo $/
+echo $2$4
+echo $
+echo "123\"456"
 
 +++ EXIT +++
 exit 123 123 123
@@ -29,7 +41,6 @@ echo hi ; echo ; echo ; echo ; export ; env ; echo ; echo ; echo ; echo working 
 
 +++ SIGNALS +++
 ctrl-C
-ctrl \
 ctrl-D
 asdf ctrl-C
 asdf ctrl-D
@@ -44,6 +55,7 @@ hoi
 "
 echo
 echo\
+hallo$
 
 +++ ENV +++
 env
@@ -61,9 +73,19 @@ export 1test
 export _TEST=DOethetwelmetunderscore
 env
 env ; echo ; export a=hijdoehet ; echo ; env ; echo ; export test=working;echo ;env ; echo ; export test1; export; echo ; env ; echo ; export test1= ; echo ; env
+export
+export ZZZ
+export ZZZ=
+export ; export a="\\" ; export b='\\' ; export c="\b" ; export
+export LS="ls -la" ; ls
+
 
 +++ UNSET +++
 unset a ; env ; unset test ; unset test1 ; env
+unset PATH
+ls
+wc
+awk
 
 +++ ENVIRONMENT +++
 echo $PWD ; echo $HOME ; echo "$PWD" ; echo '$PWD' ; echo "$HOME"
@@ -77,8 +99,10 @@ pwd
 /bin/ls
 cd notworking
 cd .
-cd .. ; pwd;/bin/ls;cd .. ;      pwd    ;/bin/ls;     cd notworking;     cd .
+cd .. ;pwd;/bin/ls;cd .. ;      pwd    ;/bin/ls;     cd notworking;     cd .
 cd ~
+cd $IETSONBESTAANDS
+cd $GEK ..
 
 +++ PWD +++
 pwd
@@ -108,11 +132,17 @@ echo dit > test1 gaat > test2 goed > test3
 echo dit > test1 gaat > test2 goed > test3 > test4
 cat < test4
 < test4 cat
+> newfile ; > working.txt
+< working.txt
+< notworking.txt
+echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
 
 +++ PIPES +++
 export | grep -e "HOME="
-export | grep -e "PWD="
+echo hallo daar | echo hoi maran
 cat working.txt | grep stuff | echo tim
+cat | cat -e | cat
+ls filedoesnotexist | grep notme | echo "TEST"
 
 #####################################
 #									#
@@ -121,33 +151,10 @@ cat working.txt | grep stuff | echo tim
 ######################################
 
 # Verkeerde output #
-FIXED-> ls filedoesnotexist | grep notme | echo "TEST"    		*Voert echo "TEST" niet uit
-FIXED-> cat | cat -e | cat										*Kan command cat niet vinden
-FIXED-> cat working.txt | grep stuff | echo tim					*Voert command echo tim niet uit en geeft vekeerde error voor grep
-FIXED-> echo | cd .. | pwd										*print pwd niet uit
-FIXED-> echo DOET HET NIET > test1 | cat test1					*maakt de file wel aan en schrijft goed alleen voert 'cat' command niet uit
-FIXED-> echo hallo >x1 >x2 >x3 | echo hoi						*in file x3 moet 'hallo' komen en hoi moet op de stdou komen
-FIXED->echo $1 234												*print een newline maar moet '234' printen
-FIXED-> echo $POEP hallo										*print een spatie teveel voor 'hallo'
-FIXED-> cd $GEK .. 											*moet een directory terug
-FIXED-> cd $POEP $MEERPOEP ..									*moet een directory terug
-FIXED-> echo /$"123$USER"										*moet geen dollar teken printen
-FIXED-> cd $IETSONBESTAANDS 									*geeft een foutmelding maar moet naar USER
-FIXED-> export TEST_$USER=hallo$LOGNAME							*Geeft een foutmelding maar moet dit in export plaatsen bij de juiste paths
-FIXED-> echo "\poep"											*print de '\' niet
-FIXED-> echo "hallo$"  											*print het dollar teken niet maar ipv daarvan 'undefined'
-FIXED-> hallo$													*print het dollar teken niet maar ipv daarvan 'undefined' bij de foutmelding
-FIXED-> export LS="ls -la" ; ls									*export niet goed en ziet ls command niet
-FIXED-> echo $/													*printf '/' wel maar ervoor 'undefined' ipv dollar teken
-FIXED-> echo $2$4												*moet een newline printen, print nu 'undefined*'
-FIXED-> echo $													*Moet een dollar teken printen maar print 'undefined'
+Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
 
 
 # Segfault #
-FIXED-> Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
-FIXED-> > newfile
-FIXED-> < working.txt segfault bij een bestaande en niet bestaande file
-FIXED-> echo "123\"456"
 
 
 # Leaks #
@@ -163,6 +170,9 @@ export ZZZ
 export ZZZ=
 
 
+ctrl ^\ enter
+export | grep -e "PWD="
+cd $POEP $MEERPOEP ..
 
 FIXED-> ctrl ^\ enter
 GEEN LEAK -> export | grep -e "PWD="

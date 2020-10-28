@@ -116,6 +116,7 @@ void		update_array(t_mini *d)
 		{
 			i = y;
 			free(d->orig[i]);
+			d->orig[i] = NULL;
 			while (d->orig[i + 1])
 			{
 				d->orig[i] = ft_strdup(d->orig[i + 1]);

@@ -20,7 +20,7 @@ static void	screen_clean(void)
 static void	block_ctrl_c(int sig)
 {
 	g_ret = 1;
-	write(1, "\nminishell> ", 11);
+	ft_putstr_fd("\n\x1b[;01mminishell>\x1b[;37m ", 1);
 	(void)sig;
 }
 
@@ -32,7 +32,7 @@ static void	block_ctrl_slash(int sig)
 static void	start_mini(t_mini *d)
 {
 	if (d->is_child == 2)
-		ft_putstr_fd("\x1b[34;01mQuit: 3\n\x1b[35;01mbash-3.3$ \x1b[31;37m", 1);
+		ft_putstr_fd("\x1b[34;01mQuit: 3\n\x1b[;01mminishell>\x1b[;37m ", 1);
 	if (d->is_child == 1 || d->is_child == 2)
 	{
 		g_ret = 0;
