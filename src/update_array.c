@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 12:23:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 10:44:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ret_str(t_mini *d, char *str, char *find, int *i)
 	char	*tmp;
 	char	new[PATH_MAX];
 
-	ft_bzero(new, PATH_MAX + 1);
+	ft_bzero(new, PATH_MAX);
 	if (str[0] != '$')
 		ft_strlcpy(new, str, (*i));
 	tmp = ft_itoa(d->ret);
@@ -36,7 +36,7 @@ static char	*find_dollar(t_mini *d, char *find, int *i)
 	t_env	*tmp;
 	char	new[PATH_MAX];
 
-	ft_bzero(new, (PATH_MAX + 1));
+	ft_bzero(new, (PATH_MAX));
 	while (find[*i] != '\0' && (ft_isalnum(find[*i]) || find[*i] == '_'))
 		(*i)++;
 	ft_strlcpy(new, find, (*i + 1));
@@ -57,7 +57,7 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 	if (d->orig[row][*i] == '?')
 		return (ret_str(d, str, &d->orig[row][*i], i));
 	find = find_dollar(d, &d->orig[row][*i], &count);
-	ft_bzero(tmp, PATH_MAX + 1);
+	ft_bzero(tmp, PATH_MAX);
 	ft_strlcpy(tmp, str, (*i));
 	if (d->orig[row][*i + count] == '\"')
 		ft_strlcpy(&tmp[*i - 1], &d->orig[row][*i + count], 2);
@@ -112,7 +112,6 @@ void		update_array(t_mini *d)
 	while (d->orig[y])
 	{
 		array_loop(d, y);
-		// printf("ORIG:\t[%s]\n", d->orig[y]);
 		if (d->orig[y][0] == '\0')
 		{
 			i = y;
@@ -120,10 +119,9 @@ void		update_array(t_mini *d)
 			while (d->orig[i + 1])
 			{
 				d->orig[i] = ft_strdup(d->orig[i + 1]);
+				free(d->orig[i + 1]);
 				i++;
 			}
-			if (d->orig[i])
-				free(d->orig[i]);
 			d->orig[i] = NULL;
 			y--;
 		}

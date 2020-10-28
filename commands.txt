@@ -155,7 +155,7 @@ FIXED-> echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" 
 FIXED-> unset PATH
 FIXED-> unset a ; env ; unset test ; unset test1 ; env
 FIXED-> export ; export a="\\" ; export b='\\' ; export c="\b" ; export
-FIXED-> cho hallo daar | echo hoi maran
+FIXED-> echo hallo daar | echo hoi maran
 
 FIXED-> # Leaks Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #
 export
@@ -164,3 +164,6 @@ export ZZZ=
 
 
 
+FIXED-> ctrl ^\ enter
+GEEN LEAK -> export | grep -e "PWD="
+FIXED-> cd $POEP $MEERPOEP ..

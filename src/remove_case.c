@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/26 18:25:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 10:20:19 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ void		remove_case(t_mini *d, char **array, char *str)
 	if (str)
 	{
 		make_line(str, tmp);
-		ft_bzero(str, sizeof(PATH_MAX) + 1);
+		ft_bzero(str, sizeof(PATH_MAX));
 		ft_strlcpy(str, tmp, ft_strlen(tmp) + 1);
 		free(tmp);
 		return ;
 	}
 	while (array[i])
 	{
-		ft_bzero(tmp, sizeof(PATH_MAX) + 1);
+		ft_bzero(tmp, sizeof(PATH_MAX));
 		make_line(array[i], tmp);
 		free(array[i]);
 		array[i] = ft_strdup(tmp);
