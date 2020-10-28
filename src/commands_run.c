@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 14:36:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:05:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	**(*start_command(int i))(t_mini *d)
+static int		**(*start_command(int i))(t_mini *d)
 {
 	int	**(*command[7])(t_mini *d);
 
@@ -45,7 +45,7 @@ static t_cmd	*look_up_commands(char *name, t_cmd **hash_table)
 	return (tmp);
 }
 
-static int	**run_commands(t_mini *d, int forked)
+static int		**run_commands(t_mini *d, int forked)
 {
 	t_cmd	*tmp;
 
@@ -59,7 +59,7 @@ static int	**run_commands(t_mini *d, int forked)
 	return (0);
 }
 
-void		command(t_mini *d)
+void			command(t_mini *d)
 {
 	if (d->pipe.ispipe[0] == 1 || d->pipe.ispipe[1] == 1)
 	{

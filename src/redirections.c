@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/28 10:31:55 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:00:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		**redirect(t_mini *d, int start, int end)
 			d->pipe.fd_in = open(d->pipe.input, O_RDONLY);
 			if (d->pipe.fd_in == -1)
 			{
-				ft_printf("bash: %s: %s\n", d->orig[i + 1], strerror(errno));
+				print_error("bash: ", d->orig[i + 1], " ", strerror(errno));
 				return (NULL);
 			}
 		}

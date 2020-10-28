@@ -1,13 +1,12 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands.c                                         :+:    :+:            */
+/*   commands_init.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/03 10:04:38 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 12:02:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:05:22 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +106,7 @@ static void	check_line(char *line, int *i, int *set)
 		(*set) = set_set(&(*i), 0);
 }
 
-char	**line_split(t_mini *d, char *str, int *count, char c)
+char		**line_split(t_mini *d, char *str, int *count, char c)
 {
 	char	**tmp;
 	int		set;

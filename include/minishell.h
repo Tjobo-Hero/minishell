@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/27 14:34:49 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:03:10 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int		**cmd_unset(t_mini *d);
 int		**cmd_echo(t_mini *d);
 int		**cmd_exit(t_mini *d);
 void	check_if_forked(t_mini *d);
-void	new_list(t_mini *d);
 
 /* TABLE UTILS */
 int		hash(char *name, int count);
@@ -141,18 +140,14 @@ int		syntax_check(t_mini *d, char *arg);
 
 /* Utils */
 void	error_malloc(t_mini *d, char **array, char *single, int *count);
-// char	*find_dollar(t_mini *d, char *find);
 
-void	clear_new(t_new *new);
 void	create_delete_new(t_mini *d, t_new *tmp, int i);
 void	set_env(t_env *user, char *environ, int index);
-void	init_commands(t_mini *d);
 
 int		check_arg(t_mini *d, t_new *new, char *arg);
 void	make_string(t_mini *d, char *arg, char *str);
 int		find_lowest(t_env **echo, t_env *new, int cmp);
 void	set_alpha(t_env **echo, int cmp);
-void	make_echo(t_mini *d, char *echo, char *arg);
 
 void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
 
@@ -171,4 +166,5 @@ void	update_array(t_mini *d);
 void	set_array_null(int *single, int *doub, int *y, int *set);
 void	set_on_off(int *doub, int *single, char c);
 char	*remove_dollar(t_mini *d, char *str, int *x);
+void	print_error(char *error1, char *error2, char *error3, char *error4);
 #endif

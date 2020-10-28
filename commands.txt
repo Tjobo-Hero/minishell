@@ -177,3 +177,5 @@ cd $POEP $MEERPOEP ..
 FIXED-> ctrl ^\ enter
 GEEN LEAK -> export | grep -e "PWD="
 FIXED-> cd $POEP $MEERPOEP ..
+
+export test+

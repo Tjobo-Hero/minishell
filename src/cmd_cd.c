@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:54:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 16:57:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		**update_env(t_mini *d)
 	return_ptr = getcwd(d->cwd, PATH_MAX);
 	if (return_ptr == NULL)
 	{
-		ft_printf("bash: pwd: %s\n", strerror(errno));
+		print_error("bash: pwd: ", strerror(errno), NULL, NULL);
 		return ((int**)1);
 	}
 	free(new->list);
@@ -63,9 +63,9 @@ int		**error_return(t_mini *d)
 
 	tmp = look_up("HOME", d->echo);
 	if (tmp == NULL)
-		ft_printf("bash: cd: HOME not set\n");
+		print_error("bash: cd: HOME not set", NULL, NULL, NULL);
 	else
-		ft_printf("bash: cd: %s: %s\n", d->args[1], strerror(errno));
+		print_error("bash: cd: ", d->args[1], strerror(errno), NULL);
 	return ((int**)0);
 }
 

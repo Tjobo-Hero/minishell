@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/10/26 18:47:13 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/28 14:12:04 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ SRC_FILES		=	minishell \
 					commands \
 					cmd_export_utils1 \
 					cmd_export_utils2 \
-					cmd_export_utils3 \
 					upgrade_line \
 					pipes \
 					redirections \

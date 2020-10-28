@@ -6,13 +6,13 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 14:19:31 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/27 10:13:05 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 16:58:40 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		print_export2(t_mini *d, t_env *tmp, int *i)
+static int	print_export2(t_mini *d, t_env *tmp, int *i)
 {
 	ft_putstr_fd("declare -x ", d->fd);
 	ft_putstr_fd(tmp->head, d->fd);
@@ -24,7 +24,7 @@ int		print_export2(t_mini *d, t_env *tmp, int *i)
 	return (1);
 }
 
-int		**print(t_mini *d)
+static int	**print(t_mini *d)
 {
 	t_env	*tmp;
 	int		i;
@@ -52,7 +52,7 @@ int		**print(t_mini *d)
 	return ((int**)0);
 }
 
-int		replace(t_mini *d, t_env *tmp)
+static int	replace(t_mini *d, t_env *tmp)
 {
 	tmp->set = d->new.set;
 	free(tmp->list);
@@ -64,7 +64,7 @@ int		replace(t_mini *d, t_env *tmp)
 	return (0);
 }
 
-void	new_list(t_mini *d)
+static void	new_list(t_mini *d)
 {
 	t_env	*new;
 
@@ -84,7 +84,7 @@ void	new_list(t_mini *d)
 	d->index++;
 }
 
-int		**cmd_export(t_mini *d)
+int			**cmd_export(t_mini *d)
 {
 	t_env	*tmp;
 	int		a;
@@ -96,8 +96,8 @@ int		**cmd_export(t_mini *d)
 	while (d->orig[a])
 	{
 		if (check_arg(d, &d->new, d->orig[a]) == 0 || d->new.head[0] == '\0')
-			ft_printf("bash: export: `%s': not a valid identifier\n",
-			d->new.head);
+			print_error("bash: export: `", d->new.tmp,
+			"': not a valid identifier", NULL);
 		else
 		{
 			tmp = look_up(d->new.head, d->echo);

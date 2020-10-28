@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 13:25:54 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 16:38:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,24 @@ int		check_first_part(char *arg, int set)
 int		check_arg(t_mini *d, t_new *new, char *arg)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	d->new.set = 0;
 	new->alpha = ' ';
-	tmp = ft_calloc(PATH_MAX, sizeof(char*));
-	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	make_string(d, arg, new->tmp);
 	while (new->tmp[i] != '=' && new->tmp[i] != '\0')
 		i++;
-	ft_strlcpy(tmp, new->tmp, ft_strlen(new->tmp) + 1);
-	if (tmp[i] == '=')
+	if (new->tmp[i] == '=')
 		new->set = 1;
-	if (check_first_part(tmp, new->set) == 0)
+	ft_strlcpy(new->head, new->tmp, i + 1);
+	if (new->set == 1)
 	{
-		ft_strlcpy(new->head, tmp, i + 1);
-		return (0);
+		ft_strlcpy(new->list, &new->tmp[i + 1], ft_strlen(&new->tmp[i]));
+		ft_strlcpy(new->echo, &new->tmp[i + 1], ft_strlen(&new->tmp[i]));
+		remove_case(d, NULL, new->echo);
 	}
-	ft_strlcpy(new->list, &tmp[i + 1], ft_strlen(tmp));
-	ft_strlcpy(new->head, tmp, i + 1);
-	make_echo(d, new->echo, arg);
-	free(tmp);
+	remove_case(d, NULL, new->tmp);
+	if (check_first_part(new->tmp, new->set) == 0)
+		return (0);
 	return (1);
 }
