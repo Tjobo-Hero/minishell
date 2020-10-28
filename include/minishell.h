@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/28 19:15:31 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 20:20:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "../printf/printf.h"
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <sys/wait.h>
-# include <signal.h>
 # include <string.h>
 # include <sys/stat.h>
-
-# include <stdio.h>
 
 # define ECHO 10
 # define COMMAND 7
@@ -79,7 +75,7 @@ typedef struct		s_arg
 
 }					t_arg;
 
-typedef struct	s_mini
+typedef struct		s_mini
 {
 	char	**environ;
 	char	**args;
@@ -98,74 +94,55 @@ typedef struct	s_mini
 	t_cmd	**commands;
 	t_pipe	pipe;
 	t_arg	*arg;
-}				t_mini;
+}					t_mini;
 
-int		main(void);
-
-void	init_env(t_mini *d);
-int		new_count_commands(char *str, int *count, char c);
-char	**new_fill_commands(t_mini *d, char *str, int *count, int w);
-char	**line_split(t_mini *d, char *str, int *count, char c);
-void	ft_free(char **args);
-void	free_environ(char **environ);
-
-/* commands */
-void	command(t_mini *d);
-int		**cmd_pwd(t_mini *d);
-int		**cmd_cd(t_mini *d);
-int		**cmd_export(t_mini *d);
-int		**cmd_env(t_mini *d);
-int		**cmd_unset(t_mini *d);
-int		**cmd_echo(t_mini *d);
-int		**cmd_exit(t_mini *d);
-
-/* TABLE UTILS */
-int		hash(char *name, int count);
-void	push_back(t_env **echo, t_env *new);
-t_env	*look_up(char *name, t_env **hash_table);
-void	delete_lst(char *name, t_env **hash_table);
-t_env	*new_elem(t_mini *d, char *environ);
-void	hash_table_insert_index(t_mini *d, t_env *user, t_env **env, int index);
-void	alpha(t_env **env);
-char	*set_elem(char *environ, int i, int len, int type);
-
-/* GNL */
-int		get_next_line(int fd, char **line);
-int		set_set(int *i, int check);
-
-/* COMMANDS */
-void	commands(t_mini *d, char *line);
-int		syntax_check(t_mini *d, char *arg);
-
-/* Utils */
-void	error_malloc(t_mini *d, char **array, char *single, int *count);
-
-void	create_delete_new(t_mini *d, t_new *tmp, int i);
-void	set_env(t_env *user, char *environ, int index);
-
-int		check_arg(t_mini *d, t_new *new, char *arg);
-void	make_string(t_mini *d, char *arg, char *str);
-int		find_lowest(t_env **echo, t_env *new, int cmp);
-void	set_alpha(t_env **echo, int cmp);
-
-void	upgrade_line(t_arg *arg, char *in, char *out, int *count);
-
-void	pipes(t_mini *d);
-char	**redirect(t_mini *d, int c, int n);
-void	return_values(t_mini *d);
-void	free_int_array(int **arr);
-void	remove_quotes_and_slash(t_mini *d, char **array, char *str);
-void	to_lower(t_mini *d, char **array, char *str);
-int		ft_write(t_mini *d, char *str);
-void	struct_null(t_mini *d);
-
-int		check_quotes(char *arg, int i);
-void	execute(t_mini *d);
-void	update_array(t_mini *d);
-void	set_array_null(int *single, int *doub, int *y, int *set);
-void	set_on_off(int *doub, int *single, char c);
-char	*remove_dollar(t_mini *d, char *str, int *x);
-void	print_error(char *error1, char *error2, char *error3, char *error4);
-void	spaces(t_arg *arg, char *in);
-void	make_environ(t_mini *d);
+int					main(void);
+void				init_env(t_mini *d);
+char				**line_split(t_mini *d, char *str, int *count, char c);
+void				ft_free(char **args);
+void				command(t_mini *d);
+int					**cmd_pwd(t_mini *d);
+int					**cmd_cd(t_mini *d);
+int					**cmd_export(t_mini *d);
+int					**cmd_env(t_mini *d);
+int					**cmd_unset(t_mini *d);
+int					**cmd_echo(t_mini *d);
+int					**cmd_exit(t_mini *d);
+int					hash(char *name, int count);
+void				push_back(t_env **echo, t_env *new);
+t_env				*look_up(char *name, t_env **hash_table);
+void				delete_lst(char *name, t_env **hash_table);
+t_env				*new_elem(t_mini *d, char *environ);
+void				alpha(t_env **env);
+char				*set_elem(char *environ, int i, int len, int type);
+int					get_next_line(int fd, char **line);
+int					set_set(int *i, int check);
+void				commands(t_mini *d, char *line);
+int					syntax_check(t_mini *d, char *arg);
+void				error_malloc(t_mini *d, char **array, char *single,
+					int *count);
+void				create_delete_new(t_mini *d, t_new *tmp, int i);
+int					check_arg(t_mini *d, t_new *new, char *arg);
+void				make_string(t_mini *d, char *arg, char *str);
+int					find_lowest(t_env **echo, t_env *new, int cmp);
+void				set_alpha(t_env **echo, int cmp);
+void				upgrade_line(t_arg *arg, char *in, char *out, int *count);
+void				pipes(t_mini *d);
+char				**redirect(t_mini *d, int c, int n);
+void				return_values(t_mini *d);
+void				free_int_array(int **arr);
+void				remove_quotes_and_slash(t_mini *d, char **array, char *str);
+void				to_lower(t_mini *d, char **array, char *str);
+int					ft_write(t_mini *d, char *str);
+void				struct_null(t_mini *d);
+int					check_quotes(char *arg, int i);
+void				execute(t_mini *d);
+void				update_array(t_mini *d);
+void				set_array_null(int *single, int *doub, int *y, int *set);
+void				set_on_off(int *doub, int *single, char c);
+char				*remove_dollar(t_mini *d, char *str, int *x);
+void				print_error(char *error1, char *error2, char *error3,
+					char *error4);
+void				spaces(t_arg *arg, char *in);
+void				make_environ(t_mini *d);
 #endif

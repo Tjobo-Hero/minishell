@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/10/28 19:00:57 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/28 20:30:23 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ _IWHITE			=	\x1b[47m
 ### COMPILING ###
 
 NAME			= minishell
-FLAGS			= -Wall -Werror -Wextra -g3 #-fsanitize=address #-pedantic #-std=c89
+FLAGS			= -Wall -Werror -Wextra #-g3 -fsanitize=address #-pedantic #-std=c89
 
 SRC_DIR			= ./src/
 OBJ_DIR			= ./obj/
@@ -90,15 +90,12 @@ all: $(NAME)
 
 $(NAME):		$(OBJ_FILES)
 				@cd libft && $(MAKE);
-				@cd printf && $(MAKE);
 				@cp libft/libft.a .
-				@cp printf/libftprintf.a .
 				@echo "$(_BOLD) $(_PURPLE)BUILDING '"$(NAME)"' $(_END)"
 				@$(CC)	$^ \
 				-o $(NAME) \
 				$(FLAGS) \
 				libft.a \
-				libftprintf.a \
 				# -I libft \
 				# -L libft -lft
 
@@ -120,9 +117,7 @@ fclean:			clean
 				@$(RM) -f *.a
 				@$(RM) -f ./minishell*
 				@cd libft && rm -f *.a
-				@cd printf && rm -f *.a
 				@cd libft && rm -f *.o
-				@cd printf && rm -f *.o
 				@echo "$(_YELLOW)'"$(NAME)"' DELETED $(_END)💔"
 
 re:				fclean $(NAME)
