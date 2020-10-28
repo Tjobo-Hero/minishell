@@ -41,7 +41,7 @@ _IWHITE			=	\x1b[47m
 ### COMPILING ###
 
 NAME			= minishell
-FLAGS			= -Wall -Werror -Wextra #-g3 -fsanitize=address #-pedantic #-std=c89
+FLAGS			= -Wall -Werror -Wextra
 
 SRC_DIR			= ./src/
 OBJ_DIR			= ./obj/
