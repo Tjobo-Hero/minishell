@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 18:24:29 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 22:21:53 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static void	fill_double(char *in, char *out, int *i, int *c)
 			set = 0;
 		if (in[*i] == '\"' && set == 0)
 			break ;
-		if (set && (in[*i + 1] == '\"' || in[*i + 1] == '\\'))
+		if (set && (in[*i + 1] != '\"' && in[*i + 1] != '\\'))
+			out[*c] = fill_char(c, in[*i]);
+		else if (set && (in[*i + 1] == '\"' || in[*i + 1] == '\\'))
 			out[*c] = fill_char(c, in[*i + 1]);
 		else if (set == 0 && in[*i] != '\n' && in[*i] != '\\')
 			out[*c] = fill_char(c, in[*i]);

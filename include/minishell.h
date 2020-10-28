@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/28 21:18:50 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 22:05:11 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/stat.h>
+
+# include <stdio.h>
 
 # define ECHO 10
 # define COMMAND 7

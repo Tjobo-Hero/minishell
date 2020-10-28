@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:46:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 22:23:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 static char	*ret_str(t_mini *d, char *str, char *find, int *i)
 {
 	char	*tmp;
-	char	*new;
+	char	new[PATH_MAX];
 
-	new = ft_calloc(PATH_MAX, sizeof(char*));
-	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	ft_bzero(new, PATH_MAX);
 	if (str[0] != '$')
 		ft_strlcpy(new, str, (*i));
 	if (ft_isdigit(find[0]))
 	{
 		free(str);
-		str = ft_strjoin(new, &find[1]);
+		ft_strlcpy(&new[*i - 1], &find[1], ft_strlen(&find[1]) + 1);
+		(*i) = -1;
+		str = ft_strdup(new);
 		str == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 		return (str);
 	}
+	(*i) = -1;
 	tmp = ft_itoa(d->ret);
 	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	(*i) = ft_strlen(tmp) - 1;
 	ft_strlcpy(&new[ft_strlen(new)], tmp, ft_strlen(tmp) + 1);
 	ft_strlcpy(&new[ft_strlen(new)], &find[1], ft_strlen(&find[1]) + 1);
 	free(tmp);
 	free(str);
 	str = ft_strdup(new);
-	free(new);
 	str == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	return (str);
 }
