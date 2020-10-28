@@ -6,7 +6,7 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/04 13:57:07 by tvan-cit      #+#    #+#                  #
-#    Updated: 2020/10/28 14:12:04 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/28 17:12:49 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ SRC_FILES		=	minishell \
 					pipes \
 					redirections \
 					commands_init \
-					remove_case \
+					remove \
 					syntax_check \
 					utils_table \
 					utils_table_alpha \

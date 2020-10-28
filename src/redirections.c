@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/28 17:00:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:12:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	create_array(t_mini *d, char **new, int start, int end)
 		}
 	}
 	new[x] = NULL;
-	x != 0 ? remove_case(d, &new[1], NULL) : 0;
+	x != 0 ? remove_quotes_and_slash(d, &new[1], NULL) : 0;
 }
 
 static char	**new_arg(t_mini *d, int start, int end)
@@ -59,7 +59,7 @@ static char	**new_arg(t_mini *d, int start, int end)
 	}
 	new = malloc(sizeof(char **) * ((end - (i * 2)) + 1));
 	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	remove_case(d, NULL, d->orig[startc]);
+	remove_quotes_and_slash(d, NULL, d->orig[0]);
 	create_array(d, new, startc, end);
 	if (new[0] == NULL)
 	{
@@ -75,7 +75,7 @@ static void	redirect_output(t_mini *d, t_pipe *pipe, int i)
 	int	check;
 
 	check = 0;
-	remove_case(d, NULL, d->orig[i + 1]);
+	remove_quotes_and_slash(d, NULL, d->orig[i + 1]);
 	pipe->output = d->orig[i + 1];
 	if (pipe->fd_out > 1)
 		check = close(pipe->fd_out);

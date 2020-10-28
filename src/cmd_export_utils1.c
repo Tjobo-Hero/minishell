@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 09:53:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 16:38:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:11:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int		check_arg(t_mini *d, t_new *new, char *arg)
 	{
 		ft_strlcpy(new->list, &new->tmp[i + 1], ft_strlen(&new->tmp[i]));
 		ft_strlcpy(new->echo, &new->tmp[i + 1], ft_strlen(&new->tmp[i]));
-		remove_case(d, NULL, new->echo);
+		remove_quotes_and_slash(d, NULL, new->echo);
 	}
-	remove_case(d, NULL, new->tmp);
+	remove_quotes_and_slash(d, NULL, new->tmp);
 	if (check_first_part(new->tmp, new->set) == 0)
 		return (0);
 	return (1);

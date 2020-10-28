@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 10:44:32 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:46:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 static char	*ret_str(t_mini *d, char *str, char *find, int *i)
 {
 	char	*tmp;
-	char	new[PATH_MAX];
+	char	*new;
 
-	ft_bzero(new, PATH_MAX);
+	new = ft_calloc(PATH_MAX, sizeof(char*));
+	new == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	if (str[0] != '$')
 		ft_strlcpy(new, str, (*i));
+	if (ft_isdigit(find[0]))
+	{
+		free(str);
+		str = ft_strjoin(new, &find[1]);
+		str == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+		return (str);
+	}
 	tmp = ft_itoa(d->ret);
 	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	(*i) = ft_strlen(tmp) - 1;
@@ -28,19 +36,22 @@ static char	*ret_str(t_mini *d, char *str, char *find, int *i)
 	free(tmp);
 	free(str);
 	str = ft_strdup(new);
+	free(new);
+	str == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
 	return (str);
 }
 
 static char	*find_dollar(t_mini *d, char *find, int *i)
 {
 	t_env	*tmp;
-	char	new[PATH_MAX];
+	char	*new;
 
-	ft_bzero(new, (PATH_MAX));
+	new = ft_calloc((*i + 1), sizeof(char*));
 	while (find[*i] != '\0' && (ft_isalnum(find[*i]) || find[*i] == '_'))
 		(*i)++;
 	ft_strlcpy(new, find, (*i + 1));
 	tmp = look_up(new, d->echo);
+	free(new);
 	if (tmp == NULL)
 		return (NULL);
 	return (tmp->list);
@@ -54,13 +65,11 @@ static char	*create_new_str(t_mini *d, char *str, int *i, int row)
 
 	(*i)++;
 	count = 0;
-	if (d->orig[row][*i] == '?')
+	if (d->orig[row][*i] == '?' || ft_isdigit(d->orig[row][*i]))
 		return (ret_str(d, str, &d->orig[row][*i], i));
 	find = find_dollar(d, &d->orig[row][*i], &count);
 	ft_bzero(tmp, PATH_MAX);
 	ft_strlcpy(tmp, str, (*i));
-	if (d->orig[row][*i + count] == '\"')
-		ft_strlcpy(&tmp[*i - 1], &d->orig[row][*i + count], 2);
 	if (find != NULL)
 	{
 		ft_strlcpy(&tmp[*i - 1], find, ft_strlen(find) + 1);

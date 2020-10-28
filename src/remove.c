@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   remove_case.c                                      :+:    :+:            */
+/*   remove.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 10:20:19 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:12:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static void	fill_double(char *in, char *out, int *i, int *c)
 			set = 0;
 		if (in[*i] == '\"' && set == 0)
 			break ;
-		if (set && (in[*i + 1] != '\"' && in[*i + 1] != '\\'))
-			out[*c] = fill_char(c, in[*i]);
-		else if (set && (in[*i + 1] == '\"' || in[*i + 1] == '\\'))
+		if (set && (in[*i + 1] == '\"' || in[*i + 1] == '\\'))
 			out[*c] = fill_char(c, in[*i + 1]);
 		else if (set == 0 && in[*i] != '\n' && in[*i] != '\\')
 			out[*c] = fill_char(c, in[*i]);
@@ -82,7 +80,7 @@ static void	make_line(char *in, char *out)
 	}
 }
 
-void		remove_case(t_mini *d, char **array, char *str)
+void		remove_quotes_and_slash(t_mini *d, char **array, char *str)
 {
 	char	*tmp;
 	int		i;
@@ -90,11 +88,13 @@ void		remove_case(t_mini *d, char **array, char *str)
 	i = 0;
 	tmp = ft_calloc(PATH_MAX, sizeof(char*));
 	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
+	// printf("STR:\t%s\n", str);
 	if (str)
 	{
 		make_line(str, tmp);
 		ft_bzero(str, sizeof(PATH_MAX));
 		ft_strlcpy(str, tmp, ft_strlen(tmp) + 1);
+	// printf("out:\t%s\n", str);
 		free(tmp);
 		return ;
 	}
