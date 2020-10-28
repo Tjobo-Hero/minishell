@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/28 20:20:00 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 21:18:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,5 @@ void				set_on_off(int *doub, int *single, char c);
 char				*remove_dollar(t_mini *d, char *str, int *x);
 void				print_error(char *error1, char *error2, char *error3,
 					char *error4);
-void				spaces(t_arg *arg, char *in);
 void				make_environ(t_mini *d);
 #endif

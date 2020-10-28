@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 17:41:41 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 19:14:56 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 21:18:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ void		execute(t_mini *d)
 	if (path != NULL)
 		abspath = get_path(d, &statstruct, path);
 	make_environ(d);
-	if (abspath && execve(abspath, d->args, d->environ) == -1)
-		print_error("bash: ", d->args[0], " ", strerror(errno));
-	else if (!abspath && d->args[0][0] != '.' && d->args[0][0] != '/'
+	if (!abspath && d->args[0][0] != '.' && d->args[0][0] != '/'
 			&& stat(d->args[0], &statstruct) < 0)
 		print_error("bash: ", d->args[0], ": command not found", NULL);
 	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
+		print_error("bash: ", d->args[0], " ", strerror(errno));
+	else if (abspath && execve(abspath, d->args, d->environ) == -1)
 		print_error("bash: ", d->args[0], " ", strerror(errno));
 	d->is_child = 0;
 	ft_free(d->environ);
