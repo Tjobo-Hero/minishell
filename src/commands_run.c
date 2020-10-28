@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 10:01:36 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:05:59 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:31:04 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ static int		**(*start_command(int i))(t_mini *d)
 	command[5] = &cmd_env;
 	command[6] = &cmd_echo;
 	return (command[i]);
+}
+
+static void		check_if_forked(t_mini *d)
+{
+	if (d->forked)
+		execute(d);
+	else
+	{
+		if (fork() == 0)
+			execute(d);
+		else
+			d->pids++;
+	}
 }
 
 static t_cmd	*look_up_commands(char *name, t_cmd **hash_table)

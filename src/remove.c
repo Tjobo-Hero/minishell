@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 18:12:33 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:24:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,11 @@ void		remove_quotes_and_slash(t_mini *d, char **array, char *str)
 	i = 0;
 	tmp = ft_calloc(PATH_MAX, sizeof(char*));
 	tmp == NULL ? error_malloc(d, NULL, NULL, NULL) : 0;
-	// printf("STR:\t%s\n", str);
 	if (str)
 	{
 		make_line(str, tmp);
 		ft_bzero(str, sizeof(PATH_MAX));
 		ft_strlcpy(str, tmp, ft_strlen(tmp) + 1);
-	// printf("out:\t%s\n", str);
 		free(tmp);
 		return ;
 	}

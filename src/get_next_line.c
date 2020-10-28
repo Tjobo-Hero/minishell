@@ -6,11 +6,17 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:35:48 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:59:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			set_set(int *i, int check)
+{
+	(*i)++;
+	return (check == 0 ? 0 : 1);
+}
 
 static int	check_line(char *line)
 {

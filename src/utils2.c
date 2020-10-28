@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 18:46:05 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:08:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:25:03 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ void	print_error(char *error1, char *error2, char *error3, char *error4)
 	if (error4)
 		ft_putstr(error4);
 	ft_putstr("\n");
+}
+
+void	spaces(t_arg *arg, char *in)
+{
+	while (in[arg->i] == ' ')
+		arg->i++;
+	arg->i--;
 }

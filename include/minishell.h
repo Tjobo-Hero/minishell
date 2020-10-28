@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:11:08 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 19:15:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int		**cmd_env(t_mini *d);
 int		**cmd_unset(t_mini *d);
 int		**cmd_echo(t_mini *d);
 int		**cmd_exit(t_mini *d);
-void	check_if_forked(t_mini *d);
 
 /* TABLE UTILS */
 int		hash(char *name, int count);
@@ -167,4 +166,6 @@ void	set_array_null(int *single, int *doub, int *y, int *set);
 void	set_on_off(int *doub, int *single, char c);
 char	*remove_dollar(t_mini *d, char *str, int *x);
 void	print_error(char *error1, char *error2, char *error3, char *error4);
+void	spaces(t_arg *arg, char *in);
+void	make_environ(t_mini *d);
 #endif

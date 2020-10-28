@@ -6,17 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/25 15:55:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/27 14:41:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:57:35 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		set_set(int *i, int check)
-{
-	(*i)++;
-	return (check == 0 ? 0 : 1);
-}
 
 void	struct_null(t_mini *d)
 {

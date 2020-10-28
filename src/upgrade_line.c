@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 10:14:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:23:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,32 @@ static char	fill_char(t_arg *arg, char c, int *count)
 	return (c);
 }
 
-static void	fill_char_quote(t_arg *arg, char *in, char *out, int *count)
+static void	double_quote(t_arg *arg, char *in, char *out, int *count)
 {
 	int	set;
 
 	set = 0;
+	if (in[arg->i] == '\"' && set == 0)
+		return ;
+	if (in[arg->i] == '\\' && set == 0)
+	{
+		set = 1;
+		out[arg->c] = fill_char(arg, in[arg->i], count);
+		set = 0;
+		out[arg->c] = fill_char(arg, in[arg->i], count);
+	}
+	else
+		out[arg->c] = fill_char(arg, in[arg->i], count);
+}
+
+static void	fill_char_quote(t_arg *arg, char *in, char *out, int *count)
+{
 	arg->set = 1;
 	out[arg->c] = fill_char(arg, in[arg->i], count);
 	if (in[arg->i - 1] == '\"')
 	{
 		while (in[arg->i] != '\0')
-		{
-			if (in[arg->i] == '\"' && set == 0)
-				break ;
-			if (in[arg->i] == '\\' && set == 0)
-			{
-				set = 1;
-				out[arg->c] = fill_char(arg, in[arg->i], count);
-				set = 0;
-				out[arg->c] = fill_char(arg, in[arg->i], count);
-			}
-			else
-				out[arg->c] = fill_char(arg, in[arg->i], count);
-		}
+			double_quote(arg, in, out, count);
 		arg->set = 0;
 		out[arg->c] = fill_char(arg, in[arg->i], count);
 		return ;
@@ -84,13 +87,6 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 		out[arg->c] = fill_char(arg, ' ', count);
 		arg->i--;
 	}
-}
-
-static void	spaces(t_arg *arg, char *in)
-{
-	while (in[arg->i] == ' ')
-		arg->i++;
-	arg->i--;
 }
 
 void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
