@@ -9,7 +9,9 @@ pwd
 /bin/ls -la
 
 +++ ECHO +++
-echo 00\\\'pp ; echo 00\\\\\'pp ; echo 00\\\\'pp' ; echo “./hello”. ; echo ./hello ; echo ello
+echo 00\\\'pp ; echo 00\\\\\'pp 
+echo 00\\\\'pp' ; echo “./hello”. ; echo ./hello ; echo ello
+Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
 echo /$"123$USER"
 echo | cd .. | pwd
 echo DOET HET NIET > test1 | cat test1
@@ -30,7 +32,7 @@ exit a
 exit 1234
 
 +++ RETURN VALUE OF A PROCESS +++
-echo $?
+echo $? 
 /bin/ls
 echo $?
 /bin/ls doesnotexist
@@ -42,6 +44,7 @@ echo hi ; echo ; echo ; echo ; export ; env ; echo ; echo ; echo ; echo working 
 +++ SIGNALS +++
 ctrl-C
 ctrl-D
+ctrl-\
 asdf ctrl-C
 asdf ctrl-D
 cat ctrl-C
@@ -54,7 +57,6 @@ echo"
 hoi
 "
 echo
-echo\
 hallo$
 
 +++ ENV +++
@@ -78,6 +80,9 @@ export ZZZ
 export ZZZ=
 export ; export a="\\" ; export b='\\' ; export c="\b" ; export
 export LS="ls -la" ; ls
+export TEST="evenchecken"
+echo $TEST
+
 
 
 +++ UNSET +++
@@ -103,6 +108,7 @@ cd .. ;pwd;/bin/ls;cd .. ;      pwd    ;/bin/ls;     cd notworking;     cd .
 cd ~
 cd $IETSONBESTAANDS
 cd $GEK ..
+cd $NOTHING $MORENOTHING ..
 
 +++ PWD +++
 pwd
@@ -143,6 +149,7 @@ echo hallo daar | echo hoi maran
 cat working.txt | grep stuff | echo tim
 cat | cat -e | cat
 ls filedoesnotexist | grep notme | echo "TEST"
+export | grep -e "PWD="
 
 #####################################
 #									#
@@ -151,29 +158,11 @@ ls filedoesnotexist | grep notme | echo "TEST"
 ######################################
 
 # Verkeerde output #
-Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes   .'   '\' ; echo '\\' ; echo "\\" ; echo    "\"" ; echo   \\ ; echo   \' ; echo   \" "\\"    "\""   \\   \'   \"
+
 
 
 # Segfault #
 
 
 # Leaks #
-FIXED-> echo > doethet ; echo hoi >> doethet "of niet" ; echo clear > "doethet" ; echo test > working.txt ; echo > newfile.txt hardertest
-FIXED-> unset PATH
-FIXED-> unset a ; env ; unset test ; unset test1 ; env
-FIXED-> export ; export a="\\" ; export b='\\' ; export c="\b" ; export
-FIXED-> echo hallo daar | echo hoi maran
-
-FIXED-> # Leaks Als ik deze volgorde aanhoudt lijkt het dat hij de oude 'ZZZ' niet freed #
-export
-export ZZZ
-export ZZZ=
-
-
-ctrl ^\ enter
-export | grep -e "PWD="
-cd $POEP $MEERPOEP ..
-
-FIXED-> ctrl ^\ enter
-GEEN LEAK -> export | grep -e "PWD="
-FIXED-> cd $POEP $MEERPOEP ..
+export ZZZ+ 				*geeft een leak 
