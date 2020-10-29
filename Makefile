@@ -6,7 +6,7 @@
 #    By: rbraaksm <rbraaksm@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/29 10:08:12 by rbraaksm      #+#    #+#                  #
-#    Updated: 2020/10/29 10:08:16 by rbraaksm      ########   odam.nl          #
+#    Updated: 2020/10/29 13:15:01 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ _IWHITE			=	\x1b[47m
 ### COMPILING ###
 
 NAME			= minishell
-FLAGS			= -Wall -Werror -Wextra
+FLAGS			= -Wall -Werror -Wextra  #-g -fsanitize=address
 
 SRC_DIR			= ./src/
 OBJ_DIR			= ./obj/

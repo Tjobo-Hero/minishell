@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:09:40 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:09:42 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 10:38:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		make_string(t_mini *d, char *arg, char *str)
 	slash = 0;
 	while (d->i < (int)ft_strlen(arg))
 	{
-		if (arg[d->i] != '\\' && arg[d->i - 1] != '\\')
+		if (d->i > 0 && arg[d->i] != '\\' && arg[d->i - 1] != '\\')
 			slash = 0;
 		else if (arg[d->i] == '\\')
 			slash++;

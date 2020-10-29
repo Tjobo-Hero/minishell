@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:13:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:13:47 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 11:35:07 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	make_line(char *in, char *out)
 	set = 0;
 	i = 0;
 	c = -1;
-	while (in[i] != '\0')
+	while (i < (int)ft_strlen(in) && in[i] != '\0')
 	{
 		if (in[i] == '\\' && set == 0)
 			set = 1;

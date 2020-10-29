@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:14:08 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:14:10 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:12:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	fill_redirection(t_arg *arg, char *in, char *out, int *count)
 		out[arg->c] = fill_char(arg, in[arg->i], count);
 		arg->set = 0;
 	}
-	else if (in[arg->i - 1] != ' ' && arg->i != 0)
+	else if (arg->i > 0 && in[arg->i - 1] != ' ' && arg->i != 0)
 	{
 		out[arg->c] = fill_char(arg, ' ', count);
 		arg->i--;
@@ -92,7 +92,7 @@ void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 {
 	while (in[arg->i] == ' ')
 		arg->i++;
-	while (in[arg->i] != '\0')
+	while (arg->i < (int)ft_strlen(in) && in[arg->i] != '\0')
 	{
 		if (in[arg->i] == '\\' && arg->set == 0)
 		{
@@ -109,7 +109,7 @@ void		upgrade_line(t_arg *arg, char *in, char *out, int *count)
 			arg->i++;
 		else
 			out[arg->c] = fill_char(arg, in[arg->i], count);
-		if (in[arg->i] == ' ')
+		if (arg->i < (int)ft_strlen(in) && in[arg->i] == ' ')
 			spaces(arg, in);
 	}
 	if (in[arg->i - 1] != ' ' && in[arg->i - 1] != ' ')

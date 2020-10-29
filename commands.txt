@@ -18,11 +18,7 @@ echo $POEP hallo
 echo "hallo$"
 echo "\poep"
 echo $/
-echo $2$4
-echo $
-echo "123\"456"
-echo $1234
-echo hoi$1234
+echo $2$4 ; echo $ ; echo "123\"456" ; echo $1234 ; echo hoi$1234
 
 
 +++ EXIT +++
@@ -72,7 +68,7 @@ export
 export test1=
 export
 export 1test
-export _TEST=DOethetwelmetunderscore
+export _TEST=DOethetwelmetunderscore ; echo $_TEST
 env
 env ; echo ; export a=hijdoehet ; echo ; env ; echo ; export test=working;echo ;env ; echo ; export test1; export; echo ; env ; echo ; export test1= ; echo ; env
 export
@@ -125,8 +121,7 @@ export
 echo 'how are you' ; echo '$PWD'
 
 +++ REDIRECTION +++
-echo > "hardesttest.txt"
-echo adding stuff >> working.txt
+echo > "hardesttest.txt" ; echo adding stuff >> working.txt
 echo more stuff >> working.txt
 echo > working.txt
 echo dit > test1 gaat > test2 goed > test3
@@ -146,7 +141,7 @@ cat working.txt | grep stuff | echo tim
 cat | cat -e | cat
 ls filedoesnotexist | grep notme | echo "TEST"
 echo | cd .. | pwd
-echo DOET HET NIET > test1 | cat test1
+echo DOET HET WEL > test1 | cat test1
 echo hallo >x1 >x2 >x3 | echo hoi
 
 #####################################
@@ -156,13 +151,8 @@ echo hallo >x1 >x2 >x3 | echo hoi
 ######################################
 
 # Verkeerde output #
-echo "\poep"
-echo $2$4
 
 # Segfault #
 
 # Leaks #
-echo $1 234     
-echo $2$4
-echo $1234
-echo hoi$1234
+

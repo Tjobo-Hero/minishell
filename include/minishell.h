@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 09:32:14 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 09:59:57 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:24:44 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,5 @@ char				*remove_dollar(t_mini *d, char *str, int *x);
 void				print_error(char *error1, char *error2, char *error3,
 					char *error4);
 void				make_environ(t_mini *d);
+char				*new_orig(char *str, char *tmp, char *find, int i);
 #endif

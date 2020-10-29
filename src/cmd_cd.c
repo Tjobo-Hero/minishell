@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:01:16 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:01:20 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:09:51 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		**error_return(t_mini *d)
 	if (tmp == NULL)
 		print_error("bash: cd: HOME not set", NULL, NULL, NULL);
 	else
-		print_error("bash: cd: ", d->args[1], strerror(errno), NULL);
+		print_error("bash: cd: ", d->args[1], ": ", strerror(errno));
 	return ((int**)0);
 }
 

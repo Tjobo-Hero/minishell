@@ -6,7 +6,7 @@
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:15:52 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:15:53 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:06:26 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static char	**split_line(t_mini *d, char *out, int *count)
 		len = count[i] - start;
 		if (out[start] != '|')
 		{
-			tmp[x] = malloc(sizeof(char*) * len + 1);
+			tmp[x] = malloc(sizeof(char*) * (len + 1));
 			tmp[x] == NULL ? error_malloc(d, tmp, out, count) : 0;
-			ft_strlcpy(tmp[x], &out[start], len + 1);
+			ft_strlcpy(tmp[x], &out[start], (len + 1));
 			x++;
 		}
 		start = count[i] + 1;
@@ -109,8 +109,8 @@ void		commands(t_mini *d, char *line)
 		if (d->orig[0])
 			pipes(d);
 		ft_free(d->orig);
-		free(d->arg);
 		free(d->arg->count);
+		free(d->arg);
 		i++;
 	}
 	ft_free(cmd);

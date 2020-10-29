@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/29 10:14:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:14:51 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 11:29:46 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 11:29:50 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,25 @@ void		make_environ(t_mini *d)
 			i++;
 	}
 	d->environ[c] = NULL;
+}
+
+char		*new_orig(char *str, char *tmp, char *find, int i)
+{
+	char *tmp1;
+
+	tmp1 = ft_strdup(str);
+	if (tmp1 == NULL)
+		return (NULL);
+	free(str);
+	if (tmp1[i] != '\0' && find == NULL)
+		str = ft_strjoin(tmp, &tmp1[i]);
+	else
+		str = ft_strdup(tmp);
+	if (str == NULL)
+	{
+		free(tmp1);
+		return (NULL);
+	}
+	free(tmp1);
+	return (str);
 }
