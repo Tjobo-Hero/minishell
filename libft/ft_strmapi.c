@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strmapi.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/12 15:08:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:36:54 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:21:36 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:21:37 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

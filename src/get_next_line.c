@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/15 09:39:12 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 18:59:03 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:17 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:19 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 11:04:43 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/09/03 11:46:22 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:22:26 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:22:27 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

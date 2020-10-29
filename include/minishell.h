@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 15:53:15 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/10/28 22:05:11 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 09:32:14 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 09:59:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/stat.h>
-
-# include <stdio.h>
 
 # define ECHO 10
 # define COMMAND 7

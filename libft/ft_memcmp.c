@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/07 11:45:40 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:56 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:20:11 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:20:12 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

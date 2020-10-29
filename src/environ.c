@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   environ.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/08 17:02:56 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:13:13 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:12 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:14 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

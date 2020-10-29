@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cmd_echo.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/04 10:28:24 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:43:43 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:01:49 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:01:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

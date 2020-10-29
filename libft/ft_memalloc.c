@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memalloc.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/13 09:47:16 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:42 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:19:56 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:19:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

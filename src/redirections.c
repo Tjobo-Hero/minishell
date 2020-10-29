@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   redirections.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/28 14:50:52 by peer          #+#    #+#                 */
-/*   Updated: 2020/10/28 18:12:52 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:37 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:41 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

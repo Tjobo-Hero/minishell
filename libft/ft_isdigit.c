@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_isdigit.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/05 15:41:01 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:04 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:18:51 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:18:52 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   environ_utils1.c                                   :+:    :+:            */
+/*   utils_table_set.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/30 11:42:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:02:08 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:14:29 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:14:31 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

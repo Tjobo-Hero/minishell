@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memccpy.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/05 08:47:28 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:47 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:20:01 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:20:02 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

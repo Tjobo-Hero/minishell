@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cmd_cd.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/17 14:08:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 16:57:59 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:01:16 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:01:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

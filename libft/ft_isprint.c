@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_isprint.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/05 15:57:12 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:07 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:18:56 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:18:57 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

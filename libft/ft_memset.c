@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/28 13:30:22 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:36:08 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:20:24 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:20:25 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

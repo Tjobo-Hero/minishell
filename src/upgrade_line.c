@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   upgrade_line.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 13:34:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 20:52:00 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:14:08 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:14:10 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   update_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/22 14:14:22 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 22:23:13 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:14:02 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:14:04 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

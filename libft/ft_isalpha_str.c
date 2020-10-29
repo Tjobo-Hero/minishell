@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_isalpha_str.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/03 11:43:14 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 20:21:57 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:18:33 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:18:34 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

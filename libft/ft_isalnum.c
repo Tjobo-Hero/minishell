@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_isalnum.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/05 15:46:42 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:34:58 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:18:27 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:18:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

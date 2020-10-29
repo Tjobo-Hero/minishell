@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipes.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/16 10:47:29 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 10:55:41 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:29 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:32 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   syntax_check.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/25 20:01:49 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 11:29:41 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:58 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:59 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

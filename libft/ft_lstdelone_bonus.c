@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_lstdelone_bonus.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 13:19:12 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:35:20 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:19:22 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:19:23 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

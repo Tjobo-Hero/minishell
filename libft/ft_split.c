@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_split.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/04 13:50:06 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:36:28 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:21:00 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:21:01 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

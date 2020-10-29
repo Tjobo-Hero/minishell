@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils_table.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/19 14:00:45 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/27 10:27:22 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:14:34 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:14:36 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

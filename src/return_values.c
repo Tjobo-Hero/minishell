@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   return_values.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/20 10:51:35 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/21 21:17:08 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:51 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:54 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

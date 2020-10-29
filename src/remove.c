@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   remove.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/25 11:18:47 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/28 22:21:53 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:13:45 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:13:47 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

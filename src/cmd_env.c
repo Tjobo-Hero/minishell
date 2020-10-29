@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cmd_env.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/25 10:03:42 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/22 11:34:56 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:02:17 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:02:20 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_putstr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
+/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/05 16:05:09 by tvan-cit      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:36:21 by rbraaksm      ########   odam.nl         */
+/*   Created: 2020/10/29 10:20:54 by rbraaksm      #+#    #+#                 */
+/*   Updated: 2020/10/29 10:20:55 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
