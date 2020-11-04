@@ -3,14 +3,15 @@
 /*                                                        ::::::::            */
 /*   commands_execute.c                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:16:09 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:16:11 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:27:13 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+# include <stdio.h>
 
 static void	close_ifnot_and_dup(t_mini *d)
 {
@@ -91,11 +92,23 @@ void		execute(t_mini *d)
 	make_environ(d);
 	if (!abspath && d->args[0][0] != '.' && d->args[0][0] != '/'
 			&& stat(d->args[0], &statstruct) < 0)
+			{
+		printf("test\n");
+				// d->ret = 1;
 		print_error("bash: ", d->args[0], ": command not found", NULL);
+			}
 	else if (!abspath && execve(d->args[0], d->args, d->environ) == -1)
+	{
+		// d->ret = 1;
+		printf("test\n");
 		print_error("bash: ", d->args[0], " ", strerror(errno));
+	}
 	else if (abspath && execve(abspath, d->args, d->environ) == -1)
+	{
+		printf("test\n");
+		// d->ret = 1;
 		print_error("bash: ", d->args[0], " ", strerror(errno));
+	}
 	d->is_child = 0;
 	ft_free(d->environ);
 	exit(127);

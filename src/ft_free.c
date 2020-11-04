@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_free.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:13:04 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:16:25 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:39:06 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

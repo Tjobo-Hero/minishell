@@ -3,14 +3,15 @@
 /*                                                        ::::::::            */
 /*   redirections.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:13:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:22:34 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:45:43 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+# include <stdio.h>
 
 static void	create_array(t_mini *d, char **new, int start, int end)
 {
@@ -86,6 +87,7 @@ static void	redirect_output(t_mini *d, t_pipe *pipe, int i)
 		O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (pipe->fd_out == -1 || check == -1)
 		error_malloc(d, NULL, NULL, NULL);
+	dup2(pipe->fd_out, 1);
 }
 
 char		**redirect(t_mini *d, int start, int end)
@@ -104,6 +106,7 @@ char		**redirect(t_mini *d, int start, int end)
 			d->pipe.fd_in = open(d->pipe.input, O_RDONLY);
 			if (d->pipe.fd_in == -1)
 			{
+				d->ret = 1;
 				print_error("bash: ", d->orig[i + 1], ": ", strerror(errno));
 				return (NULL);
 			}

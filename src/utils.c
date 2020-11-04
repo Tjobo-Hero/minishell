@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:14:39 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:14:41 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:30:29 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		ft_write(t_mini *d, char *str)
 {
 	int	ret;
 
-	ret = write(d->fd, str, ft_strlen(str));
+	ret = write(1, str, ft_strlen(str));
 	if (ret == -1)
 		error_malloc(d, NULL, NULL, NULL);
 	return (ret);
