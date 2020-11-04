@@ -3,15 +3,14 @@
 /*                                                        ::::::::            */
 /*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rbraaksm <rbraaksm@student.codam.nl>         +#+                     */
+/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:19:02 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:19:03 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:50:00 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 static int		ft_number_count(int n)
 {

@@ -6,12 +6,11 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:13:37 by rbraaksm      #+#    #+#                 */
-/*   Updated: 2020/11/04 12:45:43 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:50:08 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-# include <stdio.h>
 
 static void	create_array(t_mini *d, char **new, int start, int end)
 {
